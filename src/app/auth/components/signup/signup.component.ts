@@ -1,13 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SignupData } from '../../models/auth.model';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { PhoneNumberDirective } from '../../../shared/directives/phone-number.directive';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+    selector: 'app-signup',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      RouterLink,
+      ButtonComponent,
+      PhoneNumberDirective
+    ],
+    templateUrl: './signup.component.html',
+    styleUrls: ['src/app/auth/components/signup/signup.component.css']
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;

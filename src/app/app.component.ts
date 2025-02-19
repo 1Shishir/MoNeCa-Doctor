@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthModule } from './auth/auth.module';
-import { SharedModule } from './shared/shared.module';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet,AuthModule,SharedModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [CommonModule, RouterOutlet],
+  template: `
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  `,
+  styles: [`
+    main {
+      min-height: 100vh;
+      background-color: #f3f4f6;
+    }
+  `]
 })
 export class AppComponent {
-  title = 'MoNeCa Doctor Portal';
+  title = 'moneca-doctor';
 }

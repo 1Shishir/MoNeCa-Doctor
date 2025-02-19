@@ -1,8 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input-field',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
   template: `
     <div class="input-container">
       <label *ngIf="label" [for]="id" class="label">{{ label }}</label>

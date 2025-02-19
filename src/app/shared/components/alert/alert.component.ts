@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-alert',
+  standalone: true,
+  imports: [CommonModule],
+
   template: `
     <div *ngIf="show" class="alert" [ngClass]="'alert-' + type">
       <span class="alert-message">{{ message }}</span>

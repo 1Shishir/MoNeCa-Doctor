@@ -1,11 +1,12 @@
 export const environment = {
-    production: false,
-    firebase: {
-      apiKey: 'your-api-key',
-      authDomain: 'your-auth-domain',
-      projectId: 'your-project-id',
-      storageBucket: 'your-storage-bucket',
-      messagingSenderId: 'your-messaging-sender-id',
-      appId: 'your-app-id'
-    }
-  };
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyCZduDRlL16BjzBEaxCqvnJlE0oIk-OlQY",
+    authDomain: "project-moneca.firebaseapp.com",
+    projectId: "project-moneca",
+    storageBucket: "project-moneca.firebasestorage.app",
+    messagingSenderId: "431559302603",
+    appId: "1:431559302603:web:b196ddc8c38d6c05a0aa4e",
+    measurementId: "G-792YVZ1XRS"
+  }
+};

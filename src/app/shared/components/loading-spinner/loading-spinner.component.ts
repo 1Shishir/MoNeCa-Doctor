@@ -1,7 +1,11 @@
+
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-loading-spinner',
+  standalone: true,
+  imports: [CommonModule],
   template: `
     <div class="spinner-container" [ngStyle]="{'width.px': size, 'height.px': size}">
       <div class="spinner" [ngStyle]="{'border-width.px': strokeWidth}"></div>
@@ -30,3 +34,4 @@ export class LoadingSpinnerComponent {
   @Input() size: number = 40;
   @Input() strokeWidth: number = 2;
 }
+

@@ -1,7 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-button',
+  standalone: true,
+  imports: [CommonModule, LoadingSpinnerComponent],
   template: `
     <button
       [type]="type"

@@ -1,7 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[phoneNumber]'
+  selector: '[phoneNumber]',
+  standalone: true
 })
 export class PhoneNumberDirective {
   constructor(private el: ElementRef) {}

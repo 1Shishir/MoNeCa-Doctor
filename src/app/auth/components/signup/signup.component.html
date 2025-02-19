@@ -1,200 +1,197 @@
 <div class="container">
-    <div class="form-wrapper">
-      <div class="header">
-        <img src="assets/images/logo.png" alt="MoNeCa Logo" class="logo">
-        <h1>Doctor Registration</h1>
-        <p class="subtitle">Join MoNeCa's healthcare network to support pregnant women in rural areas</p>
-      </div>
-  
-      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form">
-        <!-- Personal Information Section -->
-        <div class="form-section">
-          <h2>Personal Information</h2>
-          
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fullName">Full Name</label>
-              <input
-                id="fullName"
-                type="text"
-                formControlName="fullName"
-                class="form-control"
-                [class.error]="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid"
-                placeholder="Enter your full name"
-              >
-              <div *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid" class="error-text">
-                <span *ngIf="signupForm.get('fullName')?.errors?.['required']">Full name is required</span>
-                <span *ngIf="signupForm.get('fullName')?.errors?.['minlength']">Name must be at least 3 characters</span>
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="phoneNumber">Phone Number</label>
-              <input
-                id="phoneNumber"
-                type="tel"
-                formControlName="phoneNumber"
-                class="form-control"
-                [class.error]="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid"
-                placeholder="Enter your phone number"
-                phoneNumber
-              >
-              <div *ngIf="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid" class="error-text">
-                <span *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required</span>
-                <span *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Please enter a valid Bangladesh phone number</span>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Professional Information Section -->
-        <div class="form-section">
-          <h2>Professional Information</h2>
-          
-          <div class="form-row">
-            <div class="form-group">
-              <label for="specialization">Specialization</label>
-              <select
-                id="specialization"
-                formControlName="specialization"
-                class="form-control"
-                [class.error]="signupForm.get('specialization')?.touched && signupForm.get('specialization')?.invalid"
-              >
-                <option value="">Select your specialization</option>
-                <option *ngFor="let spec of specializations" [value]="spec">{{spec}}</option>
-              </select>
-              <div *ngIf="signupForm.get('specialization')?.touched && signupForm.get('specialization')?.invalid" class="error-text">
-                <span *ngIf="signupForm.get('specialization')?.errors?.['required']">Specialization is required</span>
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="licenseNumber">Medical License Number</label>
-              <input
-                id="licenseNumber"
-                type="text"
-                formControlName="licenseNumber"
-                class="form-control"
-                [class.error]="signupForm.get('licenseNumber')?.touched && signupForm.get('licenseNumber')?.invalid"
-                placeholder="Enter your license number"
-              >
-              <div *ngIf="signupForm.get('licenseNumber')?.touched && signupForm.get('licenseNumber')?.invalid" class="error-text">
-                <span *ngIf="signupForm.get('licenseNumber')?.errors?.['required']">License number is required</span>
-                <span *ngIf="signupForm.get('licenseNumber')?.errors?.['pattern']">Please enter a valid license number</span>
-              </div>
-            </div>
-          </div>
-  
-          <div class="form-group">
-            <label for="hospital">Hospital/Clinic Name</label>
-            <input
-              id="hospital"
-              type="text"
-              formControlName="hospital"
-              class="form-control"
-              [class.error]="signupForm.get('hospital')?.touched && signupForm.get('hospital')?.invalid"
-              placeholder="Enter your hospital or clinic name"
-            >
-            <div *ngIf="signupForm.get('hospital')?.touched && signupForm.get('hospital')?.invalid" class="error-text">
-              <span *ngIf="signupForm.get('hospital')?.errors?.['required']">Hospital/Clinic name is required</span>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Account Information Section -->
-        <div class="form-section">
-          <h2>Account Information</h2>
-          
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input
-              id="email"
-              type="email"
-              formControlName="email"
-              class="form-control"
-              [class.error]="signupForm.get('email')?.touched && signupForm.get('email')?.invalid"
-              placeholder="Enter your email"
-            >
-            <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid" class="error-text">
-              <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
-              <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</span>
-            </div>
-          </div>
-  
-          <div class="form-row">
-            <div class="form-group">
-              <label for="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                formControlName="password"
-                class="form-control"
-                [class.error]="signupForm.get('password')?.touched && signupForm.get('password')?.invalid"
-                placeholder="Create a password"
-              >
-              <div class="password-strength" *ngIf="signupForm.get('password')?.value">
-                <span [style.color]="getPasswordStrength().color">
-                  Strength: {{ getPasswordStrength().text }}
-                </span>
-              </div>
-              <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="error-text">
-                <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</span>
-                <span *ngIf="signupForm.get('password')?.errors?.['pattern']">
-                  Password must contain at least 8 characters, including uppercase, lowercase, number and special character
-                </span>
-              </div>
-            </div>
-  
-            <div class="form-group">
-              <label for="confirmPassword">Confirm Password</label>
-              <input
-                id="confirmPassword"
-                type="password"
-                formControlName="confirmPassword"
-                class="form-control"
-                [class.error]="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid"
-                placeholder="Confirm your password"
-              >
-              <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid" class="error-text">
-                <span *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
-                <span *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <!-- Terms and Conditions -->
-        <div class="form-group terms">
-          <label class="checkbox-label">
-            <input
-              type="checkbox"
-              formControlName="termsAccepted"
-              class="checkbox"
-            >
-            <span>I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a></span>
-          </label>
-          <div *ngIf="signupForm.get('termsAccepted')?.touched && signupForm.get('termsAccepted')?.invalid" class="error-text">
-            <span *ngIf="signupForm.get('termsAccepted')?.errors?.['required']">You must accept the terms to continue</span>
-          </div>
-        </div>
-  
-        <div *ngIf="errorMessage" class="error-message">
-          {{ errorMessage }}
-        </div>
-  
-        <button 
-          type="submit" 
-          class="submit-btn" 
-          [disabled]="signupForm.invalid || isLoading"
-        >
-          <span *ngIf="!isLoading">Create Account</span>
-          <div *ngIf="isLoading" class="spinner"></div>
-        </button>
-  
-        <div class="login-link">
-          Already have an account? <a routerLink="/auth/login">Sign in</a>
-        </div>
-      </form>
+  <div class="form-wrapper">
+    <div class="header">
+      <img src="assets/images/logo.png" alt="MoNeCa Logo" class="logo">
+      <h1>Doctor Registration</h1>
+      <p class="subtitle">Join MoNeCa's healthcare network to support pregnant women in rural areas</p>
     </div>
+
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="form">
+      <!-- Personal Information Section -->
+      <div class="form-section">
+        <h2>Personal Information</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+              id="fullName"
+              type="text"
+              formControlName="fullName"
+              class="form-control"
+              [class.error]="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid"
+              placeholder="Enter your full name"
+            >
+            <div *ngIf="signupForm.get('fullName')?.touched && signupForm.get('fullName')?.invalid" class="error-text">
+              <span *ngIf="signupForm.get('fullName')?.errors?.['required']">Full name is required</span>
+              <span *ngIf="signupForm.get('fullName')?.errors?.['minlength']">Name must be at least 3 characters</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phoneNumber">Phone Number</label>
+            <input
+              id="phoneNumber"
+              type="tel"
+              formControlName="phoneNumber"
+              class="form-control"
+              [class.error]="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid"
+              placeholder="Enter your phone number"
+              phoneNumber
+            >
+            <div *ngIf="signupForm.get('phoneNumber')?.touched && signupForm.get('phoneNumber')?.invalid" class="error-text">
+              <span *ngIf="signupForm.get('phoneNumber')?.errors?.['required']">Phone number is required</span>
+              <span *ngIf="signupForm.get('phoneNumber')?.errors?.['pattern']">Please enter a valid Bangladesh phone number</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Professional Information Section -->
+      <div class="form-section">
+        <h2>Professional Information</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="specialization">Specialization</label>
+            <select
+              id="specialization"
+              formControlName="specialization"
+              class="form-control"
+              [class.error]="signupForm.get('specialization')?.touched && signupForm.get('specialization')?.invalid"
+            >
+              <option value="">Select your specialization</option>
+              <option *ngFor="let spec of specializations" [value]="spec">{{spec}}</option>
+            </select>
+            <div *ngIf="signupForm.get('specialization')?.touched && signupForm.get('specialization')?.invalid" class="error-text">
+              <span *ngIf="signupForm.get('specialization')?.errors?.['required']">Specialization is required</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="licenseNumber">Medical License Number</label>
+            <input
+              id="licenseNumber"
+              type="text"
+              formControlName="licenseNumber"
+              class="form-control"
+              [class.error]="signupForm.get('licenseNumber')?.touched && signupForm.get('licenseNumber')?.invalid"
+              placeholder="Enter your license number"
+            >
+            <div *ngIf="signupForm.get('licenseNumber')?.touched && signupForm.get('licenseNumber')?.invalid" class="error-text">
+              <span *ngIf="signupForm.get('licenseNumber')?.errors?.['required']">License number is required</span>
+              <span *ngIf="signupForm.get('licenseNumber')?.errors?.['pattern']">Please enter a valid license number</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="hospital">Hospital/Clinic Name</label>
+          <input
+            id="hospital"
+            type="text"
+            formControlName="hospital"
+            class="form-control"
+            [class.error]="signupForm.get('hospital')?.touched && signupForm.get('hospital')?.invalid"
+            placeholder="Enter your hospital or clinic name"
+          >
+          <div *ngIf="signupForm.get('hospital')?.touched && signupForm.get('hospital')?.invalid" class="error-text">
+            <span *ngIf="signupForm.get('hospital')?.errors?.['required']">Hospital/Clinic name is required</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Account Information Section -->
+      <div class="form-section">
+        <h2>Account Information</h2>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            class="form-control"
+            [class.error]="signupForm.get('email')?.touched && signupForm.get('email')?.invalid"
+            placeholder="Enter your email"
+          >
+          <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid" class="error-text">
+            <span *ngIf="signupForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="signupForm.get('email')?.errors?.['email']">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              formControlName="password"
+              class="form-control"
+              [class.error]="signupForm.get('password')?.touched && signupForm.get('password')?.invalid"
+              placeholder="Create a password"
+            >
+            <div class="password-strength" *ngIf="signupForm.get('password')?.value">
+              <span [style.color]="getPasswordStrength().color">
+                Strength: {{ getPasswordStrength().text }}
+              </span>
+            </div>
+            <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="error-text">
+              <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</span>
+              <span *ngIf="signupForm.get('password')?.errors?.['pattern']">
+                Password must contain at least 8 characters, including uppercase, lowercase, number and special character
+              </span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              type="password"
+              formControlName="confirmPassword"
+              class="form-control"
+              [class.error]="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid"
+              placeholder="Confirm your password"
+            >
+            <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.get('confirmPassword')?.invalid" class="error-text">
+              <span *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+              <span *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terms and Conditions -->
+      <div class="form-group terms">
+        <label class="checkbox-label">
+          <input
+            type="checkbox"
+            formControlName="termsAccepted"
+            class="checkbox"
+          >
+          <span>I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a></span>
+        </label>
+        <div *ngIf="signupForm.get('termsAccepted')?.touched && signupForm.get('termsAccepted')?.invalid" class="error-text">
+          <span *ngIf="signupForm.get('termsAccepted')?.errors?.['required']">You must accept the terms to continue</span>
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+
+      <app-button 
+        type="submit"
+        [disabled]="signupForm.invalid"
+        [loading]="isLoading">
+        Create Account
+      </app-button>
+
+      <div class="login-link">
+        Already have an account? <a routerLink="/auth/login">Sign in</a>
+      </div>
+    </form>
   </div>
-  
+</div>
