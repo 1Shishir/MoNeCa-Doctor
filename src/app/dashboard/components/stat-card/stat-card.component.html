@@ -1,0 +1,13 @@
+<div class="stat-card" [ngClass]="colorClass">
+    <div class="stat-content">
+      <p class="stat-title">{{ title }}</p>
+      <p class="stat-value">{{ value }}</p>
+      <p class="stat-change">
+        <i class="fa-solid fa-arrow-trend-up me-1"></i>
+        {{ change }}
+      </p>
+    </div>
+    <div class="stat-icon">
+      <i [class]="icon"></i>
+    </div>
+  </div>

@@ -18,7 +18,7 @@ import { PhoneNumberDirective } from '../../../shared/directives/phone-number.di
       PhoneNumberDirective
     ],
     templateUrl: './signup.component.html',
-    styleUrls: ['src/app/auth/components/signup/signup.component.css']
+    styleUrls: ['./signup.component.css'] 
 })
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
@@ -72,7 +72,11 @@ export class SignupComponent implements OnInit {
     if (password?.value !== confirmPassword?.value) {
       confirmPassword?.setErrors({ passwordMismatch: true });
     } else {
-      confirmPassword?.setErrors(null);
+      if (confirmPassword?.hasError('passwordMismatch')) {
+        const errors = {...confirmPassword.errors};
+        delete errors['passwordMismatch'];
+        confirmPassword.setErrors(Object.keys(errors).length ? errors : null);
+      }
     }
   }
 
@@ -94,7 +98,6 @@ export class SignupComponent implements OnInit {
 
       this.authService.signup(signupData).subscribe({
         next: () => {
-          // Redirect to pending approval page
           this.router.navigate(['/auth/signup-success']);
         },
         error: (error) => {

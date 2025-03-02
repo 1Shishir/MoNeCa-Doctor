@@ -1,0 +1,35 @@
+<div class="sidebar" [ngClass]="{'collapsed': collapsed}">
+    <div class="sidebar-header">
+      <div class="logo-container">
+        <div class="logo">
+          <img src="assets/images/logo.png" alt="MoNeCa Logo">
+        </div>
+        <span *ngIf="!collapsed" class="logo-text">MoNeCa Doctor</span>
+      </div>
+      <button class="toggle-btn" (click)="toggleSidebar()">
+        <i class="fa-solid" [ngClass]="collapsed ? 'fa-angle-right' : 'fa-angle-left'"></i>
+      </button>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <ul class="nav-list">
+        <li *ngFor="let item of menuItems" class="nav-item" [ngClass]="{'active': item.active}">
+          <a [routerLink]="item.link" routerLinkActive="active" class="nav-link">
+            <i class="nav-icon" [ngClass]="item.icon"></i>
+            <span *ngIf="!collapsed" class="nav-text">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <ul class="nav-list">
+        <li *ngFor="let item of footerItems" class="nav-item">
+          <a [routerLink]="item.link" class="nav-link">
+            <i class="nav-icon" [ngClass]="item.icon"></i>
+            <span *ngIf="!collapsed" class="nav-text">{{ item.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>

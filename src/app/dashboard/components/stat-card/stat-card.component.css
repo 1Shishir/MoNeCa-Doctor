@@ -1,0 +1,148 @@
+.stat-card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .stat-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .stat-title {
+    color: #6c757d;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #212529;
+  }
+  
+  .stat-change {
+    color: #6c757d;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .stat-icon {
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    position: relative;
+    z-index: 1;
+  }
+  
+ 
+  .primary-card {
+    background: linear-gradient(135deg, #00BCD4 0%, #3F51B5 100%);
+  }
+  
+  .primary-card .stat-title,
+  .primary-card .stat-value,
+  .primary-card .stat-change,
+  .primary-card .stat-icon i {
+    color: white;
+  }
+  
+  .danger-card {
+    background: linear-gradient(135deg, #FF5252 0%, #FF1744 100%);
+  }
+  
+  .danger-card .stat-title,
+  .danger-card .stat-value,
+  .danger-card .stat-change,
+  .danger-card .stat-icon i {
+    color: white;
+  }
+  
+  .info-card {
+    background: linear-gradient(135deg, #26C6DA 0%, #00ACC1 100%);
+  }
+  
+  .info-card .stat-title,
+  .info-card .stat-value,
+  .info-card .stat-change,
+  .info-card .stat-icon i {
+    color: white;
+  }
+  
+  .warning-card {
+    background: linear-gradient(135deg, #FFCA28 0%, #FFA000 100%);
+  }
+  
+  .warning-card .stat-title,
+  .warning-card .stat-value,
+  .warning-card .stat-change,
+  .warning-card .stat-icon i {
+    color: white;
+  }
+  
+ 
+  .primary-card::before,
+  .danger-card::before,
+  .info-card::before,
+  .warning-card::before {
+    content: "";
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+  }
+  
+  .primary-card::after,
+  .danger-card::after,
+  .info-card::after,
+  .warning-card::after {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    left: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 0;
+  }
+  
+  @media (max-width: 767px) {
+    .stat-card {
+      padding: 16px;
+    }
+    
+    .stat-value {
+      font-size: 30px;
+    }
+    
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+      font-size: 24px;
+    }
+  }

@@ -1,0 +1,59 @@
+<div class="card shadow-sm mb-4">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+      <h2 class="card-title m-0">{{ title }}</h2>
+      <button class="btn btn-primary d-flex align-items-center">
+        <span>View All</span>
+      </button>
+    </div>
+    
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-xl-6" *ngFor="let patient of patients">
+          <div class="patient-card">
+            <div class="patient-avatar">
+              {{ patient.name.charAt(0) }}
+            </div>
+            <div class="patient-info">
+              <h3 class="patient-name">{{ patient.name }}</h3>
+              <div class="patient-details">
+                <div class="detail-item">
+                  <i class="fa-solid fa-circle-exclamation text-danger me-2"></i>
+                  <span class="detail-label">Issue:</span> 
+                  <span [ngClass]="{'critical-value': patient.issue.includes('High') || patient.issue.includes('Low')}">
+                    {{ patient.issue }}
+                  </span>
+                </div>
+                <div class="detail-item">
+                  <i class="fa-solid fa-chart-line text-info me-2"></i>
+                  <span class="detail-label">Latest:</span> 
+                  <span class="detail-value">{{ patient.lastReading }}</span>
+                </div>
+                <div class="detail-item">
+                  <i class="fa-solid fa-clock text-secondary me-2"></i>
+                  <span class="detail-time">{{ patient.lastChecked }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="patient-actions">
+              <button class="btn btn-icon view-btn" title="View Details" (click)="onViewPatient(patient)">
+                <i class="fa-solid fa-eye"></i>
+              </button>
+              <button class="btn btn-icon contact-btn" title="Contact Patient" (click)="onContactPatient(patient)">
+                <i class="fa-solid fa-phone"></i>
+              </button>
+              <button class="btn btn-icon data-btn" title="Health Data" (click)="onViewData(patient)">
+                <i class="fa-solid fa-chart-simple"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="patients.length === 0" class="col-12 text-center py-4 text-muted">
+          <i class="fa-solid fa-user-plus fs-4 mb-2 d-block"></i>
+          <p class="mb-0">No critical patients at the moment</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

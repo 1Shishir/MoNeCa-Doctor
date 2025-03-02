@@ -1,0 +1,158 @@
+.sidebar {
+  width: 260px;
+  background: linear-gradient(135deg, #00BCD4 0%, #3F51B5 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 1000;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar-header {
+  padding: 20px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.logo img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.logo-text {
+  margin-left: 12px;
+  font-weight: 600;
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 0;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  margin-bottom: 5px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.2s;
+  border-radius: 8px;
+  margin: 0 8px;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active .nav-link {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-icon {
+  width: 20px;
+  font-size: 16px;
+  text-align: center;
+  margin-right: 12px;
+  opacity: 0.9;
+}
+
+.nav-text {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.sidebar-footer {
+  padding: 10px 0 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 991px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .nav-text {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    position: fixed;
+    z-index: 1050;
+    transform: translateX(-100%);
+    width: 250px;
+  }
+
+  .sidebar.collapsed {
+    transform: translateX(0);
+    width: 250px;
+  }
+
+  .sidebar.collapsed .logo-text,
+  .sidebar.collapsed .nav-text {
+    display: block;
+  }
+}

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-// Import standalone components
+
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { ButtonComponent } from './components/button/button.component';
@@ -19,7 +19,7 @@ import { PhoneNumberDirective } from './directives/phone-number.directive';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    // Import standalone components
+    
     LoadingSpinnerComponent,
     AlertComponent,
     ButtonComponent,
@@ -34,7 +34,7 @@ import { PhoneNumberDirective } from './directives/phone-number.directive';
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    // Export standalone components
+    
     LoadingSpinnerComponent,
     AlertComponent,
     ButtonComponent,

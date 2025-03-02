@@ -1,0 +1,71 @@
+<div class="card shadow-sm mb-4">
+  <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+    <h2 class="card-title m-0">{{ title }}</h2>
+    <div class="d-flex gap-2 align-items-center">
+      <button class="btn btn-primary d-flex align-items-center" (click)="onAddAppointment()">
+        <i class="fa-solid fa-plus me-2"></i>
+        <span>New Appointment</span>
+      </button>
+      <button class="btn btn-primary d-flex align-items-center" (click)="onAddAppointment()">
+        <span>View All</span>
+      </button>
+    </div>
+
+
+
+  </div>
+  <div class="card-body p-0">
+    <div class="table-responsive">
+      <table class="table table-hover appointment-table mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Patient</th>
+            <th>Time</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let appointment of appointments">
+            <td class="align-middle">
+              <div class="d-flex align-items-center">
+                <div class="patient-avatar me-3">{{ appointment.name.charAt(0) }}</div>
+                <span class="fw-medium">{{ appointment.name }}</span>
+              </div>
+            </td>
+            <td class="align-middle">
+              <div class="d-flex align-items-center">
+                <i class="fa-regular fa-clock text-muted me-2"></i>
+                {{ appointment.time }}
+              </div>
+            </td>
+            <td class="align-middle">{{ appointment.type }}</td>
+            <td class="align-middle">
+              <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">
+                <i class="fa-solid" [ngClass]="appointment.status === 'Confirmed' ? 'fa-check-circle' : 'fa-clock'"></i>
+                {{ appointment.status }}
+              </span>
+            </td>
+            <td class="align-middle">
+              <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-sm" (click)="onStartAppointment(appointment)">
+                  <i class="fa-solid fa-play me-1"></i> Start
+                </button>
+                <button class="btn btn-outline-secondary btn-sm" (click)="onRescheduleAppointment(appointment)">
+                  <i class="fa-solid fa-calendar-alt me-1"></i> Reschedule
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="appointments.length === 0">
+            <td colspan="5" class="text-center py-4 text-muted">
+              <i class="fa-solid fa-calendar-xmark fs-4 mb-2 d-block"></i>
+              <p class="mb-0">No appointments scheduled for today</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

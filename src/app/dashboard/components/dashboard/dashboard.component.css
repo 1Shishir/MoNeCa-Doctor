@@ -1,0 +1,37 @@
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f6fa;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.expanded {
+    margin-left: 70px;
+  }
+  
+  @media (max-width: 991px) {
+    .main-content {
+      margin-left: 70px;
+    }
+    
+    .main-content.expanded {
+      margin-left: 70px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .main-content {
+      margin-left: 0;
+      padding: 15px;
+    }
+    
+    .main-content.expanded {
+      margin-left: 0;
+    }
+  }
