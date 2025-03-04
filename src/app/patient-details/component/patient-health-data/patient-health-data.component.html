@@ -1,0 +1,173 @@
+<div class="health-data-container">
+    <div class="controls-container">
+      <div class="timeframe-selector">
+        <button 
+          [class.active]="selectedTimeframe === 'today'"
+          (click)="updateTimeframe('today')"
+          class="timeframe-btn">
+          Today
+        </button>
+        <button 
+          [class.active]="selectedTimeframe === 'week'"
+          (click)="updateTimeframe('week')"
+          class="timeframe-btn">
+          This Week
+        </button>
+        <button 
+          [class.active]="selectedTimeframe === 'month'"
+          (click)="updateTimeframe('month')"
+          class="timeframe-btn">
+          This Month
+        </button>
+      </div>
+      
+      <div class="metric-selector">
+        <button 
+          [class.active]="selectedMetric === 'heartRate'"
+          (click)="updateMetric('heartRate')"
+          class="metric-btn">
+          <i class="fa-solid fa-heart-pulse"></i> Heart Rate
+        </button>
+        <button 
+          [class.active]="selectedMetric === 'bp'"
+          (click)="updateMetric('bp')"
+          class="metric-btn">
+          <i class="fa-solid fa-droplet"></i> Blood Pressure
+        </button>
+        <button 
+          [class.active]="selectedMetric === 'oxygenLevel'"
+          (click)="updateMetric('oxygenLevel')"
+          class="metric-btn">
+          <i class="fa-solid fa-lungs"></i> Oxygen Level
+        </button>
+        <button 
+          [class.active]="selectedMetric === 'temperature'"
+          (click)="updateMetric('temperature')"
+          class="metric-btn">
+          <i class="fa-solid fa-temperature-high"></i> Temperature
+        </button>
+      </div>
+    </div>
+    
+    <div class="data-section">
+      <div class="data-container">
+        <h2 class="section-title">
+          {{ getMetricLabel() }} - {{ selectedTimeframe | titlecase }} View
+          <button class="see-all-btn">
+            See All Data <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </h2>
+        
+        <div class="data-visualization">
+          <!-- Mockup of chart/visualization - In a real app, use a charting library -->
+          <div class="chart-container">
+            <div class="chart-placeholder">
+              <div class="chart-info">
+                <i class="fa-solid fa-chart-line chart-icon"></i>
+                <div class="chart-message">
+                  Health metrics visualization will display here using a charting library like Chart.js or D3.js
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="data-table">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ getTimePeriodLabel() }}</th>
+                <th>{{ getMetricLabel() }}</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of displayData">
+                <td>{{ selectedTimeframe === 'today' ? item.time : (selectedTimeframe === 'week' ? formatDate(item.date) : item.week) }}</td>
+                <td [class.abnormal]="isAbnormalReading(selectedMetric, item[selectedMetric])">
+                  {{ item[selectedMetric] }}
+                </td>
+                <td>
+                  <span 
+                    class="status-indicator" 
+                    [ngClass]="isAbnormalReading(selectedMetric, item[selectedMetric]) ? 'status-abnormal' : 'status-normal'">
+                    {{ isAbnormalReading(selectedMetric, item[selectedMetric]) ? 'Abnormal' : 'Normal' }}
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="analysis-section">
+      <div class="analysis-container">
+        <h2 class="section-title">Health Analysis</h2>
+        
+        <div class="trends-container">
+          <div class="trend-item">
+            <div class="trend-header">
+              <div class="trend-title">Heart Rate Trend</div>
+              <div class="trend-value normal">Stable</div>
+            </div>
+            <div class="trend-description">
+              Patient's heart rate has been stable over the past week, averaging 82 bpm.
+            </div>
+          </div>
+          
+          <div class="trend-item">
+            <div class="trend-header">
+              <div class="trend-title">Blood Pressure Trend</div>
+              <div class="trend-value warning">Elevated</div>
+            </div>
+            <div class="trend-description">
+              Blood pressure readings are slightly elevated. Recommend monitoring closely.
+            </div>
+          </div>
+          
+          <div class="trend-item">
+            <div class="trend-header">
+              <div class="trend-title">Oxygen Level Trend</div>
+              <div class="trend-value normal">Normal</div>
+            </div>
+            <div class="trend-description">
+              Oxygen levels are within normal range with slight variations throughout the day.
+            </div>
+          </div>
+          
+          <div class="trend-item">
+            <div class="trend-header">
+              <div class="trend-title">Temperature Trend</div>
+              <div class="trend-value normal">Normal</div>
+            </div>
+            <div class="trend-description">
+              Body temperature has remained within normal range with typical daily fluctuations.
+            </div>
+          </div>
+        </div>
+        
+        <div class="recommendations">
+          <h3 class="subsection-title">Recommendations</h3>
+          <ul class="recommendation-list">
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              Continue monitoring blood pressure more frequently
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              Ensure patient is following low-sodium diet as prescribed
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              Recommend additional rest periods throughout the day
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-check"></i>
+              Consider adjusting medication if blood pressure remains elevated
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -18,7 +18,7 @@ export class SidebarComponent {
   
   menuItems = [
     { label: 'Dashboard', icon: 'fa-solid fa-chart-line', link: '/dashboard', active: true },
-    { label: 'Patients', icon: 'fa-solid fa-users', link: '/dashboard/patients', active: false },
+    { label: 'Patients', icon: 'fa-solid fa-users', link: '/patients', active: false },
     { label: 'Prescriptions', icon: 'fa-solid fa-prescription-bottle-medical', link: '/dashboard/prescriptions', active: false },
     { label: 'Appointments', icon: 'fa-solid fa-calendar-check', link: '/dashboard/appointments', active: false },
     { label: 'Health Data', icon: 'fa-solid fa-chart-simple', link: '/dashboard/health-data', active: false },

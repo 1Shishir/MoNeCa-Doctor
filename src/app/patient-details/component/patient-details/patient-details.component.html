@@ -1,0 +1,168 @@
+<div class="patient-details-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <div class="back-link">
+          <a routerLink="/patients">
+            <i class="fa-solid fa-arrow-left"></i> Back to Patients
+          </a>
+        </div>
+        
+        <div class="patient-header">
+          <div class="patient-avatar">
+            <img [src]="patient.profile || 'assets/images/default-avatar.png'" alt="{{ patient.name }}" class="avatar-img">
+            <div class="criticality-indicator" [ngClass]="'criticality-' + patient.criticality"></div>
+          </div>
+          
+          <div class="patient-basic-info">
+            <h1 class="patient-name">{{ patient.name }}</h1>
+            <div class="patient-meta">
+              <span><i class="fa-solid fa-calendar-days"></i> {{ patient.age }} years</span>
+              <span class="divider">•</span>
+              <span><i class="fa-solid fa-baby"></i> {{ patient.weeks }} weeks pregnant</span>
+              <span class="divider">•</span>
+              <span><i class="fa-solid fa-user-nurse"></i> Health Worker: {{ patient.healthWorker }}</span>
+            </div>
+            
+            <div class="patient-tags">
+              <span class="tag" *ngFor="let condition of patient.additionalInfo.medicalConditions">
+                {{ condition }}
+              </span>
+            </div>
+          </div>
+          
+          <div class="action-buttons">
+            <button class="btn-message">
+              <i class="fa-solid fa-comment-medical"></i> Message
+            </button>
+            <button class="btn-emergency">
+              <i class="fa-solid fa-phone"></i> Emergency Call
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="vital-indicators">
+        <div class="vital-box">
+          <div class="vital-icon">
+            <i class="fa-solid fa-heart-pulse"></i>
+          </div>
+          <div class="vital-data">
+            <div class="vital-label">Heart Rate</div>
+            <div class="vital-value">{{ patient.vitalStatus.heartRate }} <span class="unit">bpm</span></div>
+          </div>
+        </div>
+        
+        <div class="vital-box">
+          <div class="vital-icon">
+            <i class="fa-solid fa-droplet"></i>
+          </div>
+          <div class="vital-data">
+            <div class="vital-label">Blood Pressure</div>
+            <div class="vital-value">{{ patient.vitalStatus.bp }}</div>
+          </div>
+        </div>
+        
+        <div class="vital-box">
+          <div class="vital-icon">
+            <i class="fa-solid fa-lungs"></i>
+          </div>
+          <div class="vital-data">
+            <div class="vital-label">Oxygen Level</div>
+            <div class="vital-value">{{ patient.vitalStatus.oxygenLevel }}</div>
+          </div>
+        </div>
+        
+        <div class="vital-box">
+          <div class="vital-icon">
+            <i class="fa-solid fa-temperature-high"></i>
+          </div>
+          <div class="vital-data">
+            <div class="vital-label">Temperature</div>
+            <div class="vital-value">{{ patient.vitalStatus.temperature }}</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tabs-container">
+        <nav class="tabs-navigation">
+          <button 
+            [class.active]="activeTab === 'profile'" 
+            (click)="setActiveTab('profile')"
+            class="tab-btn">
+            <i class="fa-solid fa-user"></i> Profile
+          </button>
+          <button 
+            [class.active]="activeTab === 'health-data'" 
+            (click)="setActiveTab('health-data')"
+            class="tab-btn">
+            <i class="fa-solid fa-chart-line"></i> Health Data
+          </button>
+          <button 
+            [class.active]="activeTab === 'prescriptions'" 
+            (click)="setActiveTab('prescriptions')"
+            class="tab-btn">
+            <i class="fa-solid fa-prescription"></i> Prescriptions
+          </button>
+          <button 
+            [class.active]="activeTab === 'reports'" 
+            (click)="setActiveTab('reports')"
+            class="tab-btn">
+            <i class="fa-solid fa-file-medical"></i> Medical Reports
+          </button>
+          <button 
+            [class.active]="activeTab === 'assessment'" 
+            (click)="setActiveTab('assessment')"
+            class="tab-btn">
+            <i class="fa-solid fa-stethoscope"></i> Assessment
+          </button>
+          <button 
+            [class.active]="activeTab === 'insights'" 
+            (click)="setActiveTab('insights')"
+            class="tab-btn">
+            <i class="fa-solid fa-lightbulb"></i> Insights
+          </button>
+        </nav>
+        
+        <div class="tab-content">
+          <app-patient-profile 
+            *ngIf="activeTab === 'profile'"
+            [patient]="patient">
+          </app-patient-profile>
+          
+          <app-patient-health-data 
+            *ngIf="activeTab === 'health-data'"
+            [healthData]="healthData"
+            [patientId]="patientId">
+          </app-patient-health-data>
+          
+          <app-patient-prescriptions 
+            *ngIf="activeTab === 'prescriptions'"
+            [prescriptions]="prescriptions" 
+            [patientId]="patientId">
+          </app-patient-prescriptions>
+          
+          <app-patient-medical-reports 
+            *ngIf="activeTab === 'reports'"
+            [medicalReports]="medicalReports"
+            [patientId]="patientId">
+          </app-patient-medical-reports>
+          
+          <app-patient-assessment 
+            *ngIf="activeTab === 'assessment'"
+            [assessments]="assessments"
+            [patientId]="patientId">
+          </app-patient-assessment>
+          
+          <app-patient-insights 
+            *ngIf="activeTab === 'insights'"
+            [patient]="patient" 
+            [healthData]="healthData">
+          </app-patient-insights>
+        </div>
+      </div>
+    </div>
+  </div>

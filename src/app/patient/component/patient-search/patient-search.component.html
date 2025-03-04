@@ -1,0 +1,46 @@
+<div class="search-container">
+    <form [formGroup]="searchForm" class="search-form">
+      <div class="search-input-container">
+        <i class="fa-solid fa-search search-icon"></i>
+        <input
+          type="text"
+          formControlName="searchTerm"
+          class="search-input"
+          placeholder="Search patients by name..."
+        >
+        <button 
+          *ngIf="searchForm.get('searchTerm')?.value"
+          type="button" 
+          class="clear-search-btn"
+          (click)="searchForm.get('searchTerm')?.setValue('')">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="filter-container">
+        <div class="filter-item">
+          <select formControlName="criticality" class="filter-select">
+            <option *ngFor="let option of criticalityOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+        
+        <div class="filter-item">
+          <select formControlName="healthWorker" class="filter-select">
+            <option *ngFor="let option of healthWorkerOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+        </div>
+        
+        <button 
+          type="button" 
+          class="reset-filters-btn"
+          (click)="resetFilters()"
+          [disabled]="searchForm.value.searchTerm === '' && searchForm.value.criticality === 'all' && searchForm.value.healthWorker === 'all'">
+          <i class="fa-solid fa-filter-circle-xmark"></i> Reset
+        </button>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,190 @@
+<div class="insights-container">
+    <div class="insights-header">
+      <h2 class="section-title">AI-Powered Health Insights</h2>
+      <div class="header-disclaimer">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>Insights are generated based on health data, medical history, and similar cases.</span>
+      </div>
+    </div>
+    
+    <div class="insights-grid">
+      <div class="insight-card risk-predictions">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fa-solid fa-chart-line"></i> Risk Predictions
+          </h3>
+        </div>
+        
+        <div class="overall-risk">
+          <div class="risk-label">Overall Risk Score</div>
+          <div class="risk-score-container">
+            <div class="risk-score">{{ predictions.riskScore }}</div>
+            <div class="risk-meter">
+              <div class="risk-fill" [style.width.%]="predictions.riskScore"></div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="risk-items">
+          <div class="risk-item">
+            <div class="risk-item-header">
+              <div class="risk-name">Preeclampsia</div>
+              <div class="risk-indicator" [style.background-color]="getRiskColor(predictions.preeclampsia.risk)">
+                {{ predictions.preeclampsia.risk }} Risk ({{ predictions.preeclampsia.probability }}%)
+              </div>
+            </div>
+            <ul class="risk-factors">
+              <li *ngFor="let factor of predictions.preeclampsia.factors">{{ factor }}</li>
+            </ul>
+          </div>
+          
+          <div class="risk-item">
+            <div class="risk-item-header">
+              <div class="risk-name">Gestational Diabetes</div>
+              <div class="risk-indicator" [style.background-color]="getRiskColor(predictions.gestationalDiabetes.risk)">
+                {{ predictions.gestationalDiabetes.risk }} Risk ({{ predictions.gestationalDiabetes.probability }}%)
+              </div>
+            </div>
+            <ul class="risk-factors">
+              <li *ngFor="let factor of predictions.gestationalDiabetes.factors">{{ factor }}</li>
+            </ul>
+          </div>
+          
+          <div class="risk-item">
+            <div class="risk-item-header">
+              <div class="risk-name">Preterm Birth</div>
+              <div class="risk-indicator" [style.background-color]="getRiskColor(predictions.pretermBirth.risk)">
+                {{ predictions.pretermBirth.risk }} Risk ({{ predictions.pretermBirth.probability }}%)
+              </div>
+            </div>
+            <ul class="risk-factors">
+              <li *ngFor="let factor of predictions.pretermBirth.factors">{{ factor }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="insight-card nutrition-insights">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fa-solid fa-utensils"></i> Nutrition Insights
+          </h3>
+        </div>
+        
+        <div class="nutrition-deficiencies">
+          <h4 class="subsection-title">Nutrient Status</h4>
+          <div class="deficiency-item" *ngFor="let deficiency of nutritionInsights.deficiencies">
+            <div class="deficiency-header">
+              <div class="nutrient-name">{{ deficiency.nutrient }}</div>
+              <div class="nutrient-status" [style.color]="getNutrientStatusColor(deficiency.status)">
+                {{ deficiency.status }}
+              </div>
+            </div>
+            <div class="nutrient-recommendation">{{ deficiency.recommendation }}</div>
+          </div>
+        </div>
+        
+        <div class="diet-recommendations">
+          <h4 class="subsection-title">Diet Recommendations</h4>
+          <ul class="recommendation-list">
+            <li *ngFor="let recommendation of nutritionInsights.dietRecommendations">
+              <i class="fa-solid fa-check"></i>
+              <span>{{ recommendation }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="insight-card activity-insights">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fa-solid fa-person-walking"></i> Activity & Exercise
+          </h3>
+        </div>
+        
+        <div class="activity-level">
+          <div class="level-label">Current Activity Level</div>
+          <div class="level-value">{{ activityInsights.currentLevel }}</div>
+        </div>
+        
+        <div class="activity-recommendations">
+          <h4 class="subsection-title">Recommended Activities</h4>
+          <ul class="recommendation-list">
+            <li *ngFor="let recommendation of activityInsights.recommendations">
+              <i class="fa-solid fa-check"></i>
+              <span>{{ recommendation }}</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="activity-restrictions">
+          <h4 class="subsection-title">Restrictions</h4>
+          <ul class="restriction-list">
+            <li *ngFor="let restriction of activityInsights.restrictions">
+              <i class="fa-solid fa-ban"></i>
+              <span>{{ restriction }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="insight-card sleep-insights">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fa-solid fa-bed"></i> Sleep Patterns
+          </h3>
+        </div>
+        
+        <div class="sleep-table-container">
+          <table class="sleep-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Hours</th>
+                <th>Quality</th>
+                <th>Issues</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let day of sleepPatterns">
+                <td>{{ day.day }}</td>
+                <td>{{ day.hours }}</td>
+                <td>
+                  <span class="sleep-quality" [style.background-color]="getSleepQualityColor(day.quality)">
+                    {{ day.quality }}
+                  </span>
+                </td>
+                <td>
+                  <span *ngIf="day.issues.length">{{ day.issues.join(', ') }}</span>
+                  <span *ngIf="!day.issues.length">None</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="sleep-summary">
+          <div class="summary-item">
+            <div class="summary-label">Average Sleep</div>
+            <div class="summary-value">
+              {{ averageSleepHours }} hours
+            </div>
+          </div>
+          <div class="summary-item">
+            <div class="summary-label">Recommendation</div>
+            <div class="summary-value">7-9 hours with left side sleeping position</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="action-panel">
+      <div class="action-message">
+        <i class="fa-solid fa-lightbulb"></i>
+        <span>Based on these insights, we recommend adjusting the patient's care plan.</span>
+      </div>
+      <button class="update-plan-btn">
+        <i class="fa-solid fa-pen-to-square"></i> Update Care Plan
+      </button>
+    </div>
+  </div>

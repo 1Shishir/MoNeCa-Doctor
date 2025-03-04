@@ -1,0 +1,63 @@
+<div class="patient-card">
+    <div class="card-header">
+      <div class="patient-avatar">
+        <img [src]="patient.profile || 'assets/images/default-avatar.png'" alt="{{ patient.name }}" class="avatar-img">
+      </div>
+      <div class="patient-info">
+        <h3 class="patient-name">{{ patient.name }}</h3>
+        <div class="patient-details">
+          <span class="detail-item">{{ patient.age }} years</span>
+          <span class="dot-divider">•</span>
+          <span class="detail-item">{{ patient.weeks }} weeks</span>
+        </div>
+        <div class="criticality-badge" [ngClass]="getCriticalityClass()">
+          {{ getCriticalityLabel() }}
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <div class="vitals-grid">
+        <div class="vital-item">
+          <div class="vital-label">Blood Pressure</div>
+          <div class="vital-value">{{ patient.vitalStatus.bp }}</div>
+        </div>
+        <div class="vital-item">
+          <div class="vital-label">Heart Rate</div>
+          <div class="vital-value">{{ patient.vitalStatus.heartRate }} bpm</div>
+        </div>
+        <div class="vital-item">
+          <div class="vital-label">Oxygen Level</div>
+          <div class="vital-value">{{ patient.vitalStatus.oxygenLevel }}</div>
+        </div>
+        <div class="vital-item">
+          <div class="vital-label">Temperature</div>
+          <div class="vital-value">{{ patient.vitalStatus.temperature }}</div>
+        </div>
+      </div>
+      
+      <div class="appointment-info">
+        <div class="info-row">
+          <div class="info-label">Last Checkup</div>
+          <div class="info-value">{{ getFormattedDate(patient.lastCheckup) }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Next Appointment</div>
+          <div class="info-value">{{ getFormattedDate(patient.nextAppointment) }}</div>
+        </div>
+        <div class="info-row">
+          <div class="info-label">Health Worker</div>
+          <div class="info-value">{{ patient.healthWorker }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-footer">
+      <button class="action-btn">
+        <i class="fa-solid fa-eye"></i> View Details
+      </button>
+      <button class="action-btn action-secondary">
+        <i class="fa-solid fa-envelope"></i> Message
+      </button>
+    </div>
+  </div>

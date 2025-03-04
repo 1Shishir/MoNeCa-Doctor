@@ -1,0 +1,197 @@
+<div class="prescriptions-container">
+    <div class="section-header">
+      <h2 class="section-title">Prescriptions</h2>
+      <button 
+        class="add-btn" 
+        (click)="toggleAddForm()"
+        *ngIf="!showAddForm">
+        <i class="fa-solid fa-plus"></i> Add Prescription
+      </button>
+    </div>
+    
+    <div class="add-prescription-form" *ngIf="showAddForm">
+      <div class="form-header">
+        <h3 class="form-title">New Prescription</h3>
+        <button class="close-btn" (click)="toggleAddForm()">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      
+      <form [formGroup]="prescriptionForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input 
+              type="date" 
+              id="date" 
+              formControlName="date"
+              class="form-control"
+              [class.is-invalid]="prescriptionForm.get('date')?.invalid && prescriptionForm.get('date')?.touched">
+            <div class="error-message" *ngIf="prescriptionForm.get('date')?.invalid && prescriptionForm.get('date')?.touched">
+              Date is required
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="doctor">Doctor</label>
+            <input 
+              type="text" 
+              id="doctor" 
+              formControlName="doctor"
+              class="form-control"
+              [class.is-invalid]="prescriptionForm.get('doctor')?.invalid && prescriptionForm.get('doctor')?.touched">
+            <div class="error-message" *ngIf="prescriptionForm.get('doctor')?.invalid && prescriptionForm.get('doctor')?.touched">
+              Doctor name is required
+            </div>
+          </div>
+        </div>
+        
+        <div formArrayName="medications">
+          <div class="medications-header">
+            <h4 class="medications-title">Medications</h4>
+            <button 
+              type="button" 
+              class="add-medication-btn"
+              (click)="addMedication()">
+              <i class="fa-solid fa-plus"></i> Add Medication
+            </button>
+          </div>
+          
+          <div 
+            *ngFor="let medicationGroup of medications.controls; let i = index" 
+            [formGroupName]="i"
+            class="medication-item">
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label [for]="'medication-name-' + i">Medication Name</label>
+                <input 
+                  [id]="'medication-name-' + i"
+                  type="text" 
+                  formControlName="name"
+                  class="form-control"
+                  [class.is-invalid]="medicationGroup.get('name')?.invalid && medicationGroup.get('name')?.touched">
+                <div class="error-message" *ngIf="medicationGroup.get('name')?.invalid && medicationGroup.get('name')?.touched">
+                  Medication name is required
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label [for]="'medication-dosage-' + i">Dosage</label>
+                <input 
+                  [id]="'medication-dosage-' + i"
+                  type="text" 
+                  formControlName="dosage"
+                  class="form-control"
+                  [class.is-invalid]="medicationGroup.get('dosage')?.invalid && medicationGroup.get('dosage')?.touched">
+                <div class="error-message" *ngIf="medicationGroup.get('dosage')?.invalid && medicationGroup.get('dosage')?.touched">
+                  Dosage is required
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label [for]="'medication-frequency-' + i">Frequency</label>
+                <input 
+                  [id]="'medication-frequency-' + i"
+                  type="text" 
+                  formControlName="frequency"
+                  class="form-control"
+                  [class.is-invalid]="medicationGroup.get('frequency')?.invalid && medicationGroup.get('frequency')?.touched">
+                <div class="error-message" *ngIf="medicationGroup.get('frequency')?.invalid && medicationGroup.get('frequency')?.touched">
+                  Frequency is required
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label [for]="'medication-duration-' + i">Duration</label>
+                <input 
+                  [id]="'medication-duration-' + i"
+                  type="text" 
+                  formControlName="duration"
+                  class="form-control"
+                  [class.is-invalid]="medicationGroup.get('duration')?.invalid && medicationGroup.get('duration')?.touched">
+                <div class="error-message" *ngIf="medicationGroup.get('duration')?.invalid && medicationGroup.get('duration')?.touched">
+                  Duration is required
+                </div>
+              </div>
+              
+              <button 
+                type="button" 
+                class="remove-medication-btn"
+                *ngIf="medications.length > 1"
+                (click)="removeMedication(i)">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="instructions">Instructions</label>
+          <textarea 
+            id="instructions" 
+            formControlName="instructions"
+            class="form-control"
+            rows="3"
+            [class.is-invalid]="prescriptionForm.get('instructions')?.invalid && prescriptionForm.get('instructions')?.touched">
+          </textarea>
+          <div class="error-message" *ngIf="prescriptionForm.get('instructions')?.invalid && prescriptionForm.get('instructions')?.touched">
+            Instructions are required
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" (click)="toggleAddForm()">Cancel</button>
+          <button type="submit" class="submit-btn">Save Prescription</button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="prescriptions-list">
+      <div class="prescription-card" *ngFor="let prescription of prescriptions">
+        <div class="prescription-header">
+          <div class="prescription-date">{{ getFormattedDate(prescription.date) }}</div>
+          <div class="prescription-doctor">{{ prescription.doctor }}</div>
+        </div>
+        
+        <div class="medications-list">
+          <div class="medication" *ngFor="let medication of prescription.medications">
+            <div class="medication-name">{{ medication.name }}</div>
+            <div class="medication-details">
+              <span class="detail-item">{{ medication.dosage }}</span>
+              <span class="detail-separator">•</span>
+              <span class="detail-item">{{ medication.frequency }}</span>
+              <span class="detail-separator">•</span>
+              <span class="detail-item">{{ medication.duration }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="prescription-instructions">
+          <div class="instructions-label">Instructions:</div>
+          <div class="instructions-text">{{ prescription.instructions }}</div>
+        </div>
+        
+        <div class="prescription-actions">
+          <button class="action-btn">
+            <i class="fa-solid fa-print"></i> Print
+          </button>
+          <button class="action-btn">
+            <i class="fa-solid fa-file-pdf"></i> Download PDF
+          </button>
+        </div>
+      </div>
+      
+      <div class="empty-state" *ngIf="prescriptions.length === 0">
+        <div class="empty-icon">
+          <i class="fa-solid fa-prescription"></i>
+        </div>
+        <div class="empty-message">No prescriptions found</div>
+        <button class="add-btn" (click)="toggleAddForm()">
+          <i class="fa-solid fa-plus"></i> Add First Prescription
+        </button>
+      </div>
+    </div>
+  </div>
