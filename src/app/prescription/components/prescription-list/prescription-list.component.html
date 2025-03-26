@@ -1,0 +1,124 @@
+<div class="prescription-list-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="Prescriptions" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <h1 class="page-title">Prescriptions</h1>
+        <div class="action-buttons">
+          <button class="btn-add" routerLink="/patients">
+            <i class="fa-solid fa-plus"></i> New Prescription
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="errorMessage" class="alert alert-error">
+        <span class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="alert-message">{{ errorMessage }}</span>
+      </div>
+      
+      <div class="filter-section">
+        <div class="search-box">
+          <i class="fa-solid fa-search search-icon"></i>
+          <input 
+            type="text" 
+            [(ngModel)]="searchTerm" 
+            (input)="applyFilters()" 
+            placeholder="Search by patient name or prescription ID" 
+            class="search-input">
+        </div>
+        
+        <div class="filter-container">
+          <div class="filter-group">
+            <label for="dateStart">From</label>
+            <input 
+              type="date" 
+              id="dateStart" 
+              [(ngModel)]="dateRange.start" 
+              (change)="applyFilters()" 
+              class="filter-input date-input">
+          </div>
+          <div class="filter-group">
+            <label for="dateEnd">To</label>
+            <input 
+              type="date" 
+              id="dateEnd" 
+              [(ngModel)]="dateRange.end" 
+              (change)="applyFilters()" 
+              class="filter-input date-input">
+          </div>
+          <button class="reset-btn" (click)="resetFilters()">
+            <i class="fa-solid fa-rotate"></i> Reset
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading prescriptions...</p>
+      </div>
+      
+      <div *ngIf="!isLoading" class="prescriptions-container">
+        <div *ngIf="filteredPrescriptions.length === 0" class="no-data-message">
+          <i class="fa-solid fa-prescription-bottle-medical no-data-icon"></i>
+          <p>No prescriptions found.</p>
+          <p *ngIf="searchTerm || dateRange.start || dateRange.end">Try adjusting your search filters.</p>
+        </div>
+        
+        <div *ngIf="filteredPrescriptions.length > 0" class="prescription-count">
+          Showing {{ filteredPrescriptions.length }} prescription(s)
+        </div>
+        
+        <div class="prescription-list">
+          <div *ngFor="let prescription of filteredPrescriptions" class="prescription-card">
+            <div class="prescription-header">
+              <div class="prescription-info">
+                <h3 class="patient-name">{{ getPatientName(prescription.patientId) }}</h3>
+                <span class="prescription-date">{{ getFormattedDate(prescription.date) }}</span>
+              </div>
+              <div class="prescription-actions">
+                <button class="action-btn print" routerLink="/prescriptions/print/{{ prescription.id }}">
+                  <i class="fa-solid fa-print"></i>
+                </button>
+                <button class="action-btn edit" routerLink="/prescriptions/edit/{{ prescription.id }}">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="action-btn delete" (click)="deletePrescription(prescription.id)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="prescription-content">
+              <div class="prescription-field">
+                <span class="field-label">Diagnosis:</span>
+                <span class="field-value">{{ getDiagnosesList(prescription.diagnosis) }}</span>
+              </div>
+              
+              <div class="prescription-field">
+                <span class="field-label">Medications:</span>
+                <span class="field-value">{{ prescription.medications.length }} medication(s)</span>
+              </div>
+              
+              <div class="prescription-field">
+                <span class="field-label">Tests:</span>
+                <span class="field-value">{{ prescription.tests.length }} test(s)</span>
+              </div>
+              
+              <div class="prescription-field">
+                <span class="field-label">Next Visit:</span>
+                <span class="field-value">{{ prescription.nextVisit ? getFormattedDate(prescription.nextVisit) : 'Not scheduled' }}</span>
+              </div>
+            </div>
+            
+            <div class="prescription-footer">
+              <a routerLink="/prescriptions/view/{{ prescription.id }}" class="view-link">
+                <i class="fa-solid fa-eye"></i> View Full Prescription
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

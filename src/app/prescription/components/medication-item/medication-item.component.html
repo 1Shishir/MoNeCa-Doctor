@@ -1,0 +1,41 @@
+<div class="medication-item">
+    <div class="medication-header">
+      <h3 class="medication-name">{{ medication.name }}</h3>
+      <button *ngIf="showDelete" type="button" class="delete-btn" (click)="onDelete()">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="medication-content">
+      <div class="medication-info">
+        <span class="info-label">Dosage:</span>
+        <span class="info-value">{{ medication.dosage }}</span>
+      </div>
+      <div class="medication-info">
+        <span class="info-label">Duration:</span>
+        <span class="info-value">{{ medication.duration }}</span>
+      </div>
+      <div class="medication-info" *ngIf="medication.instructions">
+        <span class="info-label">Instructions:</span>
+        <span class="info-value">{{ medication.instructions }}</span>
+      </div>
+    </div>
+    <div class="medication-frequency">
+      <div class="frequency-item" [class.active]="getFrequencyValues()[0] !== '0'">
+        <span class="frequency-value">{{ getFrequencyValues()[0] }}</span>
+        <span class="frequency-label morning">Morning</span>
+      </div>
+      <div class="frequency-item" [class.active]="getFrequencyValues()[1] !== '0'">
+        <span class="frequency-value">{{ getFrequencyValues()[1] }}</span>
+        <span class="frequency-label noon">Noon</span>
+      </div>
+      <div class="frequency-item" [class.active]="getFrequencyValues()[2] !== '0'">
+        <span class="frequency-value">{{ getFrequencyValues()[2] }}</span>
+        <span class="frequency-label evening">Evening</span>
+      </div>
+      <div class="frequency-item" [class.active]="getFrequencyValues()[3] !== '0'">
+        <span class="frequency-value">{{ getFrequencyValues()[3] }}</span>
+        <span class="frequency-label night">Night</span>
+      </div>
+    </div>
+  </div>
+  

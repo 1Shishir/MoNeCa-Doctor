@@ -1,0 +1,635 @@
+<div class="add-patient-container">
+  <div class="page-header">
+    <h1 class="page-title">Add New Patient</h1>
+    <button routerLink="/patients" class="cancel-btn">
+      <i class="fa-solid fa-times"></i> Cancel
+    </button>
+  </div>
+
+  <div class="form-progress">
+    <div class="progress-steps">
+      <div class="progress-step" [ngClass]="{'active': currentStep >= 1, 'completed': currentStep > 1}"
+        (click)="currentStep = 1">
+        <div class="step-number">1</div>
+        <div class="step-label">Personal Info</div>
+      </div>
+      <div class="progress-step" [ngClass]="{'active': currentStep >= 2, 'completed': currentStep > 2}"
+        (click)="currentStep = 2">
+        <div class="step-number">2</div>
+        <div class="step-label">Medical History</div>
+      </div>
+      <div class="progress-step" [ngClass]="{'active': currentStep >= 3, 'completed': currentStep > 3}"
+        (click)="currentStep = 3">
+        <div class="step-number">3</div>
+        <div class="step-label">Pregnancy Details</div>
+      </div>
+      <div class="progress-step" [ngClass]="{'active': currentStep >= 4, 'completed': currentStep > 4}"
+        (click)="currentStep = 4">
+        <div class="step-number">4</div>
+        <div class="step-label">Assignment & Account</div>
+      </div>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="(currentStep / totalSteps) * 100"></div>
+    </div>
+  </div>
+
+  <!-- Success message if patient is saved without account -->
+  <div class="success-message" *ngIf="showSuccessMessage">
+    <div class="success-icon">
+      <i class="fa-solid fa-check-circle"></i>
+    </div>
+    <div class="success-content">
+      <h3>Patient Added Successfully!</h3>
+      <p>The patient has been added to the system. You can now view their profile in the patients list.</p>
+    </div>
+  </div>
+
+  <!-- Link sent message if creating account -->
+  <div class="success-message" *ngIf="linkSent">
+    <div class="success-icon">
+      <i class="fa-solid fa-envelope-circle-check"></i>
+    </div>
+    <div class="success-content">
+      <h3>Registration Link Created</h3>
+      <p>Patient has been added to the system and a registration link has been generated.</p>
+      <div class="link-container">
+        <input type="text" [value]="registrationLink" class="link-input" readonly>
+        <button class="copy-btn" (click)="copyToClipboard(registrationLink, $event)">
+          <i class="fa-solid fa-copy"></i> Copy
+        </button>
+      </div>
+      <p class="link-help">Share this link with the patient to set up their account.</p>
+
+      <div class="action-buttons">
+        <button class="submit-btn" (click)="resetForm()">
+          <i class="fa-solid fa-plus"></i> Add Another Patient
+        </button>
+        <button class="secondary-btn" routerLink="/patients">
+          <i class="fa-solid fa-list"></i> View Patients List
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="patientForm" (ngSubmit)="onSubmit()" *ngIf="!showSuccessMessage && !linkSent">
+    <!-- Step 1: Personal Information -->
+    <div class="form-step" *ngIf="currentStep === 1" formGroupName="personalInfo">
+      <h2 class="step-title">Personal Information</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name <span class="required">*</span></label>
+          <input type="text" id="fullName" formControlName="fullName" class="form-control"
+            [class.is-invalid]="isInvalid(personalInfo, 'fullName')" placeholder="Enter patient's full name">
+          <div class="error-message" *ngIf="isInvalid(personalInfo, 'fullName')">
+            <span *ngIf="personalInfo.get('fullName')?.errors?.['required']">Full name is required</span>
+            <span *ngIf="personalInfo.get('fullName')?.errors?.['minlength']">Name must be at least 3 characters</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age">Age <span class="required">*</span></label>
+          <input type="number" id="age" formControlName="age" class="form-control"
+            [class.is-invalid]="isInvalid(personalInfo, 'age')" placeholder="Enter age in years">
+          <div class="error-message" *ngIf="isInvalid(personalInfo, 'age')">
+            <span *ngIf="personalInfo.get('age')?.errors?.['required']">Age is required</span>
+            <span *ngIf="personalInfo.get('age')?.errors?.['min']">Age must be at least 12</span>
+            <span *ngIf="personalInfo.get('age')?.errors?.['max']">Age must be less than 60</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phoneNumber">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phoneNumber" formControlName="phoneNumber" class="form-control"
+            [class.is-invalid]="isInvalid(personalInfo, 'phoneNumber')"
+            placeholder="Enter mobile number (e.g., 01712345678)">
+          <div class="error-message" *ngIf="isInvalid(personalInfo, 'phoneNumber')">
+            <span *ngIf="personalInfo.get('phoneNumber')?.errors?.['required']">Phone number is required</span>
+            <span *ngIf="personalInfo.get('phoneNumber')?.errors?.['pattern']">Please enter a valid Bangladesh phone
+              number</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bloodType">Blood Type <span class="required">*</span></label>
+          <select id="bloodType" formControlName="bloodType" class="form-control"
+            [class.is-invalid]="isInvalid(personalInfo, 'bloodType')">
+            <option value="">Select Blood Type</option>
+            <option *ngFor="let type of bloodTypes" [value]="type">{{ type }}</option>
+          </select>
+          <div class="error-message" *ngIf="isInvalid(personalInfo, 'bloodType')">
+            Blood type is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Address <span class="required">*</span></label>
+        <textarea id="address" formControlName="address" class="form-control"
+          [class.is-invalid]="isInvalid(personalInfo, 'address')" placeholder="Enter patient's full address"
+          rows="2"></textarea>
+        <div class="error-message" *ngIf="isInvalid(personalInfo, 'address')">
+          Address is required
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="height">Height (cm) <span class="required">*</span></label>
+          <input type="number" id="height" formControlName="height" class="form-control"
+            [class.is-invalid]="isInvalid(personalInfo, 'height')" placeholder="Enter height in cm">
+          <div class="error-message" *ngIf="isInvalid(personalInfo, 'height')">
+            Height is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Weight (kg) <span class="required">*</span></label>
+          <input type="number" id="weight" formControlName="weight" class="form-control"
+            [class.is-invalid]="isInvalid(personalInfo, 'weight')" placeholder="Enter weight in kg">
+          <div class="error-message" *ngIf="isInvalid(personalInfo, 'weight')">
+            Weight is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="bmi">BMI (Auto-calculated)</label>
+          <input type="text" id="bmi" formControlName="bmi" class="form-control" readonly>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Emergency Contact</h3>
+
+        <div formGroupName="emergencyContact">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="emergencyName">Contact Name <span class="required">*</span></label>
+              <input type="text" id="emergencyName" formControlName="name" class="form-control"
+                [class.is-invalid]="isEmergencyContactInvalid('name')" placeholder="Enter emergency contact name">
+              <div class="error-message" *ngIf="isEmergencyContactInvalid('name')">
+                Emergency contact name is required
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="emergencyRelation">Relationship <span class="required">*</span></label>
+              <input type="text" id="emergencyRelation" formControlName="relation" class="form-control"
+                [class.is-invalid]="isEmergencyContactInvalid('relation')" placeholder="E.g., Husband, Mother">
+              <div class="error-message" *ngIf="isEmergencyContactInvalid('relation')">
+                Relationship is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="emergencyPhone">Contact Phone <span class="required">*</span></label>
+            <input type="tel" id="emergencyPhone" formControlName="phone" class="form-control"
+              [class.is-invalid]="isEmergencyContactInvalid('phone')"
+              placeholder="Enter emergency contact phone number">
+            <div class="error-message" *ngIf="isEmergencyContactInvalid('phone')">
+              <span *ngIf="getEmergencyContactError('phone')?.['required']">Phone number is required</span>
+              <span *ngIf="getEmergencyContactError('phone')?.['pattern']">Please enter a valid phone number</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Medical Information -->
+    <div class="form-step" *ngIf="currentStep === 2" formGroupName="medicalInfo">
+      <h2 class="step-title">Medical History</h2>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Allergies</h3>
+        <p class="subsection-help">List any known allergies or select "None" if there are no known allergies.</p>
+
+        <div class="form-array-container">
+          <div formArrayName="allergies">
+            <div class="form-array-item" *ngFor="let allergy of allergies.controls; let i = index">
+              <div class="form-array-content">
+                <input type="text" [formControlName]="i" class="form-control"
+                  [class.is-invalid]="allergy.invalid && allergy.touched" placeholder="Enter allergy name or 'None'">
+                <div class="error-message" *ngIf="allergy.invalid && allergy.touched">
+                  Please enter an allergy or "None"
+                </div>
+              </div>
+              <button type="button" class="remove-btn" (click)="removeAllergy(i)" [disabled]="allergies.length === 1">
+                <i class="fa-solid fa-times"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="add-item-btn" (click)="addAllergy()">
+            <i class="fa-solid fa-plus"></i> Add Another Allergy
+          </button>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Medical Conditions</h3>
+        <p class="subsection-help">List any pre-existing medical conditions or select "None" if there are no
+          conditions.</p>
+
+        <div class="form-array-container">
+          <div formArrayName="medicalConditions">
+            <div class="form-array-item" *ngFor="let condition of medicalConditions.controls; let i = index">
+              <div class="form-array-content">
+                <input type="text" [formControlName]="i" class="form-control"
+                  [class.is-invalid]="condition.invalid && condition.touched"
+                  placeholder="Enter medical condition or 'None'">
+                <div class="error-message" *ngIf="condition.invalid && condition.touched">
+                  Please enter a condition or "None"
+                </div>
+              </div>
+              <button type="button" class="remove-btn" (click)="removeMedicalCondition(i)"
+                [disabled]="medicalConditions.length === 1">
+                <i class="fa-solid fa-times"></i>
+              </button>
+            </div>
+          </div>
+
+          <button type="button" class="add-item-btn" (click)="addMedicalCondition()">
+            <i class="fa-solid fa-plus"></i> Add Another Condition
+          </button>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Current Medications</h3>
+        <p class="subsection-help">List any medications the patient is currently taking.</p>
+
+        <div class="form-array-container">
+          <div formArrayName="currentMedications">
+            <div *ngFor="let medication of currentMedications.controls; let i = index" class="form-array-group">
+              <div [formGroupName]="i">
+                <div class="form-array-header">
+                  <h4 class="form-array-title">Medication #{{ i + 1 }}</h4>
+                  <button type="button" class="remove-btn" (click)="removeCurrentMedication(i)">
+                    <i class="fa-solid fa-times"></i>
+                  </button>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'medicationName' + i">Medication Name <span class="required">*</span></label>
+                    <input [id]="'medicationName' + i" type="text" formControlName="name" class="form-control"
+                      [class.is-invalid]="medication.get('name')?.invalid && medication.get('name')?.touched"
+                      placeholder="Enter medication name">
+                    <div class="error-message"
+                      *ngIf="medication.get('name')?.invalid && medication.get('name')?.touched">
+                      Medication name is required
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label [for]="'medicationDosage' + i">Dosage <span class="required">*</span></label>
+                    <input [id]="'medicationDosage' + i" type="text" formControlName="dosage" class="form-control"
+                      [class.is-invalid]="medication.get('dosage')?.invalid && medication.get('dosage')?.touched"
+                      placeholder="Enter dosage (e.g., 500mg)">
+                    <div class="error-message"
+                      *ngIf="medication.get('dosage')?.invalid && medication.get('dosage')?.touched">
+                      Dosage is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'medicationFrequency' + i">Frequency <span class="required">*</span></label>
+                    <input [id]="'medicationFrequency' + i" type="text" formControlName="frequency" class="form-control"
+                      [class.is-invalid]="medication.get('frequency')?.invalid && medication.get('frequency')?.touched"
+                      placeholder="How often (e.g., twice daily)">
+                    <div class="error-message"
+                      *ngIf="medication.get('frequency')?.invalid && medication.get('frequency')?.touched">
+                      Frequency is required
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label [for]="'medicationReason' + i">Reason</label>
+                    <input [id]="'medicationReason' + i" type="text" formControlName="reason" class="form-control"
+                      placeholder="Reason for taking this medication">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="add-item-btn" (click)="addCurrentMedication()">
+            <i class="fa-solid fa-plus"></i> Add Another Medication
+          </button>
+        </div>
+      </div>
+
+      <div class="subsection">
+        <h3 class="subsection-title">Previous Surgeries</h3>
+        <p class="subsection-help">List any previous surgeries or procedures (if applicable).</p>
+
+        <div class="form-array-container">
+          <div formArrayName="previousSurgeries">
+            <div *ngFor="let surgery of previousSurgeries.controls; let i = index" class="form-array-group">
+              <div [formGroupName]="i">
+                <div class="form-array-header">
+                  <h4 class="form-array-title">Surgery #{{ i + 1 }}</h4>
+                  <button type="button" class="remove-btn" (click)="removePreviousSurgery(i)">
+                    <i class="fa-solid fa-times"></i>
+                  </button>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'surgeryProcedure' + i">Procedure <span class="required">*</span></label>
+                    <input [id]="'surgeryProcedure' + i" type="text" formControlName="procedure" class="form-control"
+                      [class.is-invalid]="surgery.get('procedure')?.invalid && surgery.get('procedure')?.touched"
+                      placeholder="Enter procedure name">
+                    <div class="error-message"
+                      *ngIf="surgery.get('procedure')?.invalid && surgery.get('procedure')?.touched">
+                      Procedure name is required
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label [for]="'surgeryDate' + i">Date <span class="required">*</span></label>
+                    <input [id]="'surgeryDate' + i" type="date" formControlName="date" class="form-control"
+                      [class.is-invalid]="surgery.get('date')?.invalid && surgery.get('date')?.touched">
+                    <div class="error-message" *ngIf="surgery.get('date')?.invalid && surgery.get('date')?.touched">
+                      Date is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label [for]="'surgeryNotes' + i">Notes</label>
+                  <textarea [id]="'surgeryNotes' + i" formControlName="notes" class="form-control" rows="2"
+                    placeholder="Any additional information about the procedure"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="add-item-btn" (click)="addPreviousSurgery()">
+            <i class="fa-solid fa-plus"></i> Add Surgery
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Pregnancy Information -->
+    <div class="form-step" *ngIf="currentStep === 3" formGroupName="pregnancyInfo">
+      <h2 class="step-title">Pregnancy Details</h2>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="weeks">Current Week <span class="required">*</span></label>
+          <input type="number" id="weeks" formControlName="weeks" class="form-control"
+            [class.is-invalid]="isInvalid(pregnancyInfo, 'weeks')" placeholder="Enter current pregnancy week">
+          <div class="error-message" *ngIf="isInvalid(pregnancyInfo, 'weeks')">
+            <span *ngIf="pregnancyInfo.get('weeks')?.errors?.['required']">Pregnancy week is required</span>
+            <span *ngIf="pregnancyInfo.get('weeks')?.errors?.['min']">Week must be at least 1</span>
+            <span *ngIf="pregnancyInfo.get('weeks')?.errors?.['max']">Week cannot exceed 42</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="trimester">Trimester <span class="required">*</span></label>
+          <select id="trimester" formControlName="trimester" class="form-control"
+            [class.is-invalid]="isInvalid(pregnancyInfo, 'trimester')">
+            <option value="">Select Trimester</option>
+            <option *ngFor="let trimester of trimesters" [value]="trimester">{{ trimester }}</option>
+          </select>
+          <div class="error-message" *ngIf="isInvalid(pregnancyInfo, 'trimester')">
+            Trimester is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="edd">Expected Delivery Date <span class="required">*</span></label>
+          <input type="date" id="edd" formControlName="edd" class="form-control"
+            [class.is-invalid]="isInvalid(pregnancyInfo, 'edd')">
+          <div class="error-message" *ngIf="isInvalid(pregnancyInfo, 'edd')">
+            Expected delivery date is required
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="gravida">Gravida <span class="required">*</span></label>
+          <div class="input-with-info">
+            <input type="number" id="gravida" formControlName="gravida" class="form-control"
+              [class.is-invalid]="isInvalid(pregnancyInfo, 'gravida')" placeholder="Enter gravida value">
+            <div class="input-info-tooltip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span class="tooltip-text">Total number of pregnancies, including the current one.</span>
+            </div>
+          </div>
+          <div class="error-message" *ngIf="isInvalid(pregnancyInfo, 'gravida')">
+            <span *ngIf="pregnancyInfo.get('gravida')?.errors?.['required']">Gravida is required</span>
+            <span *ngIf="pregnancyInfo.get('gravida')?.errors?.['min']">Must be at least 1</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="para">Para <span class="required">*</span></label>
+          <div class="input-with-info">
+            <input type="number" id="para" formControlName="para" class="form-control"
+              [class.is-invalid]="isInvalid(pregnancyInfo, 'para')" placeholder="Enter para value">
+            <div class="input-info-tooltip">
+              <i class="fa-solid fa-circle-info"></i>
+              <span class="tooltip-text">Number of pregnancies that reached viability.</span>
+            </div>
+          </div>
+          <div class="error-message" *ngIf="isInvalid(pregnancyInfo, 'para')">
+            <span *ngIf="pregnancyInfo.get('para')?.errors?.['required']">Para is required</span>
+            <span *ngIf="pregnancyInfo.get('para')?.errors?.['min']">Cannot be negative</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="subsection" *ngIf="pregnancyInfo.get('para')?.value > 0">
+        <h3 class="subsection-title">Previous Deliveries</h3>
+        <p class="subsection-help">Add details of previous pregnancies.</p>
+
+        <div class="form-array-container">
+          <div formArrayName="previousDeliveries">
+            <div *ngFor="let delivery of previousDeliveries.controls; let i = index" class="form-array-group">
+              <div [formGroupName]="i">
+                <div class="form-array-header">
+                  <h4 class="form-array-title">Delivery #{{ i + 1 }}</h4>
+                  <button type="button" class="remove-btn" (click)="removePreviousDelivery(i)">
+                    <i class="fa-solid fa-times"></i>
+                  </button>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'deliveryDate' + i">Date <span class="required">*</span></label>
+                    <input [id]="'deliveryDate' + i" type="date" formControlName="date" class="form-control"
+                      [class.is-invalid]="delivery.get('date')?.invalid && delivery.get('date')?.touched">
+                    <div class="error-message" *ngIf="delivery.get('date')?.invalid && delivery.get('date')?.touched">
+                      Date is required
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label [for]="'deliveryType' + i">Delivery Type <span class="required">*</span></label>
+                    <select [id]="'deliveryType' + i" formControlName="type" class="form-control"
+                      [class.is-invalid]="delivery.get('type')?.invalid && delivery.get('type')?.touched">
+                      <option value="">Select Type</option>
+                      <option value="Vaginal">Vaginal</option>
+                      <option value="C-Section">C-Section</option>
+                      <option value="Assisted">Assisted</option>
+                    </select>
+                    <div class="error-message" *ngIf="delivery.get('type')?.invalid && delivery.get('type')?.touched">
+                      Delivery type is required
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-row">
+                  <div class="form-group">
+                    <label [for]="'deliveryWeight' + i">Baby Weight <span class="required">*</span></label>
+                    <input [id]="'deliveryWeight' + i" type="text" formControlName="babyWeight" class="form-control"
+                      [class.is-invalid]="delivery.get('babyWeight')?.invalid && delivery.get('babyWeight')?.touched"
+                      placeholder="Enter weight (e.g., 3.2 kg)">
+                    <div class="error-message"
+                      *ngIf="delivery.get('babyWeight')?.invalid && delivery.get('babyWeight')?.touched">
+                      Baby weight is required
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label [for]="'deliveryComplications' + i">Complications</label>
+                    <input [id]="'deliveryComplications' + i" type="text" formControlName="complications"
+                      class="form-control" placeholder="Enter complications or 'None'">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="add-item-btn" (click)="addPreviousDelivery()">
+            <i class="fa-solid fa-plus"></i> Add Previous Delivery
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Assignment and Account -->
+    <div class="form-step" *ngIf="currentStep === 4">
+      <h2 class="step-title">Assignment & Account Setup</h2>
+
+      <div class="subsection" formGroupName="assignmentInfo">
+        <h3 class="subsection-title">Healthcare Provider Assignment</h3>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="assignedDoctor">Assigned Doctor <span class="required">*</span></label>
+            <select id="assignedDoctor" formControlName="assignedDoctor" class="form-control"
+              [class.is-invalid]="isInvalid(assignmentInfo, 'assignedDoctor')">
+              <option value="">Select Doctor</option>
+              <option value="DR001">Dr. Rafiq Ahmed</option>
+              <option value="DR002">Dr. Fatima Khan</option>
+              <option value="DR003">Dr. Arif Rahman</option>
+            </select>
+            <div class="error-message" *ngIf="isInvalid(assignmentInfo, 'assignedDoctor')">
+              Please select a doctor
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="assignedHealthWorker">Assigned Health Worker <span class="required">*</span></label>
+            <select id="assignedHealthWorker" formControlName="assignedHealthWorker" class="form-control"
+              [class.is-invalid]="isInvalid(assignmentInfo, 'assignedHealthWorker')">
+              <option value="">Select Health Worker</option>
+              <option value="HW001">Nasreen Ahmed</option>
+              <option value="HW002">Tahmina Islam</option>
+              <option value="HW003">Mahmuda Begum</option>
+              <option value="HW004">Farida Yesmin</option>
+            </select>
+            <div class="error-message" *ngIf="isInvalid(assignmentInfo, 'assignedHealthWorker')">
+              Please select a health worker
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="riskLevel">Risk Level <span class="required">*</span></label>
+            <select id="riskLevel" formControlName="riskLevel" class="form-control"
+              [class.is-invalid]="isInvalid(assignmentInfo, 'riskLevel')">
+              <option value="low">Low Risk</option>
+              <option value="medium">Medium Risk</option>
+              <option value="high">High Risk</option>
+              <option value="critical">Critical</option>
+            </select>
+            <div class="error-message" *ngIf="isInvalid(assignmentInfo, 'riskLevel')">
+              Please select a risk level
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="initialNotes">Initial Assessment Notes</label>
+          <textarea id="initialNotes" formControlName="initialNotes" class="form-control" rows="3"
+            placeholder="Enter any initial notes or observations"></textarea>
+        </div>
+      </div>
+
+      <div class="subsection" formGroupName="accountSetup">
+        <h3 class="subsection-title">Patient Account Setup</h3>
+        <p class="subsection-help">Optionally create an account for the patient to access the MoNeCa Patient App.</p>
+
+        <div class="account-setup-toggle">
+          <div class="toggle-option">
+            <input type="checkbox" id="createAccount" formControlName="createAccount">
+            <label for="createAccount" class="toggle-label">Create Patient Account</label>
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="accountSetup.get('createAccount')?.value">
+          <label for="email">Email Address <span class="required">*</span></label>
+          <input type="email" id="email" formControlName="email" class="form-control"
+            [class.is-invalid]="isInvalid(accountSetup, 'email')" placeholder="Enter patient's email address">
+          <div class="error-message" *ngIf="isInvalid(accountSetup, 'email')">
+            <span *ngIf="accountSetup.get('email')?.errors?.['required']">Email is required to create an
+              account</span>
+            <span *ngIf="accountSetup.get('email')?.errors?.['email']">Please enter a valid email address</span>
+          </div>
+          <p class="field-help">
+            A registration link will be generated and sent to this email, allowing the patient to set up their
+            password.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="button" class="secondary-btn" (click)="previousStep()" *ngIf="currentStep > 1">
+        <i class="fa-solid fa-arrow-left"></i> Previous
+      </button>
+
+      <button type="button" class="primary-btn" (click)="nextStep()" *ngIf="currentStep < totalSteps">
+        Next <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <button type="submit" class="submit-btn" *ngIf="currentStep === totalSteps">
+        <span *ngIf="!accountSetup.get('createAccount')?.value">
+          <i class="fa-solid fa-save"></i> Save Patient
+        </span>
+        <span *ngIf="accountSetup.get('createAccount')?.value">
+          <i class="fa-solid fa-user-plus"></i> Save & Create Account
+        </span>
+      </button>
+
+      <div class="loading-spinner" *ngIf="sendingLink">
+        <div class="spinner"></div>
+        <span>Generating registration link...</span>
+      </div>
+    </div>
+  </form>
+</div>

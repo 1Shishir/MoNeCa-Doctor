@@ -1,49 +1,129 @@
-<div class="dashboard-container">
-    <app-sidebar 
-      [collapsed]="sidebarCollapsed"
-      (toggle)="toggleSidebar()">
-    </app-sidebar>
-    
-    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header
-        title="Dashboard"
-        [notificationCount]="3"
-        doctorName="Dr. Farah Ahmed"
-        doctorInitial="F">
-      </app-header>
-      
-     
-      <app-alert
-        type="critical"
-        title="Critical Patient Alert"
-        message="Patient Nusrat Islam's heart rate is abnormally high (115 bpm). Immediate attention required."
-        buttonText="View">
-      </app-alert>
-      
-     
-      <div class="row g-4 mb-4">
-        <div class="col-md-6" *ngFor="let stat of stats">
-          <app-stat-card 
-            [title]="stat.title"
-            [value]="stat.value"
-            [icon]="stat.icon"
-            [change]="stat.change"
-            [colorClass]="stat.colorClass">
-          </app-stat-card>
-        </div>
-      </div>
-      
+<!-- <div class="dashboard-container">
+  <app-sidebar 
+    [collapsed]="sidebarCollapsed"
+    (toggle)="toggleSidebar()">
+  </app-sidebar>
   
-      <app-appointments-table
-        [appointments]="appointments">
-      </app-appointments-table>
-      
-     
-      <app-patient-summary
-        [patients]="patients">
-      </app-patient-summary>
-      
- 
-     
+  <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+    <app-header
+      title="Dashboard"
+      [notificationCount]="3"
+      [doctorName]="currentDoctor?.fullName || 'Doctor'"
+      [doctorInitial]="currentDoctor?.fullName ? currentDoctor.fullName.charAt(0) : 'D'">
+    </app-header>
+    
+   
+    <app-alert
+      type="critical"
+      title="Critical Patient Alert"
+      message="Patient Nusrat Islam's heart rate is abnormally high (115 bpm). Immediate attention required."
+      buttonText="View"
+      (buttonClick)="onAlertButtonClick()">
+    </app-alert>
+    
+   
+    <div class="row g-4 mb-4">
+      <div class="col-md-6" *ngFor="let stat of stats">
+        <app-stat-card 
+          [title]="stat.title"
+          [value]="stat.value"
+          [icon]="stat.icon"
+          [change]="stat.change"
+          [colorClass]="stat.colorClass">
+        </app-stat-card>
+      </div>
+    </div>
+    
+    <app-appointments-table
+      [appointments]="appointments"
+      (addAppointment)="onAddAppointment()"
+      (startAppointment)="onStartAppointment($event)"
+      (rescheduleAppointment)="onRescheduleAppointment($event)">
+    </app-appointments-table>
+    
+    <app-patient-summary
+      [patients]="patients"
+      (viewAll)="onViewAllPatients()"
+      (viewPatient)="onViewPatient($event)"
+      (contactPatient)="onContactPatient($event)"
+      (viewData)="onViewData($event)">
+    </app-patient-summary>
+  </div>
+</div> -->
+
+
+
+
+<div class="dashboard-container">
+  <app-sidebar 
+    [collapsed]="sidebarCollapsed"
+    (toggle)="toggleSidebar()">
+  </app-sidebar>
+  
+  <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+    <app-header
+      title="Dashboard"
+      [notificationCount]="appointments?.length || 0"
+      [doctorName]="currentDoctor?.fullName || 'Doctor'"
+      [doctorInitial]="currentDoctor?.fullName ? currentDoctor.fullName.charAt(0) : 'D'">
+    </app-header>
+    
+     Loading indicators 
+    <div *ngIf="isLoading.stats || isLoading.appointments || isLoading.patients" class="alert alert-info">
+      <i class="fa-solid fa-circle-notch fa-spin me-2"></i>
+      Loading dashboard data...
+    </div>
+    
+   
+    <app-alert
+      *ngIf="criticalAlert && !isLoading.alert"
+      type="critical"
+      title="Critical Patient Alert"
+      [message]="'Patient ' + criticalAlert.patientName + '\'s ' + criticalAlert.issue + ' is abnormally high (' + criticalAlert.value + '). Immediate attention required.'"
+      buttonText="View"
+      (buttonClick)="onAlertButtonClick()">
+    </app-alert>
+    
+   
+    <div class="row g-4 mb-4">
+      <div class="col-md-6 col-lg-3" *ngFor="let stat of stats">
+        <app-stat-card 
+          [title]="stat.title"
+          [value]="stat.value"
+          [icon]="stat.icon"
+          [change]="stat.change"
+          [colorClass]="stat.colorClass">
+        </app-stat-card>
+      </div>
+    </div>
+    
+   
+    <app-appointments-table
+      [appointments]="appointments"
+      (addAppointment)="onAddAppointment()"
+      (startAppointment)="onStartAppointment($event)"
+      (rescheduleAppointment)="onRescheduleAppointment($event)">
+    </app-appointments-table>
+    
+
+    <div *ngIf="appointments.length === 0 && !isLoading.appointments" class="alert alert-info mb-4">
+      <i class="fa-solid fa-calendar-check me-2"></i>
+      No appointments scheduled for today.
+    </div>
+    
+   
+    <app-patient-summary
+      [patients]="patients"
+      (viewAll)="onViewAllPatients()"
+      (viewPatient)="onViewPatient($event)"
+      (contactPatient)="onContactPatient($event)"
+      (viewData)="onViewData($event)">
+    </app-patient-summary>
+    
+    
+    <div *ngIf="patients.length === 0 && !isLoading.patients" class="alert alert-success">
+      <i class="fa-solid fa-check-circle me-2"></i>
+      No critical patients at the moment.
     </div>
   </div>
+</div> 

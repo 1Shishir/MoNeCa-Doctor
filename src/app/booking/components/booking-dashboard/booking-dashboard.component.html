@@ -1,0 +1,176 @@
+<div class="booking-dashboard-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="Booking" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <h1 class="page-title">Appointment Management</h1>
+        <div class="action-buttons">
+          <a routerLink="/bookings/add" class="btn-primary">
+            <i class="fa-solid fa-plus"></i> Add Appointment
+          </a>
+          <a routerLink="/bookings/schedule" class="btn-secondary">
+            <i class="fa-solid fa-calendar-days"></i> Configure Schedule
+          </a>
+        </div>
+      </div>
+      
+      <div class="dashboard-cards">
+        <div class="card quick-stats">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fa-solid fa-calendar-check"></i> Today's Appointments
+            </h2>
+            <div class="date-selector">
+              <input 
+                type="date" 
+                [value]="selectedDate" 
+                (change)="changeDate($event)"
+                class="date-input">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="stats-grid">
+              <div class="stat-item">
+                <div class="stat-value">{{ bookingStats.today.total }}</div>
+                <div class="stat-label">Total</div>
+              </div>
+              <div class="stat-item completed">
+                <div class="stat-value">{{ bookingStats.today.completed }}</div>
+                <div class="stat-label">Completed</div>
+              </div>
+              <div class="stat-item scheduled">
+                <div class="stat-value">{{ getStatusCount('scheduled') + getStatusCount('confirmed') }}</div>
+                <div class="stat-label">Scheduled</div>
+              </div>
+              <div class="stat-item cancelled">
+                <div class="stat-value">{{ bookingStats.today.cancelled }}</div>
+                <div class="stat-label">Cancelled</div>
+              </div>
+              <div class="stat-item absent">
+                <div class="stat-value">{{ bookingStats.today.absent }}</div>
+                <div class="stat-label">Absent</div>
+              </div>
+            </div>
+            
+            <div class="next-slot">
+              <div class="next-slot-label">Next Available Slot:</div>
+              <div class="next-slot-time">{{ getFormattedTime(nextAvailableSlot) }}</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card weekly-overview">
+          <div class="card-header">
+            <h2 class="card-title">
+              <i class="fa-solid fa-chart-simple"></i> Weekly Overview
+            </h2>
+          </div>
+          <div class="card-body">
+            <div class="weekly-chart">
+              <!-- In a real app, this would be a chart component -->
+              <div class="chart-placeholder">
+                <div class="chart-mock">
+                  <div class="chart-bars">
+                    <div *ngFor="let day of bookingStats.weekly.byDay" class="chart-bar-container">
+                      <div class="chart-bar" [style.height.%]="(day.count / 5) * 100"></div>
+                      <div class="chart-label">{{ day.day.substring(0, 3) }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-total">
+                <span class="total-label">Total Appointments:</span>
+                <span class="total-value">{{ bookingStats.weekly.total }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="todays-appointments">
+        <div class="section-header">
+          <h2 class="section-title">Today's Appointment List</h2>
+          <div class="section-actions">
+            <button class="btn-text">
+              <i class="fa-solid fa-print"></i> Print List
+            </button>
+            <a routerLink="/bookings" class="btn-text">
+              View All Appointments <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="appointments-container">
+          <table class="appointments-table">
+            <thead>
+              <tr>
+                <th>Serial</th>
+                <th>Patient</th>
+                <th>Time</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let booking of todaysBookings" [ngClass]="getStatusClass(booking.status)">
+                <td class="serial-cell">{{ booking.serialNumber }}</td>
+                <td class="patient-cell">
+                  <div class="patient-info">
+                    <div class="patient-avatar">
+                      <img [src]="booking.patientProfile || 'assets/images/default-avatar.png'" alt="{{ booking.patientName }}">
+                    </div>
+                    <div class="patient-details">
+                      <div class="patient-name">{{ booking.patientName }}</div>
+                      <div class="patient-meta">
+                        {{ booking.pregnancyWeek }} weeks • {{ booking.patientPhone }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ getFormattedTime(booking.time) }}</td>
+                <td>
+                  <span class="appointment-type">{{ booking.type.replace('-', ' ') | titlecase }}</span>
+                </td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+                    {{ booking.status | titlecase }}
+                  </span>
+                </td>
+                <td class="actions-cell">
+                  <div class="action-buttons">
+                    <a [routerLink]="['/bookings', booking.id]" class="btn-icon" title="View Details">
+                      <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <button 
+                      class="btn-icon" 
+                      [disabled]="booking.status === 'completed'" 
+                      (click)="updateBookingStatus(booking.id, 'completed')"
+                      title="Mark as Completed">
+                      <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button 
+                      class="btn-icon" 
+                      [disabled]="booking.status === 'cancelled'" 
+                      (click)="updateBookingStatus(booking.id, 'cancelled')"
+                      title="Cancel Appointment">
+                      <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button 
+                      class="btn-icon" 
+                      [disabled]="booking.status === 'absent'" 
+                      (click)="updateBookingStatus(booking.id, 'absent')"
+                      title="Mark as Absent">
+                      <i class="fa-solid fa-user-xmark"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

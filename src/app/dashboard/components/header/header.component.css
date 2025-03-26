@@ -128,6 +128,32 @@
   color: #00BCD4;
 }
 
+.page-title-container {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.back-button {
+  color: #333;
+  font-size: 24px;
+  margin-right: 15px;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.back-button:hover {
+  color: #00BCD4;
+}
+
 @media (max-width: 767px) {
   .header-content {
     flex-direction: column;
@@ -145,3 +171,4 @@
     display: none;
   }
 }
+

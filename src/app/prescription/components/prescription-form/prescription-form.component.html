@@ -1,0 +1,385 @@
+<div class="prescription-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <h1 class="page-title">{{ isEditing ? 'Edit Prescription' : 'New Prescription' }}</h1>
+        <div class="action-buttons">
+          <button class="btn-cancel" (click)="cancelEdit()">
+            <i class="fa-solid fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="errorMessage" class="alert alert-error">
+        <span class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="alert-message">{{ errorMessage }}</span>
+      </div>
+      
+      <div *ngIf="successMessage" class="alert alert-success">
+        <span class="alert-icon"><i class="fa-solid fa-check-circle"></i></span>
+        <span class="alert-message">{{ successMessage }}</span>
+      </div>
+      
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading prescription data...</p>
+      </div>
+      
+      <div *ngIf="!isLoading" class="prescription-form-wrapper">
+        <!-- Patient Information Panel -->
+        <div class="patient-info-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Patient Information</h2>
+          </div>
+          <div class="panel-body">
+            <div *ngIf="patientInfo" class="patient-info-grid">
+              <div class="info-item">
+                <span class="info-label">Patient ID</span>
+                <span class="info-value">{{ patientInfo.id }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Name</span>
+                <span class="info-value">{{ patientInfo.fullName }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Age</span>
+                <span class="info-value">{{ patientInfo.age }} years</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Phone</span>
+                <span class="info-value">{{ patientInfo.phoneNumber }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Blood Type</span>
+                <span class="info-value">{{ patientInfo.bloodType }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">BMI</span>
+                <span class="info-value">{{ patientInfo.bmi }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Pregnancy Week</span>
+                <span class="info-value">{{ patientInfo.pregnancyInfo?.weeks || 'N/A' }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">EDD</span>
+                <span class="info-value">{{ patientInfo.pregnancyInfo?.edd | date:'mediumDate' }}</span>
+              </div>
+            </div>
+            <div *ngIf="!patientInfo" class="no-data-message">
+              Patient information not available.
+            </div>
+          </div>
+        </div>
+        
+        <!-- Prescription Form -->
+        <form [formGroup]="prescriptionForm" (ngSubmit)="savePrescription()" class="prescription-form">
+          <div class="form-section">
+            <div class="section-header">
+              <h2 class="section-title">Prescription Details</h2>
+              <div class="date-container">
+                <label for="date">Date:</label>
+                <input type="date" id="date" formControlName="date" class="date-input">
+              </div>
+            </div>
+            
+            <!-- Vital Signs -->
+            <div class="subsection" formGroupName="vitalSigns">
+              <h3 class="subsection-title">Vital Signs</h3>
+              <div class="vital-signs-grid">
+                <div class="form-group">
+                  <label for="bloodPressure">Blood Pressure</label>
+                  <input type="text" id="bloodPressure" formControlName="bloodPressure" class="form-control" placeholder="e.g., 120/80">
+                </div>
+                <div class="form-group">
+                  <label for="heartRate">Heart Rate (bpm)</label>
+                  <input type="number" id="heartRate" formControlName="heartRate" class="form-control" placeholder="e.g., 72">
+                </div>
+                <div class="form-group">
+                  <label for="temperature">Temperature (°C)</label>
+                  <input type="number" id="temperature" formControlName="temperature" class="form-control" placeholder="e.g., 37.0" step="0.1">
+                </div>
+                <div class="form-group">
+                  <label for="oxygenLevel">Oxygen Level (%)</label>
+                  <input type="number" id="oxygenLevel" formControlName="oxygenLevel" class="form-control" placeholder="e.g., 98">
+                </div>
+                <div class="form-group">
+                  <label for="weight">Weight (kg)</label>
+                  <input type="number" id="weight" formControlName="weight" class="form-control" placeholder="e.g., 65" step="0.1">
+                </div>
+                <div class="form-group">
+                  <label for="fetalHeartRate">Fetal Heart Rate (bpm)</label>
+                  <input type="number" id="fetalHeartRate" formControlName="fetalHeartRate" class="form-control" placeholder="e.g., 140">
+                </div>
+                <div class="form-group">
+                  <label for="fundalHeight">Fundal Height (cm)</label>
+                  <input type="number" id="fundalHeight" formControlName="fundalHeight" class="form-control" placeholder="e.g., 22">
+                </div>
+                <div class="form-group">
+                  <label for="gestationalAge">Gestational Age (weeks)</label>
+                  <input type="number" id="gestationalAge" formControlName="gestationalAge" class="form-control" placeholder="e.g., 24">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Chief Complaints -->
+            <div class="subsection">
+              <h3 class="subsection-title">Chief Complaints</h3>
+              <div class="form-group">
+                <textarea formControlName="chiefComplaints" class="form-control text-area" rows="3" placeholder="Enter patient's complaints"
+                  [class.is-invalid]="prescriptionForm.get('chiefComplaints')?.touched && prescriptionForm.get('chiefComplaints')?.invalid"></textarea>
+                <div class="error-message" *ngIf="prescriptionForm.get('chiefComplaints')?.touched && prescriptionForm.get('chiefComplaints')?.errors?.['required']">
+                  Chief complaints are required
+                </div>
+              </div>
+              <div class="quick-options">
+                <span class="quick-options-label">Quick Add:</span>
+                <div class="options-container">
+                  <button type="button" *ngFor="let complaint of quickOptions.complaints" class="quick-option-btn" (click)="addQuickComplaint(complaint)">
+                    {{ complaint }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Clinical Findings -->
+            <div class="subsection">
+              <h3 class="subsection-title">Clinical Findings</h3>
+              <div class="form-group">
+                <textarea formControlName="clinicalFindings" class="form-control text-area" rows="3" placeholder="Enter clinical examination findings"></textarea>
+              </div>
+            </div>
+            
+            <!-- Diagnosis -->
+            <div class="subsection">
+              <h3 class="subsection-title">Diagnosis</h3>
+              <div formArrayName="diagnosis" class="form-array-container">
+                <div *ngFor="let diagnosis of diagnosisArray.controls; let i = index" class="form-array-item">
+                  <input [formControlName]="i" type="text" class="form-control" placeholder="Enter diagnosis"
+                    [class.is-invalid]="diagnosis.touched && diagnosis.invalid">
+                  <button type="button" class="remove-btn" (click)="removeDiagnosis(i)" [disabled]="diagnosisArray.length === 1">
+                    <i class="fa-solid fa-times"></i>
+                  </button>
+                  <div class="error-message" *ngIf="diagnosis.touched && diagnosis.errors?.['required']">
+                    Diagnosis is required
+                  </div>
+                </div>
+                <button type="button" class="add-item-btn" (click)="addDiagnosis()">
+                  <i class="fa-solid fa-plus"></i> Add Diagnosis
+                </button>
+              </div>
+              <div class="quick-options">
+                <span class="quick-options-label">Quick Add:</span>
+                <div class="options-container">
+                  <button type="button" *ngFor="let diagnosis of quickOptions.diagnoses" class="quick-option-btn" (click)="addQuickDiagnosis(diagnosis)">
+                    {{ diagnosis }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Medications -->
+            <div class="subsection">
+              <h3 class="subsection-title">Medications</h3>
+              <div class="medications-legend">
+                <div class="legend-item">
+                  <span class="legend-box morning"></span>
+                  <span class="legend-text">Morning</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-box noon"></span>
+                  <span class="legend-text">Noon</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-box evening"></span>
+                  <span class="legend-text">Evening</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-box night"></span>
+                  <span class="legend-text">Night</span>
+                </div>
+              </div>
+              <div formArrayName="medications" class="medications-container">
+                <div *ngFor="let medication of medicationsArray.controls; let i = index" class="medication-item" [formGroupName]="i">
+                  <div class="medication-header">
+                    <h4 class="medication-title">Medication #{{ i + 1 }}</h4>
+                    <button type="button" class="remove-btn" (click)="removeMedication(i)" [disabled]="medicationsArray.length === 1">
+                      <i class="fa-solid fa-times"></i>
+                    </button>
+                  </div>
+                  <div class="medication-row">
+                    <div class="form-group medication-name">
+                      <label [for]="'medName' + i">Medicine Name <span class="required">*</span></label>
+                      <input [id]="'medName' + i" type="text" formControlName="name" class="form-control"
+                        [class.is-invalid]="medicationsArray.at(i).get('name')?.touched && medicationsArray.at(i).get('name')?.invalid"
+                        placeholder="Enter medicine name">
+                      <div class="error-message" *ngIf="medicationsArray.at(i).get('name')?.touched && medicationsArray.at(i).get('name')?.errors?.['required']">
+                        Medicine name is required
+                      </div>
+                    </div>
+                    <div class="form-group medication-dosage">
+                      <label [for]="'medDosage' + i">Dosage <span class="required">*</span></label>
+                      <input [id]="'medDosage' + i" type="text" formControlName="dosage" class="form-control"
+                        [class.is-invalid]="medicationsArray.at(i).get('dosage')?.touched && medicationsArray.at(i).get('dosage')?.invalid"
+                        placeholder="e.g., 500mg">
+                      <div class="error-message" *ngIf="medicationsArray.at(i).get('dosage')?.touched && medicationsArray.at(i).get('dosage')?.errors?.['required']">
+                        Dosage is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="medication-row">
+                    <div class="form-group medication-frequency">
+                      <label [for]="'medFrequency' + i">Frequency <span class="required">*</span></label>
+                      <div class="frequency-selector">
+                        <div class="frequency-item">
+                          <input type="text" [id]="'med' + i + 'morning'" class="frequency-input" placeholder="1"
+                            [(ngModel)]="medicationsArray.at(i).get('frequency')!.value.split('+')[0]"
+                            [ngModelOptions]="{standalone: true}"
+                            (blur)="updateFrequency(i)">
+                          <label [for]="'med' + i + 'morning'" class="frequency-label morning">Morning</label>
+                        </div>
+                        <div class="frequency-item">
+                          <input type="text" [id]="'med' + i + 'noon'" class="frequency-input" placeholder="0"
+                            [(ngModel)]="medicationsArray.at(i).get('frequency')!.value.split('+')[1]"
+                            [ngModelOptions]="{standalone: true}"
+                            (blur)="updateFrequency(i)">
+                          <label [for]="'med' + i + 'noon'" class="frequency-label noon">Noon</label>
+                        </div>
+                        <div class="frequency-item">
+                          <input type="text" [id]="'med' + i + 'evening'" class="frequency-input" placeholder="0"
+                            [(ngModel)]="medicationsArray.at(i).get('frequency')!.value.split('+')[2]"
+                            [ngModelOptions]="{standalone: true}"
+                            (blur)="updateFrequency(i)">
+                          <label [for]="'med' + i + 'evening'" class="frequency-label evening">Evening</label>
+                        </div>
+                        <div class="frequency-item">
+                          <input type="text" [id]="'med' + i + 'night'" class="frequency-input" placeholder="0"
+                            [(ngModel)]="medicationsArray.at(i).get('frequency')!.value.split('+')[3]"
+                            [ngModelOptions]="{standalone: true}"
+                            (blur)="updateFrequency(i)">
+                          <label [for]="'med' + i + 'night'" class="frequency-label night">Night</label>
+                        </div>
+                      </div>
+                      <input type="hidden" formControlName="frequency">
+                    </div>
+                    <div class="form-group medication-duration">
+                      <label [for]="'medDuration' + i">Duration <span class="required">*</span></label>
+                      <input [id]="'medDuration' + i" type="text" formControlName="duration" class="form-control"
+                        [class.is-invalid]="medicationsArray.at(i).get('duration')?.touched && medicationsArray.at(i).get('duration')?.invalid"
+                        placeholder="e.g., 7 days, 2 weeks">
+                      <div class="error-message" *ngIf="medicationsArray.at(i).get('duration')?.touched && medicationsArray.at(i).get('duration')?.errors?.['required']">
+                        Duration is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="medication-row">
+                    <div class="form-group medication-instructions">
+                      <label [for]="'medInstructions' + i">Instructions</label>
+                      <input [id]="'medInstructions' + i" type="text" formControlName="instructions" class="form-control"
+                        placeholder="e.g., Take after meals, Avoid alcohol">
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="add-item-btn" (click)="addMedication()">
+                  <i class="fa-solid fa-plus"></i> Add Medication
+                </button>
+              </div>
+              <div class="quick-options">
+                <span class="quick-options-label">Quick Add Medications:</span>
+                <div class="common-medications">
+                  <div *ngFor="let med of commonMedications" class="common-med-item">
+                    <button type="button" class="common-med-btn" (click)="addCommonMedication(med)">
+                      <i class="fa-solid fa-pills"></i> {{ med.name }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Tests -->
+            <div class="subsection">
+              <h3 class="subsection-title">Tests</h3>
+              <div formArrayName="tests" class="tests-container">
+                <div *ngFor="let test of testsArray.controls; let i = index" class="test-item" [formGroupName]="i">
+                  <div class="test-header">
+                    <h4 class="test-title">Test #{{ i + 1 }}</h4>
+                    <button type="button" class="remove-btn" (click)="removeTest(i)" [disabled]="testsArray.length === 1">
+                      <i class="fa-solid fa-times"></i>
+                    </button>
+                  </div>
+                  <div class="test-row">
+                    <div class="form-group test-name">
+                      <label [for]="'testName' + i">Test Name <span class="required">*</span></label>
+                      <input [id]="'testName' + i" type="text" formControlName="name" class="form-control"
+                        [class.is-invalid]="testsArray.at(i).get('name')?.touched && testsArray.at(i).get('name')?.invalid"
+                        placeholder="Enter test name">
+                      <div class="error-message" *ngIf="testsArray.at(i).get('name')?.touched && testsArray.at(i).get('name')?.errors?.['required']">
+                        Test name is required
+                      </div>
+                    </div>
+                  </div>
+                  <div class="test-row">
+                    <div class="form-group test-description">
+                      <label [for]="'testDescription' + i">Description/Instructions</label>
+                      <textarea [id]="'testDescription' + i" formControlName="description" class="form-control text-area" rows="2"
+                        placeholder="Enter any additional instructions or details"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="add-item-btn" (click)="addTest()">
+                  <i class="fa-solid fa-plus"></i> Add Test
+                </button>
+              </div>
+              <div class="quick-options">
+                <span class="quick-options-label">Quick Add Tests:</span>
+                <div class="common-tests">
+                  <div *ngFor="let test of commonTests" class="common-test-item">
+                    <button type="button" class="common-test-btn" (click)="addCommonTest(test)">
+                      <i class="fa-solid fa-vial"></i> {{ test.name }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Advice & Next Visit -->
+            <div class="subsection">
+              <h3 class="subsection-title">Advice & Next Visit</h3>
+              <div class="form-group">
+                <label for="advice">General Advice</label>
+                <textarea id="advice" formControlName="advice" class="form-control text-area" rows="3" placeholder="Enter general advice for the patient"></textarea>
+              </div>
+              <div class="quick-options">
+                <span class="quick-options-label">Quick Add:</span>
+                <div class="options-container">
+                  <button type="button" *ngFor="let advice of quickOptions.advice" class="quick-option-btn" (click)="addQuickAdvice(advice)">
+                    {{ advice }}
+                  </button>
+                </div>
+              </div>
+              <div class="form-group next-visit">
+                <label for="nextVisit">Next Visit Date</label>
+                <input type="date" id="nextVisit" formControlName="nextVisit" class="form-control">
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="button" class="secondary-btn" (click)="cancelEdit()">
+              <i class="fa-solid fa-times"></i> Cancel
+            </button>
+            <button type="button" class="print-btn" (click)="printPrescription()">
+              <i class="fa-solid fa-print"></i> Print
+            </button>
+            <button type="submit" class="primary-btn" [disabled]="isSaving">
+              <span *ngIf="!isSaving"><i class="fa-solid fa-save"></i> Save</span>
+              <span *ngIf="isSaving" class="spinner-inline"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

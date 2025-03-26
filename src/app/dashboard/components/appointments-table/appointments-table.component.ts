@@ -14,6 +14,7 @@ export class AppointmentsTableComponent {
   @Output() addAppointment = new EventEmitter<void>();
   @Output() startAppointment = new EventEmitter<any>();
   @Output() rescheduleAppointment = new EventEmitter<any>();
+  @Output() viewAll = new EventEmitter<void>();
   
   onAddAppointment(): void {
     this.addAppointment.emit();
@@ -25,5 +26,9 @@ export class AppointmentsTableComponent {
   
   onRescheduleAppointment(appointment: any): void {
     this.rescheduleAppointment.emit(appointment);
+  }
+  
+  onViewAll(): void {
+    this.viewAll.emit();
   }
 }

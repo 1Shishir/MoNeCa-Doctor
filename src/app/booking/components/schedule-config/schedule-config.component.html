@@ -1,0 +1,127 @@
+<div class="schedule-config-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="Schedule" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <div class="back-link">
+          <a routerLink="/bookings">
+            <i class="fa-solid fa-arrow-left"></i> Back to Appointments
+          </a>
+        </div>
+        <h1 class="page-title">Configure Appointment Schedule</h1>
+      </div>
+      
+      <!-- Success Message -->
+      <div class="success-message" *ngIf="showSuccessMessage">
+        <div class="success-icon">
+          <i class="fa-solid fa-check-circle"></i>
+        </div>
+        <div class="success-content">
+          <h3>Schedule Updated Successfully!</h3>
+          <p>Your appointment schedule has been updated and will be used for booking appointments.</p>
+        </div>
+      </div>
+      
+      <div class="schedule-description">
+        <p>Configure your weekly schedule by setting working days and available time slots. 
+          Patients will only be able to book appointments during these configured time slots.</p>
+      </div>
+      
+      <form [formGroup]="scheduleForm" (ngSubmit)="onSubmit()">
+        <div formArrayName="days">
+          <div *ngFor="let dayGroup of daysArray.controls; let dayIndex = index" class="day-schedule" [formGroupName]="dayIndex">
+            <div class="day-header">
+              <div class="day-title">
+                <h2>{{ dayGroup.get('dayLabel')?.value }}</h2>
+                <input type="hidden" formControlName="id">
+                <input type="hidden" formControlName="day">
+                <input type="hidden" formControlName="dayLabel">
+              </div>
+              
+              <div class="working-day-toggle">
+                <label class="toggle-switch">
+                  <input type="checkbox" formControlName="isWorkingDay">
+                  <span class="toggle-slider"></span>
+                </label>
+                <span class="toggle-label">{{ dayGroup.get('isWorkingDay')?.value ? 'Working Day' : 'Day Off' }}</span>
+              </div>
+            </div>
+            
+            <div class="time-slots-container" *ngIf="dayGroup.get('isWorkingDay')?.value" formArrayName="timeSlots">
+              <div *ngFor="let slot of getTimeSlotsArray(dayIndex).controls; let slotIndex = index" class="time-slot" [formGroupName]="slotIndex">
+                <div class="slot-header">
+                  <h3 class="slot-title">Time Slot #{{ slotIndex + 1 }}</h3>
+                  <button 
+                    type="button" 
+                    class="remove-slot-btn" 
+                    (click)="removeTimeSlot(dayIndex, slotIndex)"
+                    [disabled]="getTimeSlotsArray(dayIndex).length <= 1"
+                    *ngIf="getTimeSlotsArray(dayIndex).length > 1">
+                    <i class="fa-solid fa-times"></i>
+                  </button>
+                </div>
+                
+                <input type="hidden" formControlName="id">
+                
+                <div class="slot-details">
+                  <div class="slot-field">
+                    <label>Start Time</label>
+                    <input type="time" formControlName="startTime" class="form-control">
+                  </div>
+                  
+                  <div class="slot-field">
+                    <label>End Time</label>
+                    <input type="time" formControlName="endTime" class="form-control">
+                  </div>
+                  
+                  <div class="slot-field">
+                    <label>Max Patients</label>
+                    <input type="number" formControlName="maxPatients" class="form-control" min="1" max="50">
+                  </div>
+                  
+                  <div class="slot-field availability-toggle">
+                    <label>Available</label>
+                    <label class="toggle-switch small">
+                      <input type="checkbox" formControlName="isAvailable">
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="slot-summary">
+                  <div class="summary-text">
+                    <i class="fa-solid fa-clock"></i>
+                    {{ formatTime(slot.get('startTime')?.value) }} - {{ formatTime(slot.get('endTime')?.value) }} 
+                    • Max {{ slot.get('maxPatients')?.value }} patients 
+                    • {{ slot.get('isAvailable')?.value ? 'Available for booking' : 'Not available for booking' }}
+                  </div>
+                </div>
+              </div>
+              
+              <button type="button" class="add-slot-btn" (click)="addTimeSlot(dayIndex)">
+                <i class="fa-solid fa-plus"></i> Add Another Time Slot
+              </button>
+            </div>
+            
+            <div class="day-off-message" *ngIf="!dayGroup.get('isWorkingDay')?.value">
+              <i class="fa-solid fa-calendar-xmark"></i>
+              No appointments will be scheduled on this day.
+              <button type="button" class="make-working-btn" (click)="toggleWorkingDay(dayIndex)">
+                Make this a working day
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="cancel-btn" routerLink="/bookings">Cancel</button>
+          <button type="submit" class="save-btn" [disabled]="scheduleForm.invalid || isSaving">
+            <span *ngIf="!isSaving">Save Schedule</span>
+            <div *ngIf="isSaving" class="spinner"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>

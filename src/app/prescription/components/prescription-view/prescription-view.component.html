@@ -1,0 +1,248 @@
+<div class="prescription-view-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="Prescriptions" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <div class="title-container">
+          <a routerLink="/prescriptions" class="back-link">
+            <i class="fa-solid fa-arrow-left"></i> Back to Prescriptions
+          </a>
+          <h1 class="page-title">Prescription Details</h1>
+        </div>
+        <div class="action-buttons">
+          <button class="btn-action edit" (click)="editPrescription()">
+            <i class="fa-solid fa-pen"></i> Edit
+          </button>
+          <button class="btn-action print" (click)="printPrescription()">
+            <i class="fa-solid fa-print"></i> Print
+          </button>
+          <button class="btn-action delete" (click)="deletePrescription()">
+            <i class="fa-solid fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="errorMessage" class="alert alert-error">
+        <span class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="alert-message">{{ errorMessage }}</span>
+      </div>
+      
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading prescription data...</p>
+      </div>
+      
+      <div *ngIf="!isLoading && prescription" class="prescription-details-wrapper">
+        <!-- Patient Information Panel -->
+        <div class="patient-info-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Patient Information</h2>
+          </div>
+          <div class="panel-body">
+            <div *ngIf="patientInfo" class="patient-info-grid">
+              <div class="info-item">
+                <span class="info-label">Patient ID</span>
+                <span class="info-value">{{ patientInfo.id }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Name</span>
+                <span class="info-value">{{ patientInfo.fullName }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Age</span>
+                <span class="info-value">{{ patientInfo.age }} years</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Phone</span>
+                <span class="info-value">{{ patientInfo.phoneNumber }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Blood Type</span>
+                <span class="info-value">{{ patientInfo.bloodType }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">BMI</span>
+                <span class="info-value">{{ patientInfo.bmi }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Pregnancy Week</span>
+                <span class="info-value">{{ patientInfo.pregnancyInfo?.weeks || 'N/A' }}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">EDD</span>
+                <span class="info-value">{{ patientInfo.pregnancyInfo?.edd | date:'mediumDate' }}</span>
+              </div>
+            </div>
+            <div *ngIf="!patientInfo" class="no-data-message">
+              Patient information not available.
+            </div>
+          </div>
+          
+          <!-- Previous Prescriptions -->
+          <div class="panel-section">
+            <h3 class="section-title">Previous Prescriptions</h3>
+            <app-prescription-history 
+              [patientId]="prescription.patientId"
+              [currentPrescriptionId]="prescription.id">
+            </app-prescription-history>
+          </div>
+        </div>
+        
+        <!-- Prescription Details -->
+        <div class="prescription-details">
+          <div class="prescription-date">
+            <span class="date-label">Prescription Date:</span>
+            <span class="date-value">{{ getFormattedDate(prescription.date) }}</span>
+          </div>
+          
+          <div class="details-section">
+            <h3 class="section-title">Vital Signs</h3>
+            <div class="vital-signs-grid">
+              <div class="vital-item" *ngIf="prescription.vitalSigns.bloodPressure">
+                <span class="vital-label">Blood Pressure</span>
+                <span class="vital-value">{{ prescription.vitalSigns.bloodPressure }}</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.heartRate">
+                <span class="vital-label">Heart Rate</span>
+                <span class="vital-value">{{ prescription.vitalSigns.heartRate }} bpm</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.temperature">
+                <span class="vital-label">Temperature</span>
+                <span class="vital-value">{{ prescription.vitalSigns.temperature }}°C</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.oxygenLevel">
+                <span class="vital-label">Oxygen Level</span>
+                <span class="vital-value">{{ prescription.vitalSigns.oxygenLevel }}%</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.weight">
+                <span class="vital-label">Weight</span>
+                <span class="vital-value">{{ prescription.vitalSigns.weight }} kg</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.fetalHeartRate">
+                <span class="vital-label">Fetal Heart Rate</span>
+                <span class="vital-value">{{ prescription.vitalSigns.fetalHeartRate }} bpm</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.fundalHeight">
+                <span class="vital-label">Fundal Height</span>
+                <span class="vital-value">{{ prescription.vitalSigns.fundalHeight }} cm</span>
+              </div>
+              <div class="vital-item" *ngIf="prescription.vitalSigns.gestationalAge">
+                <span class="vital-label">Gestational Age</span>
+                <span class="vital-value">{{ prescription.vitalSigns.gestationalAge }} weeks</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="details-section">
+            <h3 class="section-title">Chief Complaints</h3>
+            <p class="section-content">{{ prescription.chiefComplaints }}</p>
+          </div>
+          
+          <div class="details-section" *ngIf="prescription.clinicalFindings">
+            <h3 class="section-title">Clinical Findings</h3>
+            <p class="section-content">{{ prescription.clinicalFindings }}</p>
+          </div>
+          
+          <div class="details-section">
+            <h3 class="section-title">Diagnosis</h3>
+            <ul class="diagnosis-list">
+              <li *ngFor="let diagnosis of prescription.diagnosis">{{ diagnosis }}</li>
+            </ul>
+          </div>
+          
+          <div class="details-section">
+            <h3 class="section-title">Medications</h3>
+            <div class="medications-list">
+              <app-medication-item 
+                *ngFor="let medication of prescription.medications" 
+                [medication]="medication"
+                [showDelete]="false">
+              </app-medication-item>
+            </div>
+          </div>
+          
+          <div class="details-section">
+            <h3 class="section-title">Tests</h3>
+            <div class="tests-list">
+              <app-test-item 
+                *ngFor="let test of prescription.tests" 
+                [test]="test"
+                [showDelete]="false"
+                [showResults]="true"
+                (uploadResult)="openUploadModal($event)">
+              </app-test-item>
+            </div>
+          </div>
+          
+          <div class="details-section" *ngIf="prescription.advice">
+            <h3 class="section-title">Advice</h3>
+            <p class="section-content">{{ prescription.advice }}</p>
+          </div>
+          
+          <div class="details-section">
+            <h3 class="section-title">Next Visit</h3>
+            <p class="section-content">{{ getFormattedDate(prescription.nextVisit) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Test Result Upload Modal -->
+  <div class="modal-overlay" *ngIf="showUploadModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload Test Result</h2>
+        <button class="modal-close" (click)="closeUploadModal()">
+          <i class="fa-solid fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="selectedTest" class="selected-test">
+          <p class="test-name">{{ selectedTest.name }}</p>
+          <p *ngIf="selectedTest.description" class="test-description">{{ selectedTest.description }}</p>
+        </div>
+        
+        <form [formGroup]="uploadForm" (submit)="uploadTestResult()">
+          <div class="form-group">
+            <label for="file">Test Result File</label>
+            <input 
+              type="file" 
+              id="file" 
+              class="form-control file-input"
+              (change)="onFileSelected($event)">
+            <p class="help-text">Upload PDF, Image, or Document file (Max: 5MB)</p>
+          </div>
+          
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea 
+              id="notes" 
+              formControlName="notes" 
+              class="form-control" 
+              rows="3"
+              placeholder="Enter any observations or key findings from the test result"></textarea>
+          </div>
+          
+          <div *ngIf="uploadError" class="upload-error">
+            <i class="fa-solid fa-circle-exclamation"></i> {{ uploadError }}
+          </div>
+          
+          <div *ngIf="uploadSuccess" class="upload-success">
+            <i class="fa-solid fa-circle-check"></i> Test result uploaded successfully!
+          </div>
+          
+          <div class="modal-actions">
+            <button type="button" class="cancel-btn" (click)="closeUploadModal()" [disabled]="uploadingResult">Cancel</button>
+            <button type="submit" class="upload-btn" [disabled]="uploadingResult">
+              <span *ngIf="!uploadingResult"><i class="fa-solid fa-upload"></i> Upload</span>
+              <span *ngIf="uploadingResult" class="spinner-inline"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

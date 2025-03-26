@@ -1,0 +1,27 @@
+<div class="history-container">
+    <div *ngIf="isLoading" class="loading">
+      <div class="spinner-sm"></div>
+      <span>Loading history...</span>
+    </div>
+    
+    <div *ngIf="!isLoading && error" class="error-message">
+      {{ error }}
+    </div>
+    
+    <div *ngIf="!isLoading && !error && prescriptions.length === 0" class="no-data">
+      No previous prescriptions found
+    </div>
+    
+    <div *ngIf="!isLoading && !error && prescriptions.length > 0" class="history-list">
+      <div *ngFor="let prescription of prescriptions" class="history-item">
+        <div class="history-content">
+          <div class="history-date">{{ getFormattedDate(prescription.date) }}</div>
+          <div class="history-diagnosis">{{ getDiagnosisSummary(prescription.diagnosis) }}</div>
+        </div>
+        <a [routerLink]="['/prescriptions/view', prescription.id]" class="history-link">
+          <i class="fa-solid fa-chevron-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  

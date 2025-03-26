@@ -1,0 +1,151 @@
+<div class="add-booking-container">
+  <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+
+  <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+    <app-header title="Create New Appointment" [showBackButton]="true" (toggleSidebar)="toggleSidebar()">
+    </app-header>
+    <!-- <div class="page-header"> -->
+      <!-- <div class="back-link">
+          <a routerLink="/bookings">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </a>
+        </div> -->
+      <!-- <h1 class="page-title">Create New Appointment</h1>
+    </div> -->
+
+    <!-- Success Message -->
+    <div class="success-message" *ngIf="showSuccessMessage">
+      <div class="success-icon">
+        <i class="fa-solid fa-check-circle"></i>
+      </div>
+      <div class="success-content">
+        <h3>Appointment Created Successfully!</h3>
+        <p>The appointment has been scheduled and notification has been sent to the patient.</p>
+      </div>
+    </div>
+
+    <!-- Booking Form -->
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()" class="booking-form" *ngIf="!showSuccessMessage">
+      <div class="form-section">
+        <h2 class="section-title">Patient Information</h2>
+
+        <div class="patient-search-container" *ngIf="!selectedPatient">
+          <div class="search-input-container">
+            <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{standalone: true}"
+              placeholder="Search patient by name or phone number" class="search-input">
+            <button type="button" class="search-btn" (click)="searchPatients()">
+              <i class="fa-solid fa-search"></i> Search
+            </button>
+          </div>
+
+          <div class="search-results" *ngIf="showPatientSearchResults">
+            <div *ngIf="searchResults.length === 0" class="no-results">
+              No patients found. <a routerLink="/patients/add">Add a new patient</a>
+            </div>
+
+            <div *ngFor="let patient of searchResults" class="patient-result" (click)="selectPatient(patient)">
+              <div class="patient-avatar">
+                <img [src]="patient.profile || 'assets/images/default-avatar.png'" alt="{{ patient.name }}">
+              </div>
+              <div class="patient-info">
+                <div class="patient-name">{{ patient.name }}</div>
+                <div class="patient-meta">
+                  {{ patient.pregnancyWeek }} weeks • {{ patient.phone }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="selected-patient" *ngIf="selectedPatient">
+          <div class="patient-card">
+            <div class="patient-avatar">
+              <img [src]="selectedPatient.profile || 'assets/images/default-avatar.png'"
+                alt="{{ selectedPatient.name }}">
+            </div>
+            <div class="patient-details">
+              <div class="patient-name">{{ selectedPatient.name }}</div>
+              <div class="patient-info">
+                <span>{{ selectedPatient.pregnancyWeek }} weeks pregnant</span>
+                <span class="divider">•</span>
+                <span>{{ selectedPatient.phone }}</span>
+              </div>
+            </div>
+            <button type="button" class="change-patient-btn" (click)="clearPatientSelection()">
+              <i class="fa-solid fa-pen"></i> Change
+            </button>
+          </div>
+
+          <!-- Hidden fields to store patient data -->
+          <input type="hidden" formControlName="patientId">
+          <input type="hidden" formControlName="patientName">
+          <input type="hidden" formControlName="patientPhone">
+        </div>
+
+        <div class="validation-error" *ngIf="patientIdControl?.touched && patientIdControl?.invalid">
+          Please select a patient to continue
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h2 class="section-title">Appointment Details</h2>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date">Appointment Date <span class="required">*</span></label>
+            <input type="date" id="date" formControlName="date" class="form-control" [min]="todayDate"
+              [class.is-invalid]="dateControl?.touched && dateControl?.invalid">
+            <div class="validation-error" *ngIf="dateControl?.touched && dateControl?.invalid">
+              Appointment date is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="timeSlot">Time Slot <span class="required">*</span></label>
+            <select id="timeSlot" formControlName="timeSlot" class="form-control"
+              [class.is-invalid]="timeSlotControl?.touched && timeSlotControl?.invalid"
+              (change)="updateSerialNumber($event)">
+              <option value="">Select Time Slot</option>
+              <option *ngFor="let slot of availableSlots" [value]="slot.time">
+                {{ getFormattedTime(slot.time) }} - Serial #{{ slot.serialNumber }}
+              </option>
+            </select>
+            <div class="validation-error" *ngIf="timeSlotControl?.touched && timeSlotControl?.invalid">
+              Please select a time slot
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="type">Appointment Type <span class="required">*</span></label>
+            <select id="type" formControlName="type" class="form-control"
+              [class.is-invalid]="typeControl?.touched && typeControl?.invalid">
+              <option *ngFor="let type of appointmentTypes" [value]="type.value">
+                {{ type.label }}
+              </option>
+            </select>
+            <div class="validation-error" *ngIf="typeControl?.touched && typeControl?.invalid">
+              Appointment type is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Notes (Optional)</label>
+          <textarea id="notes" formControlName="notes" class="form-control" rows="3"
+            placeholder="Add any notes or special instructions for this appointment"></textarea>
+        </div>
+
+        <!-- Hidden field for serial number -->
+        <input type="hidden" formControlName="serialNumber">
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-btn" routerLink="/bookings">Cancel</button>
+        <button type="submit" class="submit-btn" [disabled]="bookingForm.invalid || isSubmitting">
+          <span *ngIf="!isSubmitting">Schedule Appointment</span>
+          <div *ngIf="isSubmitting" class="spinner"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

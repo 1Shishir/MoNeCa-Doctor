@@ -1,0 +1,303 @@
+/* src/assets/styles/theme.css */
+
+:root {
+    /* Primary Colors */
+    --primary-teal: #00BCD4;
+    --primary-teal-dark: #00ACC1;
+    --primary-purple: #673AB7;
+    --primary-purple-dark: #5E35B1;
+  
+    /* Background Colors */
+    --bg-light-blue: #f5f9ff;
+    --bg-middle-blue: #ebf5fe;
+    --bg-light-purple: #eeeaff;
+  
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-purple) 100%);
+    --gradient-primary-hover: linear-gradient(135deg, var(--primary-teal-dark) 0%, var(--primary-purple-dark) 100%);
+    --gradient-background: linear-gradient(135deg, var(--bg-light-blue) 0%, var(--bg-middle-blue) 50%, var(--bg-light-purple) 100%);
+  
+    /* Shape Colors */
+    --shape-purple: rgba(103, 58, 183, 0.3);
+    --shape-purple-light: rgba(63, 81, 181, 0.1);
+    --shape-teal: rgba(0, 188, 212, 0.2);
+    --shape-green: rgba(76, 175, 80, 0.2);
+    --shape-teal-light: rgba(0, 188, 212, 0.1);
+    --shape-orange: rgba(255, 87, 34, 0.15);
+    --shape-yellow: rgba(255, 193, 7, 0.05);
+    --shape-violet: rgba(156, 39, 176, 0.2);
+    --shape-violet-light: rgba(103, 58, 183, 0.1);
+  
+    /* UI Component Colors */
+    --text-primary: #333;
+    --text-secondary: #555;
+    --text-dark: #111827;
+    --text-muted: #6B7280;
+    --text-label: #434343;
+  
+    --error: #dc3545;
+    --error-light: #fef2f2;
+    --error-border: #fee2e2;
+  
+    --success: #10b981;
+    --success-light: #ecfdf5;
+    --success-border: #d1fae5;
+  
+    /* Border & Shadow Colors */
+    --border-light: #e5e7eb;
+    --border-input: #d1d5db;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+  
+    /* Component Specific */
+    --input-focus-ring: rgba(103, 58, 183, 0.1);
+    --input-focus-ring-intense: rgba(103, 58, 183, 0.2);
+    --btn-shadow: rgba(103, 58, 183, 0.2);
+    --btn-shadow-hover: rgba(103, 58, 183, 0.3);
+  
+    /* Z-index levels */
+    --z-index-background: 0;
+    --z-index-content: 1;
+    --z-index-header: 10;
+    --z-index-modal: 100;
+    --z-index-tooltip: 50;
+  
+    /* Typography */
+    --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-xs: 0.75rem;  /* 12px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-base: 1rem;   /* 16px */
+    --font-size-lg: 1.125rem; /* 18px */
+    --font-size-xl: 1.25rem;  /* 20px */
+    --font-size-2xl: 1.5rem;  /* 24px */
+    --font-size-3xl: 1.75rem; /* 28px */
+  
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+  
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-loose: 1.75;
+  
+    /* Spacing */
+    --spacing-1: 0.25rem;  /* 4px */
+    --spacing-2: 0.5rem;   /* 8px */
+    --spacing-3: 0.75rem;  /* 12px */
+    --spacing-4: 1rem;     /* 16px */
+    --spacing-5: 1.25rem;  /* 20px */
+    --spacing-6: 1.5rem;   /* 24px */
+    --spacing-8: 2rem;     /* 32px */
+    --spacing-10: 2.5rem;  /* 40px */
+    --spacing-12: 3rem;    /* 48px */
+  
+    /* Border Radius */
+    --border-radius-sm: 0.375rem;  /* 6px */
+    --border-radius-md: 0.5rem;    /* 8px */
+    --border-radius-lg: 0.625rem;  /* 10px */
+    --border-radius-xl: 1rem;      /* 16px */
+    --border-radius-full: 9999px;  /* Circle */
+  
+    /* Box Shadow */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.08), 0 0 0 0.5px rgba(0, 0, 0, 0.05), 0 3px 3px rgba(0, 0, 0, 0.02);
+    --shadow-hover: 0 15px 50px rgba(0, 0, 0, 0.1), 0 0 0 0.5px rgba(0, 0, 0, 0.05), 0 5px 5px rgba(0, 0, 0, 0.03);
+  
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --transition-cubic: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  
+  /* Utility Classes */
+  
+  /* Flexbox Utilities */
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  /* Card Styles */
+  .card-shadow {
+    box-shadow: var(--shadow-lg);
+    transition: box-shadow var(--transition-normal), transform var(--transition-normal);
+  }
+  
+  .card-shadow:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+  
+  /* Form Control Styles */
+  .form-control-theme {
+    width: 100%;
+    padding: var(--spacing-3) var(--spacing-4);
+    border: 1px solid var(--border-input);
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    color: var(--text-dark);
+    background-color: #ffffff;
+    transition: all var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .form-control-theme:focus {
+    outline: none;
+    border-color: var(--primary-purple);
+    background: white;
+    box-shadow: 0 0 0 3px var(--input-focus-ring);
+  }
+  
+  /* Button Styles */
+  .btn-primary-theme {
+    padding: var(--spacing-3) var(--spacing-4);
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-lg);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-2);
+    box-shadow: 0 4px 10px var(--btn-shadow);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .btn-primary-theme:not(:disabled):hover {
+    background: var(--gradient-primary-hover);
+    box-shadow: 0 6px 15px var(--btn-shadow-hover);
+    transform: translateY(-2px);
+  }
+  
+  .btn-primary-theme:not(:disabled):active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px var(--btn-shadow);
+  }
+  
+  .btn-primary-theme:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  /* Section Title */
+  .section-title-theme {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-teal);
+    margin-bottom: var(--spacing-5);
+    display: flex;
+    align-items: center;
+    transition: color var(--transition-fast);
+  }
+  
+  .section-title-theme::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--gradient-primary);
+    margin-right: var(--spacing-2);
+    border-radius: 2px;
+    transition: transform var(--transition-normal);
+  }
+  
+  .section-title-theme:hover {
+    color: var(--primary-purple);
+  }
+  
+  .section-title-theme:hover::before {
+    transform: scaleY(1.2);
+  }
+  
+  /* Media Queries */
+  @media (max-width: 480px) {
+    /* Mobile styles */
+    :root {
+      --spacing-10: 2rem;
+      --spacing-8: 1.5rem;
+    }
+    
+    .sm-stack {
+      flex-direction: column;
+    }
+    
+    .sm-hidden {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    /* Tablet styles */
+    .md-stack {
+      flex-direction: column;
+    }
+  }
+  
+  /* Animation Keyframes */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes rotate-reverse {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+  
+  @keyframes morph {
+    0% {
+      border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    }
+    25% {
+      border-radius: 40% 60% 70% 30% / 50% 60% 40% 50%;
+    }
+    50% {
+      border-radius: 20% 80% 50% 50% / 30% 40% 60% 70%;
+    }
+    75% {
+      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    }
+    100% {
+      border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    }
+  }

@@ -1,33 +1,81 @@
+<!-- <header class="header-container">
+  <div class="header-content">
+    <h1 class="page-title">
+      <i class="fa-solid fa-chart-line me-2 title-icon"></i>
+      {{ title }}
+    </h1>
+    <div class="header-right">
+      <div class="notifications">
+        <div class="icon-container" role="button">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
+        </div>
+      </div>
+      <div class="user-divider"></div>
+      <div class="user-profile dropdown">
+        <div class="dropdown-toggle d-flex align-items-center" role="button" data-bs-toggle="dropdown">
+          <div class="avatar">
+            <span>{{ doctorInitial }}</span>
+          </div>
+          <span class="user-name">{{ doctorName }}</span>
+          <i class="fa-solid fa-chevron-down ms-2 dropdown-icon"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" (click)="navigateToProfile()"><i class="fa-solid fa-user me-2"></i> Profile</a></li>
+          <li><a class="dropdown-item" (click)="navigateToSettings()"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" (click)="logout()"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header> -->
+
 
 <header class="header-container">
-    <div class="header-content">
-      <h1 class="page-title">
+  <div class="header-content">
+    <div class="page-title-container d-flex align-items-center">
+      <!-- Back button (optional) -->
+      <button 
+        *ngIf="showBackButton" 
+        class="btn btn-link me-3 p-0 back-button" 
+        (click)="goBack()"
+        title="Go Back"
+      >
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+      
+      <h1 class="page-title m-0">
         <i class="fa-solid fa-chart-line me-2 title-icon"></i>
         {{ title }}
       </h1>
-      <div class="header-right">
-        <div class="notifications">
-          <div class="icon-container" role="button">
-            <i class="fa-regular fa-bell"></i>
-            <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
-          </div>
-        </div>
-        <div class="user-divider"></div>
-        <div class="user-profile dropdown">
-          <div class="dropdown-toggle d-flex align-items-center" role="button" data-bs-toggle="dropdown">
-            <div class="avatar">
-              <span>{{ doctorInitial }}</span>
-            </div>
-            <span class="user-name">{{ doctorName }}</span>
-            <i class="fa-solid fa-chevron-down ms-2 dropdown-icon"></i>
-          </div>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i> Profile</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
-          </ul>
+    </div>
+    
+    <div class="header-right" *ngIf="!showBackButton">
+      <div class="notifications">
+        <div class="icon-container" role="button">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-badge" *ngIf="notificationCount > 0">{{ notificationCount }}</span>
         </div>
       </div>
+      <div class="user-divider"></div>
+      <div class="user-profile dropdown">
+        <div class="dropdown-toggle d-flex align-items-center" role="button" data-bs-toggle="dropdown">
+          <div class="avatar">
+            <span>{{ doctorInitial }}</span>
+          </div>
+          <span class="user-name">{{ doctorName }}</span>
+          <i class="fa-solid fa-chevron-down ms-2 dropdown-icon"></i>
+        </div>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i> Profile</a></li>
+          <li><a class="dropdown-item" href="#"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">
+            <i class="fa-solid fa-right-from-bracket me-2"></i> Logout
+          </a></li>
+        </ul>
+      </div>
     </div>
-  </header>
+  </div>
+</header>

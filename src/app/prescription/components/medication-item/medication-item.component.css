@@ -1,0 +1,120 @@
+.medication-item {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+  }
+  
+  .medication-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  
+  .medication-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .delete-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #f3f4f6;
+    color: #ef4444;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .delete-btn:hover {
+    background-color: #fecaca;
+  }
+  
+  .medication-content {
+    margin-bottom: 12px;
+  }
+  
+  .medication-info {
+    margin-bottom: 8px;
+  }
+  
+  .medication-info:last-child {
+    margin-bottom: 0;
+  }
+  
+  .info-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-right: 6px;
+  }
+  
+  .info-value {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .medication-frequency {
+    display: flex;
+    justify-content: space-around;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed #e5e7eb;
+  }
+  
+  .frequency-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 54px;
+    opacity: 0.4;
+  }
+  
+  .frequency-item.active {
+    opacity: 1;
+  }
+  
+  .frequency-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+  }
+  
+  .frequency-label {
+    font-size: 12px;
+    text-align: center;
+    color: #6b7280;
+    width: 100%;
+    padding: 2px 0;
+    border-radius: 4px;
+  }
+  
+  .frequency-label.morning {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+  
+  .frequency-label.noon {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+  }
+  
+  .frequency-label.evening {
+    background-color: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+  }
+  
+  .frequency-label.night {
+    background-color: rgba(31, 41, 55, 0.1);
+    color: #1f2937;
+  }

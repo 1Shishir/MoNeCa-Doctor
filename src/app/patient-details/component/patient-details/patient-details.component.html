@@ -2,7 +2,7 @@
     <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
     
     <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+      <app-header title="patient Details" (toggleSidebar)="toggleSidebar()"></app-header>
       
       <div class="page-header">
         <div class="back-link">

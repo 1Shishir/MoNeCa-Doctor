@@ -1,0 +1,687 @@
+.prescription-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f6fa;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.expanded {
+    margin-left: 70px;
+  }
+  
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .btn-cancel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #f3f4f6;
+    color: #6b7280;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .btn-cancel:hover {
+    background-color: #e5e7eb;
+    color: #4b5563;
+  }
+  
+  .loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 0;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 3px solid #e5e7eb;
+    border-top-color: #00BCD4;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+  }
+  
+  .spinner-inline {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .alert {
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .alert-error {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border-left: 4px solid #dc2626;
+  }
+  
+  .alert-success {
+    background-color: #d1fae5;
+    color: #059669;
+    border-left: 4px solid #059669;
+  }
+  
+  .alert-icon {
+    font-size: 18px;
+    margin-right: 12px;
+  }
+  
+  .prescription-form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+  }
+  
+  .patient-info-panel {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+  }
+  
+  .panel-header {
+    background-color: #00BCD4;
+    color: white;
+    padding: 16px;
+  }
+  
+  .panel-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  .panel-body {
+    padding: 16px;
+  }
+  
+  .patient-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .info-label {
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 4px;
+  }
+  
+  .info-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .no-data-message {
+    color: #6b7280;
+    font-style: italic;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .prescription-form {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+  
+  .form-section {
+    padding: 20px;
+  }
+  
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .section-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  
+  .date-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .date-input {
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .subsection {
+    margin-bottom: 32px;
+  }
+  
+  .subsection:last-child {
+    margin-bottom: 0;
+  }
+  
+  .subsection-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b5563;
+    margin: 0 0 16px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  .vital-signs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  
+  .form-group {
+    margin-bottom: 16px;
+  }
+  
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4b5563;
+    margin-bottom: 8px;
+  }
+  
+  .required {
+    color: #ef4444;
+    margin-left: 2px;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border-color: #00BCD4;
+    box-shadow: 0 0 0 3px rgba(0, 188, 212, 0.1);
+  }
+  
+  .form-control.is-invalid {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+  }
+  
+  .text-area {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  .error-message {
+    font-size: 12px;
+    color: #ef4444;
+    margin-top: 6px;
+  }
+  
+  .quick-options {
+    margin-top: 12px;
+  }
+  
+  .quick-options-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #6b7280;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .options-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .quick-option-btn {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    border-radius: 16px;
+    padding: 6px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .quick-option-btn:hover {
+    background-color: #e5e7eb;
+    color: #333;
+  }
+  
+  .form-array-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .form-array-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: #f3f4f6;
+    color: #ef4444;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+  
+  .remove-btn:hover {
+    background-color: #fecaca;
+  }
+  
+  .remove-btn:disabled {
+    color: #9ca3af;
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+  }
+  
+  .add-item-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-start;
+  }
+  
+  .add-item-btn:hover {
+    background-color: #e5e7eb;
+    color: #333;
+  }
+  
+ 
+  .medications-legend {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    padding: 8px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .legend-box {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+  }
+  
+  .legend-box.morning {
+    background-color: #3b82f6;
+  }
+  
+  .legend-box.noon {
+    background-color: #f59e0b;
+  }
+  
+  .legend-box.evening {
+    background-color: #8b5cf6;
+  }
+  
+  .legend-box.night {
+    background-color: #1f2937;
+  }
+  
+  .legend-text {
+    font-size: 12px;
+    color: #6b7280;
+  }
+  
+  .medications-container, .tests-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .medication-item, .test-item {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .medication-header, .test-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .medication-title, .test-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #4b5563;
+    margin: 0;
+  }
+  
+  .medication-row, .test-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .medication-row:last-child, .test-row:last-child {
+    margin-bottom: 0;
+  }
+  
+  .medication-name, .test-name {
+    flex: 2;
+  }
+  
+  .medication-dosage {
+    flex: 1;
+  }
+  
+  .medication-frequency {
+    flex: 2;
+  }
+  
+  .medication-duration {
+    flex: 1;
+  }
+  
+  .medication-instructions, .test-description {
+    flex: 1;
+  }
+  
+  .frequency-selector {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .frequency-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    max-width: 60px;
+  }
+  
+  .frequency-input {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    margin-bottom: 4px;
+  }
+  
+  .frequency-label {
+    font-size: 12px;
+    text-align: center;
+    color: #6b7280;
+    width: 100%;
+    padding: 2px 0;
+    border-radius: 4px;
+  }
+  
+  .frequency-label.morning {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+  }
+  
+  .frequency-label.noon {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+  }
+  
+  .frequency-label.evening {
+    background-color: rgba(139, 92, 246, 0.1);
+    color: #8b5cf6;
+  }
+  
+  .frequency-label.night {
+    background-color: rgba(31, 41, 55, 0.1);
+    color: #1f2937;
+  }
+  
+  .common-medications, .common-tests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .common-med-btn, .common-test-btn {
+    background-color: #f8f9fa;
+    border: 1px solid #e5e7eb;
+    color: #4b5563;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .common-med-btn:hover {
+    background-color: rgba(0, 188, 212, 0.1);
+    border-color: #00BCD4;
+    color: #00BCD4;
+  }
+  
+  .common-test-btn:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+    border-color: #4f46e5;
+    color: #4f46e5;
+  }
+  
+  .next-visit {
+    width: 250px;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 20px;
+    background-color: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .secondary-btn, .primary-btn, .print-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+  
+  .secondary-btn {
+    background-color: #f3f4f6;
+    color: #4b5563;
+  }
+  
+  .secondary-btn:hover {
+    background-color: #e5e7eb;
+    color: #333;
+  }
+  
+  .primary-btn {
+    background-color: #00BCD4;
+    color: white;
+  }
+  
+  .primary-btn:hover:not(:disabled) {
+    background-color: #008ba3;
+  }
+  
+  .primary-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  .print-btn {
+    background-color: #4f46e5;
+    color: white;
+  }
+  
+  .print-btn:hover {
+    background-color: #4338ca;
+  }
+  
+  @media (max-width: 1200px) {
+    .prescription-form-wrapper {
+      grid-template-columns: 1fr 2fr;
+    }
+    
+    .medication-row, .test-row {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .main-content {
+      margin-left: 70px;
+    }
+    
+    .main-content.expanded {
+      margin-left: 70px;
+    }
+    
+    .prescription-form-wrapper {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    
+    .patient-info-panel {
+      position: static;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .main-content {
+      margin-left: 0;
+      padding: 15px;
+    }
+    
+    .main-content.expanded {
+      margin-left: 0;
+    }
+    
+    .page-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    
+    .form-actions {
+      flex-direction: column-reverse;
+      gap: 12px;
+    }
+    
+    .secondary-btn, .primary-btn, .print-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }

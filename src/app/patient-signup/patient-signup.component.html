@@ -1,0 +1,135 @@
+<div class="signup-container">
+  <div class="signup-wrapper">
+    <div class="signup-header">
+      <img src="assets/images/logo.png" alt="MoNeCa Logo" class="logo">
+      <h1>Set Up Your MoNeCa Account</h1>
+    </div>
+    
+    <!-- Error State -->
+    <div class="error-message" *ngIf="isError">
+      <div class="error-icon">
+        <i class="fa-solid fa-circle-exclamation"></i>
+      </div>
+      <div class="error-content">
+        <h3>Link Error</h3>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+    
+    <!-- Success State -->
+    <div class="success-message" *ngIf="isSuccess">
+      <div class="success-icon">
+        <i class="fa-solid fa-circle-check"></i>
+      </div>
+      <div class="success-content">
+        <h3>Account Created Successfully!</h3>
+        <p>Your password has been set up. You will be redirected to the login page shortly.</p>
+        <div class="redirect-timer">
+          <div class="timer-spinner"></div>
+          <span>Redirecting in a few seconds...</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Signup Form -->
+    <div class="signup-form-container" *ngIf="!isError && !isSuccess">
+      <div class="patient-details">
+        <div class="details-item">
+          <span class="details-label">Name:</span>
+          <span class="details-value">{{ patientDetails.name }}</span>
+        </div>
+        <div class="details-item">
+          <span class="details-label">Email:</span>
+          <span class="details-value">{{ patientDetails.email }}</span>
+        </div>
+        <div class="details-item">
+          <span class="details-label">Phone:</span>
+          <span class="details-value">{{ patientDetails.phoneNumber }}</span>
+        </div>
+      </div>
+      
+      <div class="instructions">
+        <p>Please set a secure password to access your MoNeCa patient account. This will allow you to view your health records, appointments, and communicate with your healthcare providers.</p>
+      </div>
+      
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
+        <div class="form-group">
+          <label for="password">Create Password</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password"
+            class="form-control"
+            [ngClass]="{'is-invalid': signupForm.get('password')?.invalid && signupForm.get('password')?.touched}"
+            placeholder="Enter your password">
+          
+          <div class="password-strength" *ngIf="signupForm.get('password')?.value">
+            <span [style.color]="getPasswordStrength().color">
+              Password Strength: {{ getPasswordStrength().text }}
+            </span>
+          </div>
+          
+          <div class="error-message" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+            <span *ngIf="signupForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="signupForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+            <span *ngIf="signupForm.get('password')?.errors?.['pattern']">
+              Password must include uppercase, lowercase, number and special character
+            </span>
+          </div>
+          
+          <div class="password-requirements">
+            <p>Your password must include:</p>
+            <ul>
+              <li [ngClass]="{'requirement-met': hasUpperCase()}">
+                At least one uppercase letter
+              </li>
+              <li [ngClass]="{'requirement-met': hasLowerCase()}">
+                At least one lowercase letter
+              </li>
+              <li [ngClass]="{'requirement-met': hasNumber()}">
+                At least one number
+              </li>
+              <li [ngClass]="{'requirement-met': hasSpecialChar()}">
+                At least one special character (&#64;, $, !, %, *, ?, &amp;)
+              </li>
+              <li [ngClass]="{'requirement-met': hasMinLength()}">
+                Minimum 8 characters
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            formControlName="confirmPassword"
+            class="form-control"
+            [ngClass]="{'is-invalid': signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched}"
+            placeholder="Confirm your password">
+          
+          <div class="error-message" *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
+            <span *ngIf="signupForm.get('confirmPassword')?.errors?.['required']">Please confirm your password</span>
+            <span *ngIf="signupForm.get('confirmPassword')?.errors?.['passwordMismatch']">Passwords do not match</span>
+          </div>
+        </div>
+        
+        <div class="form-actions">
+          <button 
+            type="submit" 
+            class="submit-btn" 
+            [disabled]="signupForm.invalid || isSubmitting">
+            <span *ngIf="!isSubmitting">Create Account</span>
+            <div *ngIf="isSubmitting" class="btn-spinner"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+    
+    <div class="signup-footer">
+      <p>By creating an account, you agree to MoNeCa's <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>.</p>
+      <p>Need help? Contact our support team at <a href="mailto:support&#64;moneca.example.com" class="link">support&#64;moneca.example.com</a></p>
+    </div>
+  </div>
+</div>

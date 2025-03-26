@@ -1,0 +1,41 @@
+<div class="test-item">
+    <div class="test-header">
+      <h3 class="test-name">{{ test.name }}</h3>
+      <button *ngIf="showDelete" type="button" class="delete-btn" (click)="onDelete()">
+        <i class="fa-solid fa-times"></i>
+      </button>
+    </div>
+    <div class="test-content">
+      <div class="test-info" *ngIf="test.description">
+        <span class="info-label">Description:</span>
+        <span class="info-value">{{ test.description }}</span>
+      </div>
+    </div>
+    
+    <div *ngIf="showResults" class="test-results">
+      <div *ngIf="test.isPending" class="pending-test">
+        <span class="status-badge pending">Pending</span>
+        <button type="button" class="upload-btn" (click)="onUploadResult()">
+          <i class="fa-solid fa-upload"></i> Upload Result
+        </button>
+      </div>
+      <div *ngIf="!test.isPending && test.result" class="result-info">
+        <div class="result-header">
+          <span class="status-badge completed">Completed</span>
+          <span class="result-date">{{ test.result.uploadedAt | date:'mediumDate' }}</span>
+        </div>
+        <div class="result-content">
+          <div *ngIf="test.result.notes" class="result-notes">
+            <span class="info-label">Notes:</span>
+            <span class="info-value">{{ test.result.notes }}</span>
+          </div>
+          <div *ngIf="test.result.fileUrl" class="result-file">
+            <a [href]="test.result.fileUrl" target="_blank" class="file-link">
+              <i class="fa-solid fa-file-medical"></i> View Result File
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

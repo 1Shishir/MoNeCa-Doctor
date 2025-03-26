@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { SignupData } from '../../models/auth.model';
+import { SignupData } from '../../../models/auth.model';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { PhoneNumberDirective } from '../../../shared/directives/phone-number.directive';
@@ -23,6 +23,7 @@ import { PhoneNumberDirective } from '../../../shared/directives/phone-number.di
 export class SignupComponent implements OnInit {
   signupForm: FormGroup;
   isLoading = false;
+  successMessage = '';
   errorMessage = '';
   specializations = [
     'Obstetrics and Gynecology',
@@ -32,6 +33,7 @@ export class SignupComponent implements OnInit {
     'Midwifery',
     'Other'
   ];
+  redirectTimer: any;
 
   constructor(
     private fb: FormBuilder,
@@ -65,6 +67,12 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    if (this.redirectTimer) {
+      clearTimeout(this.redirectTimer);
+    }
+  }
+
   private passwordMatchValidator(form: FormGroup) {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
@@ -84,6 +92,7 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
+      this.successMessage = '';
 
       const formData = this.signupForm.value;
       const signupData: SignupData = {
@@ -98,11 +107,21 @@ export class SignupComponent implements OnInit {
 
       this.authService.signup(signupData).subscribe({
         next: () => {
-          this.router.navigate(['/auth/signup-success']);
+          this.isLoading = false;
+          this.successMessage = 'Registration successful! Redirecting to login...';
+          this.signupForm.reset();
+          // Redirect to login after 3 seconds
+          this.redirectTimer = setTimeout(() => {
+            this.router.navigate(['/auth/login']);
+          }, 3000);
         },
         error: (error) => {
           this.isLoading = false;
-          this.errorMessage = this.getErrorMessage(error.code);
+          this.errorMessage = error.code ? this.getErrorMessage(error.code) : error.message;
+          console.error('Signup error:', error);
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       });
     } else {

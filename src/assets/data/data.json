@@ -1,0 +1,834 @@
+{
+    "doctors": {
+      "lAZKiGd2DnUreHBZJvB3q10lsyF3": {
+        "email": "hasanur.rahman.shishir.iit@gmail.com",
+        "fullName": "Dr. Farah Ahmed",
+        "specialization": "Obstetrics and Gynecology",
+        "licenseNumber": "BM12345",
+        "phoneNumber": "+8801712345678",
+        "hospital": "MoNeCa Medical Center",
+        "profileImage": "https://storage.googleapis.com/moneca-app.appspot.com/doctor_profiles/lAZKiGd2DnUreHBZJvB3q10lsyF3.jpg",
+        "isApproved": true,
+        "createdAt": "2024-12-01T08:30:00.000Z",
+        "updatedAt": "2025-01-15T10:45:00.000Z",
+        "uuid":"lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "AiBvushsz4eoZzTL9h8RTpoYEIW2": {
+        "email": "shishir2515@student.nstu.edu.bd",
+        "fullName": "Hasanur Rahman Shishir",
+        "specialization": "Maternal-Fetal Medicine",
+        "licenseNumber": "BM67890",
+        "phoneNumber": "+8801798765432",
+        "hospital": "Dhaka Mother Care Hospital",
+        "profileImage": "https://storage.googleapis.com/moneca-app.appspot.com/doctor_profiles/AiBvushsz4eoZzTL9h8RTpoYEIW2.jpg",
+        "isApproved": true,
+        "createdAt": "2024-11-15T09:45:00.000Z",
+        "updatedAt": "2025-01-10T14:20:00.000Z",
+        "uuid":"AiBvushsz4eoZzTL9h8RTpoYEIW2"
+      }
+    },
+    "patients": {
+      "p1ABC2def3GHI4jkl5": {
+        "fullName": "Amina Begum",
+        "phoneNumber": "+8801512345678",
+        "email": "amina.b@example.com",
+        "dateOfBirth": "1992-05-15T00:00:00.000Z",
+        "address": "123 Green Road, Dhaka",
+        "emergencyContact": "+8801698765432",
+        "bloodGroup": "B+",
+        "medicalHistory": ["Gestational diabetes in previous pregnancy"],
+        "allergies": ["Penicillin"],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 28,
+          "expectedDeliveryDate": "2025-06-12T00:00:00.000Z"
+        },
+        "createdAt": "2024-12-01T10:15:00.000Z",
+        "updatedAt": "2025-03-10T09:30:00.000Z",
+        "lastVisit": "2025-03-10T09:30:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p2MNO3pqr4STU5vwx6": {
+        "fullName": "Fatima Rahman",
+        "phoneNumber": "+8801612345678",
+        "email": "fatima.r@example.com",
+        "dateOfBirth": "1990-08-23T00:00:00.000Z",
+        "address": "456 Lake Drive, Dhaka",
+        "emergencyContact": "+8801798765432",
+        "bloodGroup": "A+",
+        "medicalHistory": ["Hypertension"],
+        "allergies": [],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 32,
+          "expectedDeliveryDate": "2025-05-05T00:00:00.000Z"
+        },
+        "createdAt": "2024-11-15T14:30:00.000Z",
+        "updatedAt": "2025-03-15T11:45:00.000Z",
+        "lastVisit": "2025-03-15T11:45:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p3YZA7bcd8EFG9hij0": {
+        "fullName": "Nasreen Khan",
+        "phoneNumber": "+8801712345678",
+        "email": "nasreen.k@example.com",
+        "dateOfBirth": "1995-02-10T00:00:00.000Z",
+        "address": "789 River View, Dhaka",
+        "emergencyContact": "+8801898765432",
+        "bloodGroup": "O+",
+        "medicalHistory": [],
+        "allergies": ["Sulfamethoxazole"],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 15,
+          "expectedDeliveryDate": "2025-09-20T00:00:00.000Z"
+        },
+        "createdAt": "2025-01-05T09:15:00.000Z",
+        "updatedAt": "2025-03-12T14:20:00.000Z",
+        "lastVisit": "2025-03-12T14:20:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p4KLM1nop2QRS3tuv4": {
+        "fullName": "Tahmina Ahmed",
+        "phoneNumber": "+8801812345678",
+        "email": "tahmina.a@example.com",
+        "dateOfBirth": "1993-11-28T00:00:00.000Z",
+        "address": "321 Mountain Road, Dhaka",
+        "emergencyContact": "+8801998765432",
+        "bloodGroup": "AB+",
+        "medicalHistory": ["Asthma"],
+        "allergies": ["Dust", "Pollen"],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 18,
+          "expectedDeliveryDate": "2025-08-17T00:00:00.000Z"
+        },
+        "createdAt": "2025-01-15T11:30:00.000Z",
+        "updatedAt": "2025-03-14T10:15:00.000Z",
+        "lastVisit": "2025-03-14T10:15:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p5WXY5zab6CDE7fgh8": {
+        "fullName": "Rabeya Akter",
+        "phoneNumber": "+8801912345678",
+        "email": "rabeya.a@example.com",
+        "dateOfBirth": "1988-07-12T00:00:00.000Z",
+        "address": "567 Garden Street, Dhaka",
+        "emergencyContact": "+8801298765432",
+        "bloodGroup": "B-",
+        "medicalHistory": ["Hypertension"],
+        "allergies": [],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 30,
+          "expectedDeliveryDate": "2025-05-25T00:00:00.000Z"
+        },
+        "createdAt": "2024-12-10T08:45:00.000Z",
+        "updatedAt": "2025-03-15T09:50:00.000Z",
+        "lastVisit": "2025-03-15T09:50:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p6IJK9lmn0OPQ1rst2": {
+        "fullName": "Sadia Jahan",
+        "phoneNumber": "+8801312345678",
+        "email": "sadia.j@example.com",
+        "dateOfBirth": "1990-03-25T00:00:00.000Z",
+        "address": "890 Hill View, Dhaka",
+        "emergencyContact": "+8801398765432",
+        "bloodGroup": "A-",
+        "medicalHistory": ["Anemia"],
+        "allergies": ["Nuts"],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 25,
+          "expectedDeliveryDate": "2025-07-01T00:00:00.000Z"
+        },
+        "createdAt": "2025-01-08T13:10:00.000Z",
+        "updatedAt": "2025-03-14T16:30:00.000Z",
+        "lastVisit": "2025-03-14T16:30:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p7UVW3xyz4ABC5def6": {
+        "fullName": "Nusrat Islam",
+        "phoneNumber": "+8801412345678",
+        "email": "nusrat.i@example.com",
+        "dateOfBirth": "1994-05-18T00:00:00.000Z",
+        "address": "432 Cloud Lane, Dhaka",
+        "emergencyContact": "+8801498765432",
+        "bloodGroup": "O-",
+        "medicalHistory": ["Thyroid disorder"],
+        "allergies": [],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 22,
+          "expectedDeliveryDate": "2025-07-23T00:00:00.000Z"
+        },
+        "createdAt": "2024-12-20T10:45:00.000Z",
+        "updatedAt": "2025-03-16T12:15:00.000Z",
+        "lastVisit": "2025-03-16T12:15:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      },
+      "p8GHI7jkl8MNO9pqr0": {
+        "fullName": "Fatima Ali",
+        "phoneNumber": "+8801512345679",
+        "email": "fatima.ali@example.com",
+        "dateOfBirth": "1991-12-05T00:00:00.000Z",
+        "address": "654 Sun Street, Dhaka",
+        "emergencyContact": "+8801598765432",
+        "bloodGroup": "B+",
+        "medicalHistory": ["Gestational diabetes"],
+        "allergies": ["Ibuprofen"],
+        "pregnancyData": {
+          "isPregnant": true,
+          "gestationalAge": 34,
+          "expectedDeliveryDate": "2025-04-20T00:00:00.000Z"
+        },
+        "createdAt": "2024-11-25T09:20:00.000Z",
+        "updatedAt": "2025-03-15T15:10:00.000Z",
+        "lastVisit": "2025-03-15T15:10:00.000Z",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+      }
+    },
+    "appointments": {
+      "a1STU1vwx2YZA3bcd4": {
+        "patientId": "p1ABC2def3GHI4jkl5",
+        "patientName": "Amina Begum",
+        "patientPhone": "+8801512345678",
+        "patientProfile": "https://storage.googleapis.com/moneca-app.appspot.com/patient_profiles/p1ABC2def3GHI4jkl5.jpg",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "doctorName": "Dr. Farah Ahmed",
+        "date": "2025-03-25T00:00:00.000Z",
+        "time": "14:30",
+        "serialNumber": 5,
+        "status": "confirmed",
+        "type": "regular-checkup",
+        "notes": "28-week checkup",
+        "createdAt": "2025-03-10T09:30:00.000Z",
+        "updatedAt": "2025-03-10T09:30:00.000Z",
+        "updatedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "pregnancyWeek": 28,
+        "statusHistory": [
+          {
+            "status": "scheduled",
+            "changedAt": "2025-03-10T09:30:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+          },
+          {
+            "status": "confirmed",
+            "changedAt": "2025-03-15T10:30:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+            "notes": "Confirmed by phone"
+          }
+        ]
+      },
+      "a2EFG5hij6KLM7nop8": {
+        "patientId": "p2MNO3pqr4STU5vwx6",
+        "patientName": "Fatima Rahman",
+        "patientPhone": "+8801612345678",
+        "patientProfile": "https://storage.googleapis.com/moneca-app.appspot.com/patient_profiles/p2MNO3pqr4STU5vwx6.jpg",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "doctorName": "Dr. Farah Ahmed",
+        "date": "2025-03-25T00:00:00.000Z",
+        "time": "15:15",
+        "serialNumber": 6,
+        "status": "scheduled",
+        "type": "follow-up",
+        "notes": "Follow-up for blood pressure",
+        "createdAt": "2025-03-15T11:45:00.000Z",
+        "updatedAt": "2025-03-15T11:45:00.000Z",
+        "updatedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "pregnancyWeek": 32,
+        "statusHistory": [
+          {
+            "status": "scheduled",
+            "changedAt": "2025-03-15T11:45:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+          }
+        ]
+      },
+      "a3QRS9tuv0WXY1zab2": {
+        "patientId": "p3YZA7bcd8EFG9hij0",
+        "patientName": "Nasreen Khan",
+        "patientPhone": "+8801712345678",
+        "patientProfile": "https://storage.googleapis.com/moneca-app.appspot.com/patient_profiles/p3YZA7bcd8EFG9hij0.jpg",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "doctorName": "Dr. Farah Ahmed",
+        "date": "2025-03-25T00:00:00.000Z",
+        "time": "16:00",
+        "serialNumber": 7,
+        "status": "confirmed",
+        "type": "vaccination",
+        "notes": "Routine vaccination due",
+        "createdAt": "2025-03-12T14:20:00.000Z",
+        "updatedAt": "2025-03-12T14:20:00.000Z",
+        "updatedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "pregnancyWeek": 15,
+        "statusHistory": [
+          {
+            "status": "scheduled",
+            "changedAt": "2025-03-12T14:20:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+          },
+          {
+            "status": "confirmed",
+            "changedAt": "2025-03-18T10:15:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+          }
+        ]
+      },
+      "a4CDE3fgh4IJK5lmn6": {
+        "patientId": "p4KLM1nop2QRS3tuv4",
+        "patientName": "Tahmina Ahmed",
+        "patientPhone": "+8801812345678",
+        "patientProfile": "https://storage.googleapis.com/moneca-app.appspot.com/patient_profiles/p4KLM1nop2QRS3tuv4.jpg",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "doctorName": "Dr. Farah Ahmed",
+        "date": "2025-03-25T00:00:00.000Z",
+        "time": "17:30",
+        "serialNumber": 8,
+        "status": "confirmed",
+        "type": "ultrasound",
+        "notes": "Routine ultrasound scan",
+        "createdAt": "2025-03-14T10:15:00.000Z",
+        "updatedAt": "2025-03-14T10:15:00.000Z",
+        "updatedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "pregnancyWeek": 18,
+        "statusHistory": [
+          {
+            "status": "scheduled",
+            "changedAt": "2025-03-14T10:15:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+          },
+          {
+            "status": "confirmed",
+            "changedAt": "2025-03-19T15:30:00.000Z",
+            "changedBy": "lAZKiGd2DnUreHBZJvB3q10lsyF3"
+          }
+        ]
+      }
+    },
+    "prescriptions": {
+      "pr1OPQ7rst8UVW9xyz0": {
+        "patientId": "p5WXY5zab6CDE7fgh8",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "date": "2025-03-15T09:50:00.000Z",
+        "chiefComplaints": "Occasional headache, elevated blood pressure",
+        "clinicalFindings": "BP: 150/95, Mild edema in lower extremities",
+        "diagnosis": ["Pregnancy-induced hypertension", "Edema"],
+        "medications": [
+          {
+            "id": "med1",
+            "name": "Methyldopa",
+            "dosage": "250mg",
+            "frequency": "Twice daily",
+            "duration": "2 weeks",
+            "instructions": "Take with food"
+          },
+          {
+            "id": "med2",
+            "name": "Calcium supplement",
+            "dosage": "1000mg",
+            "frequency": "Once daily",
+            "duration": "1 month",
+            "instructions": "Take with water in the morning"
+          }
+        ],
+        "tests": [
+          {
+            "id": "test1",
+            "name": "Complete Blood Count",
+            "description": "To check hemoglobin levels",
+            "isPending": true
+          },
+          {
+            "id": "test2",
+            "name": "Urine Protein Test",
+            "description": "To check for protein in urine",
+            "isPending": true
+          }
+        ],
+        "advice": "Reduce salt intake, rest frequently, monitor daily blood pressure",
+        "nextVisit": "2025-03-22T00:00:00.000Z",
+        "vitalSigns": {
+          "bloodPressure": "150/95",
+          "heartRate": 82,
+          "oxygenLevel": 98,
+          "temperature": 36.8,
+          "weight": 75.5,
+          "fetalHeartRate": 140,
+          "fundalHeight": 30,
+          "gestationalAge": 30
+        },
+        "createdAt": "2025-03-15T09:50:00.000Z",
+        "updatedAt": "2025-03-15T09:50:00.000Z"
+      },
+      "pr2ABC1def2GHI3jkl4": {
+        "patientId": "p6IJK9lmn0OPQ1rst2",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "date": "2025-03-14T16:30:00.000Z",
+        "chiefComplaints": "Shortness of breath, fatigue",
+        "clinicalFindings": "Pale conjunctiva, O2 saturation: 92%",
+        "diagnosis": ["Iron deficiency anemia", "Pregnancy related fatigue"],
+        "medications": [
+          {
+            "id": "med3",
+            "name": "Ferrous Sulfate",
+            "dosage": "325mg",
+            "frequency": "Twice daily",
+            "duration": "1 month",
+            "instructions": "Take with orange juice, 2 hours after meals"
+          },
+          {
+            "id": "med4",
+            "name": "Folic Acid",
+            "dosage": "5mg",
+            "frequency": "Once daily",
+            "duration": "1 month",
+            "instructions": "Take in the morning"
+          }
+        ],
+        "tests": [
+          {
+            "id": "test3",
+            "name": "Hemoglobin Level",
+            "description": "To monitor anemia",
+            "isPending": true
+          },
+          {
+            "id": "test4",
+            "name": "Serum Ferritin",
+            "description": "To assess iron stores",
+            "isPending": true
+          }
+        ],
+        "advice": "Rest adequately, consume iron-rich foods, avoid tea/coffee with meals",
+        "nextVisit": "2025-03-28T00:00:00.000Z",
+        "vitalSigns": {
+          "bloodPressure": "110/70",
+          "heartRate": 90,
+          "oxygenLevel": 92,
+          "temperature": 37.0,
+          "weight": 68.2,
+          "fetalHeartRate": 145,
+          "fundalHeight": 25,
+          "gestationalAge": 25
+        },
+        "createdAt": "2025-03-14T16:30:00.000Z",
+        "updatedAt": "2025-03-14T16:30:00.000Z"
+      },
+      "pr3MNO5pqr6STU7vwx8": {
+        "patientId": "p7UVW3xyz4ABC5def6",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "date": "2025-03-16T12:15:00.000Z",
+        "chiefComplaints": "Palpitations, anxiety",
+        "clinicalFindings": "Irregular heart rate, 115 bpm",
+        "diagnosis": ["Sinus tachycardia", "Anxiety"],
+        "medications": [
+          {
+            "id": "med5",
+            "name": "Propranolol",
+            "dosage": "10mg",
+            "frequency": "Twice daily",
+            "duration": "1 week",
+            "instructions": "Take after meals"
+          }
+        ],
+        "tests": [
+          {
+            "id": "test5",
+            "name": "ECG",
+            "description": "To evaluate heart rhythm",
+            "isPending": true
+          },
+          {
+            "id": "test6",
+            "name": "Thyroid Function Tests",
+            "description": "To check thyroid levels",
+            "isPending": true
+          }
+        ],
+        "advice": "Avoid caffeine, practice relaxation techniques, adequate hydration",
+        "nextVisit": "2025-03-23T00:00:00.000Z",
+        "vitalSigns": {
+          "bloodPressure": "125/85",
+          "heartRate": 115,
+          "oxygenLevel": 99,
+          "temperature": 36.9,
+          "weight": 64.1,
+          "fetalHeartRate": 150,
+          "fundalHeight": 22,
+          "gestationalAge": 22
+        },
+        "createdAt": "2025-03-16T12:15:00.000Z",
+        "updatedAt": "2025-03-16T12:15:00.000Z"
+      },
+      "pr4YZA9bcd0EFG1hij2": {
+        "patientId": "p8GHI7jkl8MNO9pqr0",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "date": "2025-03-15T15:10:00.000Z",
+        "chiefComplaints": "Fever, chills, body ache",
+        "clinicalFindings": "Temperature: 39.5°C, Throat congestion",
+        "diagnosis": ["Viral infection", "Upper respiratory tract infection"],
+        "medications": [
+          {
+            "id": "med6",
+            "name": "Paracetamol",
+            "dosage": "500mg",
+            "frequency": "Every 6 hours as needed",
+            "duration": "3 days",
+            "instructions": "Take after food, not to exceed 4 doses in 24 hours"
+          }
+        ],
+        "tests": [],
+        "advice": "Increase fluid intake, rest, monitor temperature",
+        "nextVisit": "2025-03-18T00:00:00.000Z",
+        "vitalSigns": {
+          "bloodPressure": "120/80",
+          "heartRate": 95,
+          "oxygenLevel": 97,
+          "temperature": 39.5,
+          "weight": 76.8,
+          "fetalHeartRate": 160,
+          "fundalHeight": 34,
+          "gestationalAge": 34
+        },
+        "createdAt": "2025-03-15T15:10:00.000Z",
+        "updatedAt": "2025-03-15T15:10:00.000Z"
+      }
+    },
+    "health_data": {
+      "hd1KLM3nop4QRS5tuv6": {
+        "patientId": "p5WXY5zab6CDE7fgh8",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "blood_pressure",
+        "timestamp": "2025-03-15T09:30:00.000Z",
+        "value": "150/95",
+        "unit": "mmHg",
+        "notes": "Measured at rest",
+        "isAbnormal": true,
+        "createdAt": "2025-03-15T09:50:00.000Z",
+        "updatedAt": "2025-03-15T09:50:00.000Z"
+      },
+      "hd2WXY7zab8CDE9fgh0": {
+        "patientId": "p5WXY5zab6CDE7fgh8",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "blood_pressure",
+        "timestamp": "2025-03-08T14:15:00.000Z",
+        "value": "145/90",
+        "unit": "mmHg",
+        "notes": "After walking",
+        "isAbnormal": true,
+        "createdAt": "2025-03-08T14:25:00.000Z",
+        "updatedAt": "2025-03-08T14:25:00.000Z"
+      },
+      "hd3IJK1lmn2OPQ3rst4": {
+        "patientId": "p6IJK9lmn0OPQ1rst2",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "oxygen_saturation",
+        "timestamp": "2025-03-14T16:15:00.000Z",
+        "value": "92",
+        "unit": "%",
+        "notes": "At rest",
+        "isAbnormal": true,
+        "createdAt": "2025-03-14T16:30:00.000Z",
+        "updatedAt": "2025-03-14T16:30:00.000Z"
+      },
+      "hd4UVW5xyz6ABC7def8": {
+        "patientId": "p6IJK9lmn0OPQ1rst2",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "oxygen_saturation",
+        "timestamp": "2025-03-07T10:45:00.000Z",
+        "value": "94",
+        "unit": "%",
+        "notes": "At rest",
+        "isAbnormal": true,
+        "createdAt": "2025-03-07T11:00:00.000Z",
+        "updatedAt": "2025-03-07T11:00:00.000Z"
+      },
+      "hd5GHI9jkl0MNO1pqr2": {
+        "patientId": "p7UVW3xyz4ABC5def6",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "heart_rate",
+        "timestamp": "2025-03-16T12:00:00.000Z",
+        "value": "115",
+        "unit": "bpm",
+        "notes": "Elevated, patient reporting palpitations",
+        "isAbnormal": true,
+        "createdAt": "2025-03-16T12:15:00.000Z",
+        "updatedAt": "2025-03-16T12:15:00.000Z"
+      },
+      "hd6STU3vwx4YZA5bcd6": {
+        "patientId": "p7UVW3xyz4ABC5def6",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "heart_rate",
+        "timestamp": "2025-03-09T15:30:00.000Z",
+        "value": "105",
+        "unit": "bpm",
+        "notes": "Slightly elevated",
+        "isAbnormal": true,
+        "createdAt": "2025-03-09T15:45:00.000Z",
+        "updatedAt": "2025-03-09T15:45:00.000Z"
+      },
+      "hd7CDE7fgh8IJK9lmn0": {
+        "patientId": "p8GHI7jkl8MNO9pqr0",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "temperature",
+        "timestamp": "2025-03-15T14:50:00.000Z",
+        "value": "39.5",
+        "unit": "°C",
+        "notes": "Fever",
+        "isAbnormal": true,
+        "createdAt": "2025-03-15T15:10:00.000Z",
+        "updatedAt": "2025-03-15T15:10:00.000Z"
+      },
+      "hd8OPQ1rst2UVW3xyz4": {
+        "patientId": "p8GHI7jkl8MNO9pqr0",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "dataType": "temperature",
+        "timestamp": "2025-03-14T20:30:00.000Z",
+        "value": "38.9",
+        "unit": "°C",
+        "notes": "Mild fever beginning",
+        "isAbnormal": true,
+        "createdAt": "2025-03-14T20:45:00.000Z",
+        "updatedAt": "2025-03-14T20:45:00.000Z"
+      }
+    },
+    "prescription_templates": {
+      "pt1ABC5def6GHI7jkl8": {
+        "name": "Standard Maternity Prescription",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "headerImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/prescription_templates/header_moneca.png",
+        "footerText": "Please follow up as directed. For emergencies, contact our 24/7 helpline: +880123456789",
+        "watermarkImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/prescription_templates/watermark_moneca.png",
+        "watermarkOpacity": 0.1,
+        "hospitalName": "MoNeCa Medical Center",
+        "hospitalAddress": "123 Medical Center Road, Dhaka, Bangladesh",
+        "hospitalPhone": "+880123456789",
+        "hospitalLogo": "https://storage.googleapis.com/moneca-app.appspot.com/prescription_templates/logo_moneca.png",
+        "isDefault": true,
+        "createdAt": "2024-12-05T10:00:00.000Z",
+        "updatedAt": "2025-01-15T14:30:00.000Z"
+      },
+      "pt2MNO9pqr0STU1vwx2": {
+        "name": "Emergency Consultation Template",
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "headerImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/prescription_templates/header_emergency.png",
+        "footerText": "URGENT: Follow these instructions carefully and contact us immediately if symptoms worsen.",
+        "watermarkImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/prescription_templates/watermark_urgent.png",
+        "watermarkOpacity": 0.15,
+        "hospitalName": "MoNeCa Medical Center",
+        "hospitalAddress": "123 Medical Center Road, Dhaka, Bangladesh",
+        "hospitalPhone": "+880123456789",
+        "hospitalLogo": "https://storage.googleapis.com/moneca-app.appspot.com/prescription_templates/logo_moneca.png",
+        "isDefault": false,
+        "createdAt": "2025-01-10T09:15:00.000Z",
+        "updatedAt": "2025-01-10T09:15:00.000Z"
+      }
+    },
+    "doctor_schedules": {
+      "ds1YZA3bcd4EFG5hij6": {
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "day": "monday",
+        "isWorkingDay": true,
+        "timeSlots": [
+          {
+            "id": 1,
+            "startTime": "09:00",
+            "endTime": "09:30",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 2,
+            "startTime": "09:30",
+            "endTime": "10:00",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 3,
+            "startTime": "10:00",
+            "endTime": "10:30",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 4,
+            "startTime": "10:30",
+            "endTime": "11:00",
+            "maxPatients": 2,
+            "isAvailable": true
+          }
+        ]
+      },
+      "ds2KLM7nop8OPQ9rst0": {
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "day": "wednesday",
+        "isWorkingDay": true,
+        "timeSlots": [
+          {
+            "id": 1,
+            "startTime": "14:00",
+            "endTime": "14:30",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 2,
+            "startTime": "14:30",
+            "endTime": "15:00",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 3,
+            "startTime": "15:00",
+            "endTime": "15:30",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 4,
+            "startTime": "15:30",
+            "endTime": "16:00",
+            "maxPatients": 2,
+            "isAvailable": true
+          }
+        ]
+      },
+      "ds3UVW1xyz2ABC3def4": {
+        "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+        "day": "friday",
+        "isWorkingDay": true,
+        "timeSlots": [
+          {
+            "id": 1,
+            "startTime": "16:00",
+            "endTime": "16:30",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 2,
+            "startTime": "16:30",
+            "endTime": "17:00",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 3,
+            "startTime": "17:00",
+            "endTime": "17:30",
+            "maxPatients": 2,
+            "isAvailable": true
+          },
+          {
+            "id": 4,
+            "startTime": "17:30",
+            "endTime": "18:00",
+            "maxPatients": 2,
+            "isAvailable": true
+          }
+        ]
+      }
+    },
+    "patients_health_records": {
+      "p5WXY5zab6CDE7fgh8": {
+        "hr1GHI5hij6KLM7nop8": {
+          "recordType": "ultrasound",
+          "date": "2025-03-01T10:30:00.000Z",
+          "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+          "notes": "Normal fetal development, estimated weight 1.5kg",
+          "files": [
+            {
+              "url": "https://storage.googleapis.com/moneca-app.appspot.com/health_records/p5WXY5zab6CDE7fgh8/ultrasound_20250301.pdf",
+              "type": "application/pdf",
+              "name": "Ultrasound Report - March 1, 2025"
+            }
+          ],
+          "createdAt": "2025-03-01T11:15:00.000Z"
+        }
+      },
+      "p7UVW3xyz4ABC5def6": {
+        "hr2OPQ9rst0UVW1xyz2": {
+          "recordType": "ecg",
+          "date": "2025-03-10T14:15:00.000Z",
+          "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+          "notes": "Sinus tachycardia, otherwise normal",
+          "files": [
+            {
+              "url": "https://storage.googleapis.com/moneca-app.appspot.com/health_records/p7UVW3xyz4ABC5def6/ecg_20250310.pdf",
+              "type": "application/pdf",
+              "name": "ECG Report - March 10, 2025"
+            }
+          ],
+          "createdAt": "2025-03-10T14:45:00.000Z"
+        }
+      }
+    },
+    "doctors_quick_options": {
+      "lAZKiGd2DnUreHBZJvB3q10lsyF3": {
+        "complaints": [
+          "Headache",
+          "Nausea and vomiting",
+          "Dizziness",
+          "Swelling in feet",
+          "Abdominal pain",
+          "Vaginal bleeding",
+          "Shortness of breath",
+          "Reduced fetal movement",
+          "Fatigue and weakness",
+          "Insomnia"
+        ],
+        "diagnoses": [
+          "Pregnancy-induced hypertension",
+          "Gestational diabetes",
+          "Iron deficiency anemia",
+          "Urinary tract infection",
+          "Preeclampsia",
+          "Morning sickness",
+          "Hyperemesis gravidarum",
+          "HELLP syndrome",
+          "Placenta previa",
+          "Oligohydramnios"
+        ],
+        "advice": [
+          "Rest adequately, avoid strenuous activities",
+          "Stay hydrated, drink at least 8-10 glasses of water daily",
+          "Take prenatal vitamins as directed",
+          "Monitor fetal movement daily",
+          "Avoid smoking and alcohol consumption",
+          "Consume a balanced diet rich in iron, calcium, and folic acid",
+          "Monitor blood pressure daily",
+          "Avoid high sodium foods",
+          "Check blood glucose levels as directed",
+          "Report any unusual symptoms immediately"
+        ]
+      }
+    },
+    "pregnancy_data": {
+      "p1ABC2def3GHI4jkl5": {
+        "pg1DEF5ghi6JKL7mno8": {
+          "startDate": "2024-09-20T00:00:00.000Z",
+          "expectedDeliveryDate": "2025-06-12T00:00:00.000Z",
+          "lastCheckupDate": "2025-03-10T09:30:00.000Z",
+          "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+          "notes": "Low-risk pregnancy, history of gestational diabetes in previous pregnancy",
+          "status": "ongoing",
+          "createdAt": "2024-12-01T10:15:00.000Z"
+        }
+      },
+      "p2MNO3pqr4STU5vwx6": {
+        "pg2PQR9stu0VWX1yza2": {
+          "startDate": "2024-08-12T00:00:00.000Z",
+          "expectedDeliveryDate": "2025-05-05T00:00:00.000Z",
+          "lastCheckupDate": "2025-03-15T11:45:00.000Z",
+          "doctorId": "lAZKiGd2DnUreHBZJvB3q10lsyF3",
+          "notes": "High-risk pregnancy due to preexisting hypertension, requires close monitoring",
+          "status": "ongoing",
+          "createdAt": "2024-11-15T14:30:00.000Z"
+        }
+      }
+    }
+}

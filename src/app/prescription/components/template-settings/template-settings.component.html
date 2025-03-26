@@ -1,0 +1,191 @@
+<div class="template-settings-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="Templates" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+      <div class="page-header">
+        <h1 class="page-title">Prescription Templates</h1>
+        <button class="btn-add" (click)="newTemplate()">
+          <i class="fa-solid fa-plus"></i> New Template
+        </button>
+      </div>
+      
+      <div *ngIf="errorMessage" class="alert alert-error">
+        <span class="alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
+        <span class="alert-message">{{ errorMessage }}</span>
+      </div>
+      
+      <div *ngIf="successMessage" class="alert alert-success">
+        <span class="alert-icon"><i class="fa-solid fa-check-circle"></i></span>
+        <span class="alert-message">{{ successMessage }}</span>
+      </div>
+      
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="spinner"></div>
+        <p>Loading templates...</p>
+      </div>
+      
+      <div *ngIf="!isLoading" class="template-settings-wrapper">
+        <!-- Template List -->
+        <div class="template-list">
+          <h2 class="section-title">My Templates</h2>
+          
+          <div *ngIf="templates.length === 0 && !isCreating" class="no-templates">
+            <p>You haven't created any templates yet.</p>
+            <button class="create-template-btn" (click)="newTemplate()">
+              <i class="fa-solid fa-plus"></i> Create Your First Template
+            </button>
+          </div>
+          
+          <div *ngIf="templates.length > 0" class="template-cards">
+            <div
+              *ngFor="let template of templates"
+              class="template-card"
+              [class.active]="selectedTemplate?.id === template.id"
+              (click)="selectTemplate(template)">
+              <div class="template-card-content">
+                <h3 class="template-name">{{ template.name }}</h3>
+                <p class="template-hospital">{{ template.hospitalName }}</p>
+                <div class="template-badge" *ngIf="template.isDefault">Default</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Template Form -->
+        <div class="template-form-section">
+          <h2 class="section-title">{{ isCreating ? 'Create New Template' : 'Edit Template' }}</h2>
+          
+          <form [formGroup]="templateForm" (ngSubmit)="saveTemplate()" class="template-form">
+            <div class="form-group">
+              <label for="name">Template Name <span class="required">*</span></label>
+              <input type="text" id="name" formControlName="name" class="form-control" placeholder="E.g., My Hospital Template"
+                [class.is-invalid]="templateForm.get('name')?.touched && templateForm.get('name')?.invalid">
+              <div class="error-message" *ngIf="templateForm.get('name')?.touched && templateForm.get('name')?.errors?.['required']">
+                Template name is required
+              </div>
+              <div class="error-message" *ngIf="templateForm.get('name')?.touched && templateForm.get('name')?.errors?.['minlength']">
+                Template name must be at least 3 characters
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h3 class="form-section-title">Hospital Information</h3>
+              
+              <div class="form-group">
+                <label for="hospitalName">Hospital/Clinic Name <span class="required">*</span></label>
+                <input type="text" id="hospitalName" formControlName="hospitalName" class="form-control" placeholder="E.g., MoNeCa Maternal Health Center"
+                  [class.is-invalid]="templateForm.get('hospitalName')?.touched && templateForm.get('hospitalName')?.invalid">
+                <div class="error-message" *ngIf="templateForm.get('hospitalName')?.touched && templateForm.get('hospitalName')?.errors?.['required']">
+                  Hospital name is required
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="hospitalAddress">Hospital/Clinic Address <span class="required">*</span></label>
+                <input type="text" id="hospitalAddress" formControlName="hospitalAddress" class="form-control" placeholder="E.g., Dhaka Medical College Road, Dhaka-1000"
+                  [class.is-invalid]="templateForm.get('hospitalAddress')?.touched && templateForm.get('hospitalAddress')?.invalid">
+                <div class="error-message" *ngIf="templateForm.get('hospitalAddress')?.touched && templateForm.get('hospitalAddress')?.errors?.['required']">
+                  Hospital address is required
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="hospitalPhone">Phone Number</label>
+                <input type="text" id="hospitalPhone" formControlName="hospitalPhone" class="form-control" placeholder="E.g., +880 1712345678">
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h3 class="form-section-title">Header Image</h3>
+              
+              <div class="image-preview-container">
+                <div class="image-preview" *ngIf="headerImagePreview">
+                  <img [src]="headerImagePreview" alt="Header Image Preview">
+                </div>
+                <div class="no-image" *ngIf="!headerImagePreview">
+                  <i class="fa-solid fa-image"></i>
+                  <span>No image selected</span>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="headerImage">Upload Header Image</label>
+                <input type="file" id="headerImage" class="form-control file-input" accept="image/*" (change)="onHeaderImageSelected($event)">
+                <p class="help-text">Recommended size: 800x150 px, PNG or JPEG format</p>
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h3 class="form-section-title">Watermark</h3>
+              
+              <div class="image-preview-container">
+                <div class="image-preview watermark-preview" *ngIf="watermarkImagePreview" [style.opacity]="templateForm.get('watermarkOpacity')?.value">
+                  <img [src]="watermarkImagePreview" alt="Watermark Preview">
+                </div>
+                <div class="no-image" *ngIf="!watermarkImagePreview">
+                  <i class="fa-solid fa-image"></i>
+                  <span>No image selected</span>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="watermarkImage">Upload Watermark Image</label>
+                <input type="file" id="watermarkImage" class="form-control file-input" accept="image/*" (change)="onWatermarkImageSelected($event)">
+                <p class="help-text">Recommended size: 500x500 px, PNG with transparency</p>
+              </div>
+              
+              <div class="form-group">
+                <label for="watermarkOpacity">Watermark Opacity: {{ templateForm.get('watermarkOpacity')?.value }}</label>
+                <input type="range" id="watermarkOpacity" formControlName="watermarkOpacity" min="0.05" max="0.3" step="0.05" class="form-control range-input">
+                <div class="range-labels">
+                  <span>Light</span>
+                  <span>Dark</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-section">
+              <h3 class="form-section-title">Footer</h3>
+              
+              <div class="form-group">
+                <label for="footerText">Footer Text</label>
+                <input type="text" id="footerText" formControlName="footerText" class="form-control" placeholder="E.g., Powered by MoNeCa Health System">
+              </div>
+              
+              <div class="form-group form-checkbox">
+                <input type="checkbox" id="isDefault" formControlName="isDefault" class="checkbox-input">
+                <label for="isDefault" class="checkbox-label">Set as default template</label>
+              </div>
+            </div>
+            
+            <div class="form-actions">
+              <div class="action-group">
+                <button type="button" class="delete-btn" *ngIf="!isCreating && selectedTemplate" (click)="deleteTemplate()">
+                  <i class="fa-solid fa-trash"></i> Delete
+                </button>
+                <button type="button" class="set-default-btn" *ngIf="!isCreating && selectedTemplate && !selectedTemplate.isDefault" (click)="setDefaultTemplate()">
+                  <i class="fa-solid fa-star"></i> Set as Default
+                </button>
+              </div>
+              
+              <div class="action-group">
+                <button type="button" class="cancel-btn" (click)="isCreating ? resetForm() : selectTemplate(selectedTemplate!)" [disabled]="isSaving">
+                  <i class="fa-solid fa-times"></i> Cancel
+                </button>
+                <button type="submit" class="save-btn" [disabled]="isSaving">
+                  <span *ngIf="!isSaving">
+                    <i class="fa-solid fa-save"></i> {{ isCreating ? 'Create' : 'Save' }}
+                  </span>
+                  <span *ngIf="isSaving">
+                    <i class="fa-solid fa-spinner fa-spin"></i> {{ isUploading ? 'Uploading...' : 'Saving...' }}
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
