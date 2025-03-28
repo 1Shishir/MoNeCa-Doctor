@@ -520,6 +520,7 @@
     </div>
 
     <!-- Step 4: Assignment and Account -->
+
     <div class="form-step" *ngIf="currentStep === 4">
       <h2 class="step-title">Assignment & Account Setup</h2>
 
@@ -527,7 +528,56 @@
         <h3 class="subsection-title">Healthcare Provider Assignment</h3>
 
         <div class="form-row">
+          <!-- v3 -->
           <div class="form-group">
+            <label for="assignedDoctor">Assigned Doctor <span class="required">*</span></label>
+            <select id="assignedDoctor" formControlName="assignedDoctor" class="form-control"
+              [class.is-invalid]="isInvalid(assignmentInfo, 'assignedDoctor')">
+              
+              <option value="">Select Doctor</option>
+              
+              <!-- Initial placeholder options for better UX -->
+              <ng-container *ngIf="doctors.length === 0; else doctorList">
+                <option value="" disabled>Loading doctors...</option>
+                <option value="TEMP001">Dr. Rafiq Ahmed (Temporary)</option>
+                <option value="TEMP002">Dr. Fatima Khan (Temporary)</option>
+              </ng-container>
+              
+              <!-- Actual doctor list when loaded -->
+              <ng-template #doctorList>
+                <option *ngFor="let doctor of doctors; trackBy: trackByDoctor" [value]="doctor.uid">
+                  Dr. {{ doctor.fullName }}
+                </option>
+              </ng-template>
+            </select>
+          
+            <div class="error-message" *ngIf="isInvalid(assignmentInfo, 'assignedDoctor')">
+              Please select a doctor
+            </div>
+          </div>
+          
+          
+          <!-- v2 -->
+          <!-- <div class="form-group">
+            <label for="assignedDoctor">Assigned Doctor <span class="required">*</span></label>
+            <select id="assignedDoctor" formControlName="assignedDoctor" class="form-control"
+              [class.is-invalid]="isInvalid(assignmentInfo, 'assignedDoctor')">
+              <option value="">Select Doctor</option>
+              <ng-container *ngIf="doctors.length > 0; else loadingDoctors">
+                <option *ngFor="let doctor of doctors" [value]="doctor.uid">
+                  Dr. {{ doctor.fullName }}
+                </option>
+              </ng-container>
+              <ng-template #loadingDoctors>
+                <option value="" disabled>Loading doctors...</option>
+              </ng-template>
+            </select>
+            <div class="error-message" *ngIf="isInvalid(assignmentInfo, 'assignedDoctor')">
+              Please select a doctor
+            </div>
+          </div> -->
+          <!-- hardcode -->
+          <!-- <div class="form-group">
             <label for="assignedDoctor">Assigned Doctor <span class="required">*</span></label>
             <select id="assignedDoctor" formControlName="assignedDoctor" class="form-control"
               [class.is-invalid]="isInvalid(assignmentInfo, 'assignedDoctor')">
@@ -539,7 +589,7 @@
             <div class="error-message" *ngIf="isInvalid(assignmentInfo, 'assignedDoctor')">
               Please select a doctor
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group">
             <label for="assignedHealthWorker">Assigned Health Worker <span class="required">*</span></label>
@@ -617,14 +667,15 @@
         Next <i class="fa-solid fa-arrow-right"></i>
       </button>
 
-      <button type="submit" class="submit-btn" *ngIf="currentStep === totalSteps">
-        <span *ngIf="!accountSetup.get('createAccount')?.value">
-          <i class="fa-solid fa-save"></i> Save Patient
-        </span>
-        <span *ngIf="accountSetup.get('createAccount')?.value">
-          <i class="fa-solid fa-user-plus"></i> Save & Create Account
-        </span>
-      </button>
+<!-- Inside your form actions -->
+<button type="submit" class="submit-btn" [disabled]="patientForm.invalid || sendingLink">
+  <span *ngIf="!sendingLink">
+    <i class="fa-solid fa-save"></i> Save Patient
+  </span>
+  <span *ngIf="sendingLink">
+    <i class="fa-solid fa-spinner fa-spin"></i> Saving...
+  </span>
+</button>
 
       <div class="loading-spinner" *ngIf="sendingLink">
         <div class="spinner"></div>
