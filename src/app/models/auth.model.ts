@@ -12,7 +12,7 @@ export interface AuthCredentials {
   }
   
   export interface Doctor {
-    uid: string;
+    uuid: string;
     email: string;
     fullName: string;
     specialization: string;

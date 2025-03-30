@@ -57,7 +57,7 @@ export class AuthService {
     )).pipe(
       switchMap(credential => {
         const doctor: Doctor = {
-          uid: credential.user.uid,
+          uuid: credential.user.uid,
           email: signupData.email,
           fullName: signupData.fullName,
           specialization: signupData.specialization,
@@ -173,113 +173,11 @@ export class AuthService {
     return false;
   }
   getCurrentDoctor(): Doctor | null {
+    // Return null during SSR to avoid client/server mismatches
+    if (!this.isBrowser) {
+      return null;
+    }
     return this.currentDoctorSubject.value;
   }
-  
-  
 }
-// import { Injectable } from '@angular/core';
-// import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, deleteUser } from '@angular/fire/auth';
-// import { Firestore, doc, setDoc } from '@angular/fire/firestore';
-// import { catchError, from, Observable, switchMap, throwError } from 'rxjs';
-// import { SignupData, Doctor } from '../../models/auth.model';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthService {
-//   constructor(
-//     private auth: Auth,
-//     private firestore: Firestore
-//   ) {}
   
-//   signup(signupData: SignupData): Observable<void> {
-//     return from(createUserWithEmailAndPassword(
-//       this.auth,
-//       signupData.email,
-//       signupData.password
-//     )).pipe(
-//       switchMap(credential => {
-//         const doctor: Doctor = {
-//           uid: credential.user.uid,
-//           email: signupData.email,
-//           fullName: signupData.fullName,
-//           specialization: signupData.specialization,
-//           licenseNumber: signupData.licenseNumber,
-//           phoneNumber: signupData.phoneNumber,
-//           hospital: signupData.hospital,
-//           isApproved: false,
-//           createdAt: new Date(),
-//           updatedAt: new Date()
-//         };
-  
-//         const doctorRef = doc(this.firestore, 'doctors', credential.user.uid);
-//         // Add error handling here
-//         return from(setDoc(doctorRef, doctor)).pipe(
-//           catchError(error => {
-//             // If Firestore save fails, delete the auth user to maintain consistency
-//             deleteUser(credential.user);
-//             return throwError(() => new Error(`Firestore save failed: ${error.message}`));
-//           })
-//         );
-//       }),
-//       catchError(error => {
-//         console.error('Signup error:', error);
-//         return throwError(() => error);
-//       })
-//     );
-//   }
-//   // signup(signupData: SignupData): Observable<void> {
-//   //   return from(createUserWithEmailAndPassword(
-//   //     this.auth,
-//   //     signupData.email,
-//   //     signupData.password
-//   //   )).pipe(
-//   //     switchMap(credential => {
-//   //       const doctor: Doctor = {
-//   //         uid: credential.user.uid,
-//   //         email: signupData.email,
-//   //         fullName: signupData.fullName,
-//   //         specialization: signupData.specialization,
-//   //         licenseNumber: signupData.licenseNumber,
-//   //         phoneNumber: signupData.phoneNumber,
-//   //         hospital: signupData.hospital,
-//   //         isApproved: false,
-//   //         createdAt: new Date(),
-//   //         updatedAt: new Date()
-//   //       };
-
-//   //       const doctorRef = doc(this.firestore, 'doctors', credential.user.uid);
-//   //       return from(setDoc(doctorRef, doctor));
-//   //     })
-//   //   );
-//   // }
-
-//   login(email: string, password: string): Observable<any> {
-//     return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
-//       catchError(error => {
-//         console.error('Login error:', error);
-//         return throwError(() => error);
-//       })
-//     );
-//   }
-
-
-//   logout(): Observable<void> {
-//     return from(signOut(this.auth)).pipe(
-//       catchError(error => {
-//         console.error('Logout error:', error);
-//         return throwError(() => error);
-//       })
-//     );
-//   }
-
-//   forgotPassword(email: string): Observable<void> {
-//     return from(sendPasswordResetEmail(this.auth, email)).pipe(
-//       catchError(error => {
-//         console.error('Password reset error:', error);
-//         return throwError(() => error);
-//       })
-//     );
-//   }
-// }

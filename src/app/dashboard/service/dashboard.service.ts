@@ -82,7 +82,7 @@ export class DashboardService {
     }
     
     const currentDoctor = this.authService.getCurrentDoctor();
-    return currentDoctor?.uid || '';
+    return currentDoctor?.uuid || '';
   }
   
   /**

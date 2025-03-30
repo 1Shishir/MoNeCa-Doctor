@@ -10,6 +10,10 @@ import { HeaderComponent } from '../../../dashboard/components/header/header.com
 import { PatientSearchComponent } from '../patient-search/patient-search.component';
 import { PatientCardComponent } from '../patient-card/patient-card.component';
 import { AlertComponent } from '../../../shared/components/alert/alert.component';
+import { Doctor } from '../../../models/auth.model';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router, RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-patients',
@@ -23,15 +27,26 @@ import { AlertComponent } from '../../../shared/components/alert/alert.component
     PatientCardComponent,
     PatientSearchComponent,
     StatCardComponent,
-    
+
   ],
   templateUrl: './patients.component.html',
   styleUrl: './patients.component.css'
 })
 export class PatientsComponent implements OnInit {
+  currentDoctor!: Doctor;
+  private dummyDoctor: Doctor = {
+    uuid: 'dummy-001',
+    email: 'doctor@moneca.com',
+    fullName: 'Dr. Anonymous',
+    specialization: 'General Practice',
+    licenseNumber: 'LIC-DUMMY-001',
+    phoneNumber: '+880123456789',
+    hospital: 'MoNeCa Health Center',
+    isApproved: true,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  };
   sidebarCollapsed = false;
-
-  // Patient statistics
   patientStats = [
     {
       title: 'Total Patients',
@@ -178,21 +193,25 @@ export class PatientsComponent implements OnInit {
 
   filteredPatients = [...this.patients];
 
-  constructor() { }
+  constructor( private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
+
     this.applyFilters();
+    this.currentDoctor = this.authService.getCurrentDoctor() || this.dummyDoctor;
   }
 
   toggleSidebar(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
-
+  onAddPatient(): void {
+    this.router.navigate(['/patients/add']);
+  }
   updateFilters(filters: any): void {
     this.filterOptions = { ...this.filterOptions, ...filters };
     this.applyFilters();
   }
-
+  
   applyFilters(): void {
     this.filteredPatients = this.patients.filter(patient => {
       // Apply criticality filter
