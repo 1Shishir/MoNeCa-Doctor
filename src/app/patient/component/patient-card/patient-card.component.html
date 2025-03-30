@@ -4,11 +4,11 @@
         <img [src]="patient.profile || 'assets/images/default-avatar.png'" alt="{{ patient.name }}" class="avatar-img">
       </div>
       <div class="patient-info">
-        <h3 class="patient-name">{{ patient.name }}</h3>
+        <h3 class="patient-name">{{ patient.personalInfo.fullName }}</h3>
         <div class="patient-details">
-          <span class="detail-item">{{ patient.age }} years</span>
+          <span class="detail-item">{{ patient.personalInfo.age }} years</span>
           <span class="dot-divider">•</span>
-          <span class="detail-item">{{ patient.weeks }} weeks</span>
+          <span class="detail-item">{{ patient.pregnancyInfo.weeks }} weeks</span>
         </div>
         <div class="criticality-badge" [ngClass]="getCriticalityClass()">
           {{ getCriticalityLabel() }}
@@ -47,7 +47,7 @@
         </div>
         <div class="info-row">
           <div class="info-label">Health Worker</div>
-          <div class="info-value">{{ patient.healthWorker }}</div>
+          <div class="info-value">{{ patient.assignmentInfo.assignedHealthWorker }}</div>
         </div>
       </div>
     </div>

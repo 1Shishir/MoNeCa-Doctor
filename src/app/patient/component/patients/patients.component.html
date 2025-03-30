@@ -1,4 +1,4 @@
-<div class="patients-container">
+<!-- <div class="patients-container">
   <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
   
   <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
@@ -43,6 +43,72 @@
           *ngFor="let patient of filteredPatients" 
           [patient]="patient">
         </app-patient-card>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="patients-container">
+  <app-sidebar [collapsed]="sidebarCollapsed" (toggle)="toggleSidebar()"></app-sidebar>
+  
+  <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+    <app-header title="Patients"></app-header>
+    
+    <div class="page-header">
+      <h1 class="page-title"></h1>
+      <div class="action-buttons">
+        <button class="btn-add" (click)="onAddPatient()">
+          <i class="fa-solid fa-plus"></i> Add Patient
+        </button>
+      </div>
+    </div>
+    
+    <div class="stats-container">
+      <app-stat-card *ngFor="let stat of patientStats" 
+        [title]="stat.title" 
+        [value]="stat.value" 
+        [icon]="stat.icon"
+        [change]="stat.change"
+        [colorClass]="stat.colorClass">
+      </app-stat-card>
+    </div>
+    
+    <app-patient-search (filtersChanged)="updateFilters($event)"></app-patient-search>
+    
+    <div class="patients-section">
+      <div class="section-header">
+        <h2>{{ filteredPatients.length }} Patients</h2>
+        <div class="view-toggle">
+          <button class="toggle-btn active">
+            <i class="fa-solid fa-grip"></i>
+          </button>
+          <button class="toggle-btn">
+            <i class="fa-solid fa-list"></i>
+          </button>
+        </div>
+      </div>
+      
+      <div *ngIf="isLoading && patients.length === 0" class="loading-container">
+        <i class="fa-solid fa-spinner fa-spin"></i> Loading patients...
+      </div>
+      
+      <div class="patients-grid">
+        <app-patient-card 
+          *ngFor="let patient of filteredPatients" 
+          [patient]="patient">
+        </app-patient-card>
+      </div>
+      
+      <div *ngIf="patients.length === 0 && !isLoading" class="no-patients">
+        <p>No patients found. Get started by adding your first patient.</p>
+        <button class="btn-primary" (click)="onAddPatient()">Add Patient</button>
+      </div>
+      
+      <div *ngIf="hasMorePatients" class="load-more">
+        <button class="btn-load-more" (click)="loadMorePatients()" [disabled]="isLoading">
+          <i *ngIf="isLoading" class="fa-solid fa-spinner fa-spin me-2"></i>
+          <span>{{ isLoading ? 'Loading...' : 'Load More' }}</span>
+        </button>
       </div>
     </div>
   </div>
