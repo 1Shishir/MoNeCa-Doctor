@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class PatientMedicalReportsComponent implements OnInit {
   @Input() medicalReports: any[] = [];
-  @Input() patientId: number = 0;
+  @Input() patientId: string = '0';
   
   showAddForm = false;
   reportForm: FormGroup;

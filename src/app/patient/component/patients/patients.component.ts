@@ -252,6 +252,7 @@ import { Router, RouterModule } from '@angular/router';
 import { PatientService } from '../../services/patient.service';
 import { Patient, Criticality } from '../../model/patient.model';
 import { Subscription } from 'rxjs';
+import { PatientDetailsService } from '../../../patient-details/services/patient-details.service';
 
 @Component({
   selector: 'app-patients',
@@ -337,6 +338,7 @@ export class PatientsComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private patientService: PatientService,
+    private patientDetailsService: PatientDetailsService,
     private router: Router
   ) {}
 
@@ -476,6 +478,12 @@ export class PatientsComponent implements OnInit, OnDestroy {
   }
 
   viewPatientDetails(patientId: string): void {
-    this.router.navigate(['/patients/details', patientId]);
+    console.log("viewPatientDetails called with ID: " + patientId); 
+    if (patientId) {
+      this.patientDetailsService.setPatientId(patientId);
+      this.router.navigate(['/patient-details']);
+    } else {
+      console.error('Invalid patient ID');
+    }
   }
 }

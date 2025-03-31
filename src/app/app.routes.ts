@@ -27,6 +27,7 @@ export const routes: Routes = [
     loadChildren: () => import('./patient-details/patient-details.module').then(m => m.PatientDetailsModule),
     canActivate: [AuthGuard]
   },
+  
   {
     path: 'detailed-health-data',
     loadChildren: () => import('./detailed-health-data/detailed-health-data.module').then(m => m.DetailedHealthDataModule),

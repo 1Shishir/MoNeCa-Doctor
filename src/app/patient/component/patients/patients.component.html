@@ -95,7 +95,9 @@
       <div class="patients-grid">
         <app-patient-card 
           *ngFor="let patient of filteredPatients" 
-          [patient]="patient">
+          [patient]="patient"
+          (patientClick)="viewPatientDetails(patient?.id || '')" 
+          >
         </app-patient-card>
       </div>
       

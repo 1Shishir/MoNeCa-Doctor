@@ -1,37 +1,41 @@
 <div class="patient-details-container">
-    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+  <div class="patients-container">
+    <app-sidebar [collapsed]="sidebarCollapsed" (toggle)="toggleSidebar()"></app-sidebar>
     
     <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header title="patient Details" (toggleSidebar)="toggleSidebar()"></app-header>
-      
+      <app-header title="Patients Details"></app-header>
       <div class="page-header">
-        <div class="back-link">
+        <!-- <div class="back-link">
           <a routerLink="/patients">
             <i class="fa-solid fa-arrow-left"></i> Back to Patients
           </a>
-        </div>
+        </div> -->
         
         <div class="patient-header">
           <div class="patient-avatar">
-            <img [src]="patient.profile || 'assets/images/default-avatar.png'" alt="{{ patient.name }}" class="avatar-img">
-            <div class="criticality-indicator" [ngClass]="'criticality-' + patient.criticality"></div>
+            <img [src]="patient?.profile || 'assets/images/default-avatar.png'" alt="{{ patient?.personalInfo?.fullName }}" class="avatar-img">
+            <div class="criticality-indicator" [ngClass]="'criticality-' + patient?.criticality"></div>
           </div>
           
           <div class="patient-basic-info">
-            <h1 class="patient-name">{{ patient.name }}</h1>
+            <h1 class="patient-name">{{ patient?.personalInfo?.fullName }}</h1>
             <div class="patient-meta">
-              <span><i class="fa-solid fa-calendar-days"></i> {{ patient.age }} years</span>
+              <span><i class="fa-solid fa-calendar-days"></i> {{ patient?.personalInfo?.age }} years</span>
               <span class="divider">•</span>
-              <span><i class="fa-solid fa-baby"></i> {{ patient.weeks }} weeks pregnant</span>
+              <span><i class="fa-solid fa-baby"></i> {{ patient?.pregnancyInfo?.weeks }} weeks pregnant</span>
               <span class="divider">•</span>
-              <span><i class="fa-solid fa-user-nurse"></i> Health Worker: {{ patient.healthWorker }}</span>
+              <span><i class="fa-solid fa-user-nurse"></i> Health Worker: {{ patient?.assignmentInfo?.assignedHealthWorker }}</span>
             </div>
             
             <div class="patient-tags">
-              <span class="tag" *ngFor="let condition of patient.additionalInfo.medicalConditions">
+              <span class="tag" *ngFor="let condition of patient?.medicalInfo?.medicalConditions || []">
                 {{ condition }}
               </span>
+              <span class="tag" *ngIf="patient?.assignmentInfo?.riskLevel">
+                {{ patient?.assignmentInfo?.riskLevel }}
+              </span>
             </div>
+            
           </div>
           
           <div class="action-buttons">
@@ -52,7 +56,7 @@
           </div>
           <div class="vital-data">
             <div class="vital-label">Heart Rate</div>
-            <div class="vital-value">{{ patient.vitalStatus.heartRate }} <span class="unit">bpm</span></div>
+            <div class="vital-value">{{ patient?.vitalStatus?.heartRate }} <span class="unit">bpm</span></div>
           </div>
         </div>
         
@@ -62,7 +66,7 @@
           </div>
           <div class="vital-data">
             <div class="vital-label">Blood Pressure</div>
-            <div class="vital-value">{{ patient.vitalStatus.bp }}</div>
+            <div class="vital-value">{{ patient?.vitalStatus?.bp }}<span class="unit">mmHg</span></div>
           </div>
         </div>
         
@@ -72,7 +76,7 @@
           </div>
           <div class="vital-data">
             <div class="vital-label">Oxygen Level</div>
-            <div class="vital-value">{{ patient.vitalStatus.oxygenLevel }}</div>
+            <div class="vital-value">{{ patient?.vitalStatus?.oxygenLevel }} <span class="unit">%</span></div>
           </div>
         </div>
         
@@ -82,7 +86,7 @@
           </div>
           <div class="vital-data">
             <div class="vital-label">Temperature</div>
-            <div class="vital-value">{{ patient.vitalStatus.temperature }}</div>
+            <div class="vital-value">{{ patient?.vitalStatus?.temperature }} <span class="unit">°F</span></div>
           </div>
         </div>
       </div>
@@ -136,25 +140,25 @@
           <app-patient-health-data 
             *ngIf="activeTab === 'health-data'"
             [healthData]="healthData"
-            [patientId]="patientId">
+            [patientId]="patient?.id || ''">
           </app-patient-health-data>
           
           <app-patient-prescriptions 
             *ngIf="activeTab === 'prescriptions'"
             [prescriptions]="prescriptions" 
-            [patientId]="patientId">
+            [patientId]="patient?.id || ''">
           </app-patient-prescriptions>
           
           <app-patient-medical-reports 
             *ngIf="activeTab === 'reports'"
             [medicalReports]="medicalReports"
-            [patientId]="patientId">
+            [patientId]="patient?.id || ''">
           </app-patient-medical-reports>
           
           <app-patient-assessment 
             *ngIf="activeTab === 'assessment'"
             [assessments]="assessments"
-            [patientId]="patientId">
+            [patientId]="patient?.id || ''">
           </app-patient-assessment>
           
           <app-patient-insights 

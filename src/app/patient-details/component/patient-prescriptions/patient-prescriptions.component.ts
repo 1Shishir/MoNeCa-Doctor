@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } fr
 })
 export class PatientPrescriptionsComponent implements OnInit {
   @Input() prescriptions: any[] = [];
-  @Input() patientId: number = 0;
+  @Input() patientId: string = '0';
   
   showAddForm = false;
   prescriptionForm: FormGroup;

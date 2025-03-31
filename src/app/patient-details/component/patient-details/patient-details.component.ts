@@ -10,6 +10,9 @@ import { PatientInsightsComponent } from '../patient-insights/patient-insights.c
 import { PatientMedicalReportsComponent } from '../patient-medical-reports/patient-medical-reports.component';
 import { PatientPrescriptionsComponent } from '../patient-prescriptions/patient-prescriptions.component';
 import { PatientProfileComponent } from '../patient-profile/patient-profile.component';
+import { PatientDetailsService } from '../../services/patient-details.service';
+import { Patient } from '../../../patient/model/patient.model';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -35,14 +38,73 @@ import { PatientProfileComponent } from '../patient-profile/patient-profile.comp
 export class PatientDetailsComponent implements OnInit {
   sidebarCollapsed = false;
   activeTab = 'profile';
-  patientId: number = 0;
-  
-  // Sample patient data - this would come from a service in a real app
-  patient = {
-    id: 1,
-    name: 'Fatima Akter',
-    age: 28,
-    weeks: 32,
+  isLoading = false;
+  patient: Patient | null = null;
+  private subscription = new Subscription();
+
+
+  private dummyPatient: Patient = {
+    id: "1",
+    personalInfo: {
+      fullName: 'Fatima Akter',
+      age: 28,
+      phoneNumber: '+8801712345678',
+      address: 'Village: Boalia, District: Rajshahi',
+      bloodType: 'B+',
+      height: 162,
+      weight: 65,
+      bmi: 24.8,
+      emergencyContact: {
+        name: 'Abdul Karim',
+        relation: 'Husband',
+        phone: '+8801698765432'
+      }
+    },
+    medicalInfo: {
+      allergies: ['Penicillin', 'Sulfa drugs'],
+      medicalConditions: ['Gestational Diabetes', 'Mild Hypertension'],
+      previousSurgeries: [
+        {
+          date: '2022-07-10',
+          procedure: "Apendix"
+        }
+      ],
+      currentMedications: [
+        {
+          name: "Napa",
+          dosage: "50 mg",
+          frequency: "1 each day",
+          reason: "Iron Suppliment",
+        },
+        {
+          name: "Zif Forte",
+          dosage: "500 mg",
+          frequency: "2 each day",
+          reason: "Fever",
+        },
+      ],
+    },
+    pregnancyInfo: {
+      weeks: 32,
+      edd: '2025-05-15',
+      gravida: 2,
+      para: 1,
+      trimester: 3,
+      previousDeliveries: [
+        {
+          date: '2022-07-10',
+          type: 'Vaginal',
+          complications: 'None',
+          babyWeight: '3.2 kg'
+        }
+      ]
+    },
+    assignmentInfo: {
+      assignedDoctor: "Dummy Id",
+      assignedHealthWorker: "Nasreen Ahmed",
+      initialNotes: "no need",
+      riskLevel: "low",
+    },
     criticality: 'critical',
     vitalStatus: {
       bp: '150/95',
@@ -52,38 +114,12 @@ export class PatientDetailsComponent implements OnInit {
     },
     lastCheckup: '2025-02-25',
     nextAppointment: '2025-03-05',
-    healthWorker: 'Nasreen Ahmed',
+    createdBy: 'Dummy Id',
+    createdAt: new Date('2025-01-25'),
+    updatedAt: new Date('2025-02-25'),
     profile: 'assets/images/patients/patient1.jpg',
-    additionalInfo: {
-      bloodType: 'B+',
-      height: '162 cm',
-      weight: '65 kg',
-      bmi: '24.8',
-      address: 'Village: Boalia, District: Rajshahi',
-      phone: '+8801712345678',
-      emergencyContact: {
-        name: 'Abdul Karim (Husband)',
-        phone: '+8801698765432'
-      },
-      allergies: ['Penicillin', 'Sulfa drugs'],
-      medicalConditions: ['Gestational Diabetes', 'Mild Hypertension'],
-      pregnancyInfo: {
-        edd: '2025-05-15',
-        gravida: 2,
-        para: 1,
-        trimester: 3,
-        previousDeliveries: [
-          {
-            date: '2022-07-10',
-            type: 'Vaginal',
-            complications: 'None',
-            babyWeight: '3.2 kg'
-          }
-        ]
-      }
-    }
   };
-  
+
   // Health data from smartwatch
   healthData = {
     today: [
@@ -100,7 +136,7 @@ export class PatientDetailsComponent implements OnInit {
       // Would have weekly averages
     ]
   };
-  
+
   // Prescriptions data
   prescriptions = [
     {
@@ -126,7 +162,7 @@ export class PatientDetailsComponent implements OnInit {
       instructions: 'Monitor blood pressure daily. Report any headaches or vision changes immediately.'
     }
   ];
-  
+
   // Medical reports data
   medicalReports = [
     {
@@ -157,7 +193,7 @@ export class PatientDetailsComponent implements OnInit {
       fileUrl: 'assets/reports/urine_jan20.pdf'
     }
   ];
-  
+
   // Assessment history
   assessments = [
     {
@@ -177,23 +213,60 @@ export class PatientDetailsComponent implements OnInit {
       recommendations: 'Start blood pressure medication. Monitor daily.'
     }
   ];
-  
-  constructor(private route: ActivatedRoute) {}
-  
+
+  constructor(private route: ActivatedRoute, private patientDetailsService: PatientDetailsService) { }
+
   ngOnInit(): void {
-    // In a real application, we would get the patient ID from the route
-    // and fetch the patient data from a service
-    this.route.params.subscribe(params => {
-      this.patientId = +params['id']; // Convert to number
-      // Then fetch patient data based on ID
-    });
+
+    this.loadPatientDetails();
+    console.log('Patient Medical Conditions:', 
+     JSON.stringify(this.patient?.medicalInfo?.medicalConditions) 
+    );
+
   }
-  
+
+  loadPatientDetails(): void {
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+    const patientId = this.patientDetailsService.getPatientId();
+
+    if (!patientId) {
+      console.error('No patient ID available');
+      this.patient = this.dummyPatient; // Set dummy data
+      this.isLoading = false;
+      return;
+    }
+
+    this.subscription.add(
+      this.patientDetailsService.getPatient(patientId).subscribe({
+        next: (result) => {
+          if (result) {
+            this.patient = result;
+          } else {
+            console.warn('Patient not found, showing dummy data');
+            this.patient = this.dummyPatient; // Set dummy data if no patient found
+          }
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error loading patient:', err);
+          this.isLoading = false;
+          this.patient = this.dummyPatient; // Set dummy data on error
+        }
+      })
+    );
+  }
+
+
   toggleSidebar(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
   }
-  
+
   setActiveTab(tab: string): void {
     this.activeTab = tab;
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

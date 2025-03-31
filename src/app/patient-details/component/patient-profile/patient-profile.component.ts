@@ -29,7 +29,11 @@ export class PatientProfileComponent {
   }
   
   calculateProgress(weeks: number): number {
-    // Pregnancy is typically 40 weeks
     return (weeks / 40) * 100;
+  }
+  ngOnInit() {
+    console.log('Full Patient Object:', this.patient);
+    console.log('Pregnancy Info:', this.patient?.pregnancyInfo);
+    console.log('Previous Deliveries:', this.patient?.pregnancyInfo?.previousDeliveries);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -14,7 +14,13 @@ import { RouterModule } from '@angular/router';
 })
 export class PatientCardComponent {
   @Input() patient: any;
-  
+   @Output() patientClick = new EventEmitter<any>();
+
+  onPatientCardClick() {
+     console.log("patient properties:", JSON.stringify(this.patient, null, 2)); 
+    this.patientClick.emit(this.patient?.id); 
+  }
+
   getCriticalityClass(): string {
     switch(this.patient.criticality) {
       case 'critical':

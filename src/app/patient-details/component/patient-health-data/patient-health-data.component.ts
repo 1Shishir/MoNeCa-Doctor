@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class PatientHealthDataComponent implements OnInit {
   @Input() healthData: any;
-  @Input() patientId: number = 0;
+  @Input() patientId: string = '0';
   
   selectedTimeframe: 'today' | 'week' | 'month' = 'today';
   selectedMetric: 'heartRate' | 'bp' | 'oxygenLevel' | 'temperature' = 'heartRate';

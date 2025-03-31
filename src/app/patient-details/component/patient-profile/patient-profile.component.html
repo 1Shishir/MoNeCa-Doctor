@@ -1,130 +1,234 @@
 <div class="profile-container">
-    <div class="section-grid">
-      <div class="section personal-info">
-        <h2 class="section-title">Personal Information</h2>
-        
-        <div class="info-grid">
-          <div class="info-item">
-            <div class="info-label">Blood Type</div>
-            <div class="info-value">{{ patient.additionalInfo.bloodType }}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">Height</div>
-            <div class="info-value">{{ patient.additionalInfo.height }}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">Weight</div>
-            <div class="info-value">{{ patient.additionalInfo.weight }}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">BMI</div>
-            <div class="info-value">{{ patient.additionalInfo.bmi }}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">Address</div>
-            <div class="info-value">{{ patient.additionalInfo.address }}</div>
-          </div>
-          <div class="info-item">
-            <div class="info-label">Phone</div>
-            <div class="info-value">{{ patient.additionalInfo.phone }}</div>
-          </div>
+  <div class="section-grid">
+    <div class="section personal-info">
+      <h2 class="section-title">Personal Information</h2>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Blood Type</div>
+          <div class="info-value">{{ patient.personalInfo.bloodType }}</div>
         </div>
-        
-        <div class="emergency-contact">
-          <h3 class="subsection-title">Emergency Contact</h3>
-          <div class="contact-info">
-            <div>{{ patient.additionalInfo.emergencyContact.name }}</div>
-            <div>{{ patient.additionalInfo.emergencyContact.phone }}</div>
-          </div>
+        <div class="info-item">
+          <div class="info-label">Height</div>
+          <div class="info-value">{{ patient.personalInfo.height }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Weight</div>
+          <div class="info-value">{{ patient.personalInfo.weight }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">BMI</div>
+          <div class="info-value">{{ patient.personalInfo.bmi }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Address</div>
+          <div class="info-value">{{ patient.personalInfo.address }}</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Phone</div>
+          <div class="info-value">{{ patient.personalInfo.phoneNumber }}</div>
         </div>
       </div>
-      
-      <div class="section pregnancy-info">
-        <h2 class="section-title">Pregnancy Information</h2>
-        
-        <div class="pregnancy-progress-container">
-          <div class="progress-label">
-            <span>{{ patient.weeks }} weeks</span>
-            <span>40 weeks</span>
+
+      <div class="emergency-contact">
+        <h3 class="subsection-title">Emergency Contact</h3>
+        <div class="contact-info">
+          <div>{{ patient.personalInfo.emergencyContact.name }} ({{patient.personalInfo.emergencyContact.relation}})
           </div>
-          <div class="progress-bar">
-            <div class="progress-fill" [style.width.%]="calculateProgress(patient.weeks)"></div>
-          </div>
-          <div class="edd-countdown">
-            <i class="fa-solid fa-calendar-day"></i>
-            <span>Expected Delivery: {{ getFormattedDate(patient.additionalInfo.pregnancyInfo.edd) }}</span>
-            <span class="countdown-days">{{ calculateDaysUntilEDD(patient.additionalInfo.pregnancyInfo.edd) }} days remaining</span>
-          </div>
+          <div>{{ patient.personalInfo.emergencyContact.phone }}</div>
         </div>
-        
-        <div class="pregnancy-details">
-          <div class="detail-item">
-            <div class="detail-label">Gravida</div>
-            <div class="detail-value">{{ patient.additionalInfo.pregnancyInfo.gravida }}</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Para</div>
-            <div class="detail-value">{{ patient.additionalInfo.pregnancyInfo.para }}</div>
-          </div>
-          <div class="detail-item">
-            <div class="detail-label">Trimester</div>
-            <div class="detail-value">{{ patient.additionalInfo.pregnancyInfo.trimester }}</div>
-          </div>
+      </div>
+    </div>
+
+    <div class="section pregnancy-info">
+      <h2 class="section-title">Pregnancy Information</h2>
+
+      <div class="pregnancy-progress-container">
+        <div class="progress-label">
+          <span>{{ patient.pregnancyInfo.weeks }} weeks</span>
+          <span>40 weeks</span>
         </div>
-        
-        <div class="previous-deliveries" *ngIf="patient.additionalInfo.pregnancyInfo.previousDeliveries?.length">
-          <h3 class="subsection-title">Previous Deliveries</h3>
-          <div class="deliveries-list">
-            <div class="delivery-item" *ngFor="let delivery of patient.additionalInfo.pregnancyInfo.previousDeliveries">
-              <div class="delivery-date">{{ getFormattedDate(delivery.date) }}</div>
-              <div class="delivery-details">
-                <div><strong>Type:</strong> {{ delivery.type }}</div>
-                <div><strong>Complications:</strong> {{ delivery.complications }}</div>
-                <div><strong>Baby Weight:</strong> {{ delivery.babyWeight }}</div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="calculateProgress(patient.pregnancyInfo.weeks)"></div>
+        </div>
+        <div class="edd-countdown">
+          <i class="fa-solid fa-calendar-day"></i>
+          <span>Expected Delivery: {{ getFormattedDate(patient.pregnancyInfo.edd) }}</span>
+          <span class="countdown-days">{{ calculateDaysUntilEDD(patient.pregnancyInfo.edd) }} days remaining</span>
+        </div>
+      </div>
+
+      <div class="pregnancy-details">
+        <div class="detail-item">
+          <div class="detail-label">Gravida</div>
+          <div class="detail-value">{{ patient.pregnancyInfo.gravida }}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Para</div>
+          <div class="detail-value">{{ patient.pregnancyInfo.para }}</div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-label">Trimester</div>
+          <div class="detail-value">{{ patient.pregnancyInfo.trimester }}</div>
+        </div>
+      </div>
+
+      <div class="previous-deliveries-section" *ngIf="patient?.pregnancyInfo?.previousDeliveries?.length">
+        <h3 class="subsection-title">Previous Deliveries</h3>
+        <div class="deliveries-grid">
+          <div class="delivery-card" *ngFor="let delivery of patient?.pregnancyInfo?.previousDeliveries">
+            <div class="delivery-header">
+              <div class="delivery-date">
+                <i class="fa-solid fa-calendar-days"></i>{{ delivery.date | date:'mediumDate' }}
+              </div>
+            </div>
+            <div class="delivery-details">
+              <div class="detail">
+                <span class="label">Delivery Type:</span>
+                <span class="value">{{ delivery.type }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">Complications:</span>
+                <span class="value">{{ delivery.complications || 'None' }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">Baby Weight:</span>
+                <span class="value">{{ delivery.babyWeight }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
-    
-    <div class="section medical-info">
-      <h2 class="section-title">Medical Information</h2>
-      
-      <div class="medical-grid">
-        <div class="medical-column">
-          <h3 class="subsection-title">Allergies</h3>
-          <ul class="medical-list">
-            <li *ngFor="let allergy of patient.additionalInfo.allergies">
-              {{ allergy }}
-            </li>
-            <li *ngIf="!patient.additionalInfo.allergies?.length">No known allergies</li>
-          </ul>
-        </div>
-        
-        <div class="medical-column">
-          <h3 class="subsection-title">Medical Conditions</h3>
-          <ul class="medical-list">
-            <li *ngFor="let condition of patient.additionalInfo.medicalConditions">
-              {{ condition }}
-            </li>
-            <li *ngIf="!patient.additionalInfo.medicalConditions?.length">No known medical conditions</li>
-          </ul>
-        </div>
-        
-        <div class="medical-column">
-          <h3 class="subsection-title">Appointments</h3>
-          <div class="appointment-info">
-            <div class="appointment-item">
-              <div class="appointment-label">Last Checkup</div>
-              <div class="appointment-value">{{ getFormattedDate(patient.lastCheckup) }}</div>
+  </div>
+
+  <div class="section medical-info">
+    <h2 class="section-title">Medical Information</h2>
+  
+    <div class="medical-container">
+      <div class="medical-section">
+        <h3 class="subsection-title">Allergies</h3>
+        <ul class="medical-list">
+          <li *ngFor="let allergy of patient.medicalInfo.allergies">{{ allergy }}</li>
+          <li *ngIf="!patient.medicalInfo.allergies?.length" class="no-info">No known allergies</li>
+        </ul>
+      </div>
+  
+      <div class="medical-section">
+        <h3 class="subsection-title">Medical Conditions</h3>
+        <ul class="medical-list">
+          <li *ngFor="let condition of patient.medicalInfo.medicalConditions">{{ condition }}</li>
+          <li *ngIf="!patient.medicalInfo.medicalConditions?.length" class="no-info">No known medical conditions</li>
+        </ul>
+      </div>
+    </div>
+  
+    <div class="previous-surgeries-section" *ngIf="patient?.medicalInfo?.previousSurgeries?.length">
+      <h3 class="subsection-title">Previous Surgeries</h3>
+      <div class="surgeries-grid">
+        <div class="surgery-card" *ngFor="let surgery of patient?.medicalInfo?.previousSurgeries">
+          <div class="surgery-header">
+            <span class="surgery-date">
+              <i class="fa-solid fa-calendar-days"></i> {{ surgery.date | date:'mediumDate' }}
+            </span>
+          </div>
+          <div class="surgery-details">
+            <div class="detail">
+              <span class="label">Procedure:</span>
+              <span class="value">{{ surgery.procedure }}</span>
             </div>
-            <div class="appointment-item">
-              <div class="appointment-label">Next Appointment</div>
-              <div class="appointment-value">{{ getFormattedDate(patient.nextAppointment) }}</div>
+            <div class="detail" *ngIf="surgery.notes">
+              <span class="label">Notes:</span>
+              <span class="value">{{ surgery.notes }}</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+  
+    <div class="medical-section">
+      <h3 class="subsection-title">Appointments</h3>
+      <div class="appointment-info">
+        <div class="appointment-item">
+          <span class="appointment-label">Last Checkup</span>
+          <span class="appointment-value">{{ patient.lastCheckup }}</span>
+        </div>
+        <div class="appointment-item">
+          <span class="appointment-label">Next Appointment</span>
+          <span class="appointment-value">{{ getFormattedDate(patient.nextAppointment) }}</span>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- <div class="section medical-info">
+    <h2 class="section-title">Medical Information</h2>
+
+    <div class="medical-grid">
+      <div class="medical-column">
+        <h3 class="subsection-title">Allergies</h3>
+        <ul class="medical-list">
+          <li *ngFor="let allergy of patient.medicalInfo.allergies">
+            {{ allergy }}
+          </li>
+          <li *ngIf="!patient.medicalInfo.allergies?.length">No known allergies</li>
+        </ul>
+      </div>
+
+      <div class="medical-column">
+        <h3 class="subsection-title">Medical Conditions</h3>
+        <ul class="medical-list">
+          <li *ngFor="let condition of patient.medicalInfo.medicalConditions">
+            {{ condition }}
+          </li>
+          <li *ngIf="!patient.medicalInfo.medicalConditions?.length">No known medical conditions</li>
+        </ul>
+      </div>
+
+      <div class="previous-surgeries-section" *ngIf="patient?.medicalInfo?.previousSurgeries?.length">
+        <h3 class="subsection-title">Previous Surgeries</h3>
+        <div class="surgeries-grid">
+          <div class="surgery-card" *ngFor="let surgery of patient?.medicalInfo?.previousSurgeries">
+            <div class="surgery-header">
+              <div class="surgery-date">
+                <i class="fa-solid fa-calendar-days"></i> 
+                {{ surgery.date | date:'mediumDate' }}
+              </div>
+            </div>
+            <div class="surgery-details">
+              <div class="detail">
+                <span class="label">Procedure:</span>
+                <span class="value">{{ surgery.procedure }}</span>
+              </div>
+              <div class="detail" *ngIf="surgery.notes">
+                <span class="label">Notes:</span>
+                <span class="value">{{ surgery.notes }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="medical-column">
+        <h3 class="subsection-title">Appointments</h3>
+        <div class="appointment-info">
+          <div class="appointment-item">
+            <div class="appointment-label">Last Checkup</div>
+            <div class="appointment-value">{{ patient.lastCheckup }}</div>
+          </div>
+          <div class="appointment-item">
+            <div class="appointment-label">Next Appointment</div>
+            <div class="appointment-value">{{ getFormattedDate(patient.nextAppointment) }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div> -->
+
+
+
+  
+</div>
