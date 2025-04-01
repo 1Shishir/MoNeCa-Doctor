@@ -1,0 +1,552 @@
+{
+    "patient-health-data": {
+      "8801776613630": {
+        "data": {
+          "2025-04-30T08:00:00": {
+            "heartRate": {
+              "value": 75,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-03-01T08:00:00",
+              "deviceId": "HR-MONITOR-001"
+            },
+            "bloodPressure": {
+              "systolic": 120,
+              "diastolic": 80,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-03-01T08:00:00",
+              "deviceId": "BP-MONITOR-001"
+            },
+            "oxygenLevel": {
+              "value": 98,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T08:00:00",
+              "deviceId": "SPO2-MONITOR-001"
+            },
+            "temperature": {
+              "value": 36.8,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T08:00:00",
+              "deviceId": "TEMP-MONITOR-001"
+            }
+          },
+          "2025-04-20T12:30:00": {
+            "heartRate": {
+              "value": 82,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-03-01T12:30:00",
+              "deviceId": "HR-MONITOR-001"
+            },
+            "bloodPressure": {
+              "systolic": 125,
+              "diastolic": 82,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-03-01T12:30:00",
+              "deviceId": "BP-MONITOR-001"
+            },
+            "oxygenLevel": {
+              "value": 97,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T12:30:00",
+              "deviceId": "SPO2-MONITOR-001"
+            },
+            "temperature": {
+              "value": 37.0,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T12:30:00",
+              "deviceId": "TEMP-MONITOR-001"
+            }
+          },
+          "2025-04-01T16:45:00": {
+            "heartRate": {
+              "value": 95,
+              "unit": "bpm",
+              "isNormal": false,
+              "timestamp": "2025-03-01T16:45:00",
+              "deviceId": "HR-MONITOR-001"
+            },
+            "bloodPressure": {
+              "systolic": 135,
+              "diastolic": 88,
+              "unit": "mmHg",
+              "isNormal": false,
+              "timestamp": "2025-03-01T16:45:00",
+              "deviceId": "BP-MONITOR-001"
+            },
+            "oxygenLevel": {
+              "value": 96,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T16:45:00",
+              "deviceId": "SPO2-MONITOR-001"
+            },
+            "temperature": {
+              "value": 37.2,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T16:45:00",
+              "deviceId": "TEMP-MONITOR-001"
+            }
+          },
+          "2025-04-01T20:15:00": {
+            "heartRate": {
+              "value": 78,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-03-01T20:15:00",
+              "deviceId": "HR-MONITOR-001"
+            },
+            "bloodPressure": {
+              "systolic": 122,
+              "diastolic": 78,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-03-01T20:15:00",
+              "deviceId": "BP-MONITOR-001"
+            },
+            "oxygenLevel": {
+              "value": 97,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T20:15:00",
+              "deviceId": "SPO2-MONITOR-001"
+            },
+            "temperature": {
+              "value": 36.9,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T20:15:00",
+              "deviceId": "TEMP-MONITOR-001"
+            }
+          },
+          "2025-04-01T09:30:00": {
+            "heartRate": {
+              "value": 76,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-02-28T09:30:00",
+              "deviceId": "HR-MONITOR-001"
+            },
+            "bloodPressure": {
+              "systolic": 118,
+              "diastolic": 76,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-02-28T09:30:00",
+              "deviceId": "BP-MONITOR-001"
+            },
+            "oxygenLevel": {
+              "value": 98,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-02-28T09:30:00",
+              "deviceId": "SPO2-MONITOR-001"
+            },
+            "temperature": {
+              "value": 36.7,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-02-28T09:30:00",
+              "deviceId": "TEMP-MONITOR-001"
+            }
+          },
+          "2025-04-01T14:45:00": {
+            "heartRate": {
+              "value": 80,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-02-28T14:45:00",
+              "deviceId": "HR-MONITOR-001"
+            },
+            "bloodPressure": {
+              "systolic": 124,
+              "diastolic": 80,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-02-28T14:45:00",
+              "deviceId": "BP-MONITOR-001"
+            },
+            "oxygenLevel": {
+              "value": 97,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-02-28T14:45:00",
+              "deviceId": "SPO2-MONITOR-001"
+            },
+            "temperature": {
+              "value": 36.9,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-02-28T14:45:00",
+              "deviceId": "TEMP-MONITOR-001"
+            }
+          }
+        },
+        "alerts": [
+          {
+            "id": "alert1",
+            "metric": "heartRate",
+            "status": "Warning",
+            "message": "Heart rate elevated to 95 bpm at 16:45",
+            "timestamp": "2025-03-01T16:45:00",
+            "severity": "medium",
+            "acknowledged": false
+          },
+          {
+            "id": "alert2",
+            "metric": "bloodPressure",
+            "status": "Warning",
+            "message": "Blood pressure elevated to 135/88 mmHg at 16:45",
+            "timestamp": "2025-03-01T16:45:00",
+            "severity": "medium",
+            "acknowledged": false
+          }
+        ],
+        "stats": {
+          "heartRate": {
+            "current": 78,
+            "min": 75,
+            "max": 95,
+            "avg": 82,
+            "normal": {
+              "min": 60,
+              "max": 90
+            }
+          },
+          "bloodPressure": {
+            "current": "122/78",
+            "systolicRange": {
+              "min": 118,
+              "max": 135
+            },
+            "diastolicRange": {
+              "min": 76,
+              "max": 88
+            },
+            "normal": {
+              "systolic": {
+                "min": 90,
+                "max": 120
+              },
+              "diastolic": {
+                "min": 60,
+                "max": 80
+              }
+            }
+          },
+          "oxygenLevel": {
+            "current": 97,
+            "min": 96,
+            "max": 98,
+            "avg": 97,
+            "normal": {
+              "min": 95,
+              "max": 100
+            }
+          },
+          "temperature": {
+            "current": 36.9,
+            "min": 36.7,
+            "max": 37.2,
+            "avg": 36.9,
+            "normal": {
+              "min": 36.5,
+              "max": 37.5
+            }
+          }
+        },
+        "aggregates": {
+          "today": [
+            {
+              "timestamp": "2025-03-01T08:00:00",
+              "heartRate": 75,
+              "bloodPressure": "120/80",
+              "oxygenLevel": "98%",
+              "temperature": "36.8°C"
+            },
+            {
+              "timestamp": "2025-03-01T12:30:00",
+              "heartRate": 82,
+              "bloodPressure": "125/82",
+              "oxygenLevel": "97%",
+              "temperature": "37.0°C"
+            },
+            {
+              "timestamp": "2025-03-01T16:45:00",
+              "heartRate": 95,
+              "bloodPressure": "135/88",
+              "oxygenLevel": "96%",
+              "temperature": "37.2°C"
+            },
+            {
+              "timestamp": "2025-03-01T20:15:00",
+              "heartRate": 78,
+              "bloodPressure": "122/78",
+              "oxygenLevel": "97%",
+              "temperature": "36.9°C"
+            }
+          ]
+        },
+        "lastUpdate": "2025-03-01T20:15:00"
+      },
+      "8801776613631": {
+        "data": {
+          "2025-04-01T07:15:00": {
+            "heartRate": {
+              "value": 68,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-03-01T07:15:00",
+              "deviceId": "HR-MONITOR-002"
+            },
+            "bloodPressure": {
+              "systolic": 110,
+              "diastolic": 70,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-03-01T07:15:00",
+              "deviceId": "BP-MONITOR-002"
+            },
+            "oxygenLevel": {
+              "value": 95,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T07:15:00",
+              "deviceId": "SPO2-MONITOR-002"
+            },
+            "temperature": {
+              "value": 36.5,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T07:15:00",
+              "deviceId": "TEMP-MONITOR-002"
+            }
+          },
+          "2025-04-01T11:30:00": {
+            "heartRate": {
+              "value": 115,
+              "unit": "bpm",
+              "isNormal": false,
+              "timestamp": "2025-03-01T11:30:00",
+              "deviceId": "HR-MONITOR-002"
+            },
+            "bloodPressure": {
+              "systolic": 145,
+              "diastolic": 90,
+              "unit": "mmHg",
+              "isNormal": false,
+              "timestamp": "2025-03-01T11:30:00",
+              "deviceId": "BP-MONITOR-002"
+            },
+            "oxygenLevel": {
+              "value": 94,
+              "unit": "%",
+              "isNormal": false,
+              "timestamp": "2025-03-01T11:30:00",
+              "deviceId": "SPO2-MONITOR-002"
+            },
+            "temperature": {
+              "value": 37.8,
+              "unit": "°C",
+              "isNormal": false,
+              "timestamp": "2025-03-01T11:30:00",
+              "deviceId": "TEMP-MONITOR-002"
+            }
+          },
+          "2025-03-01T15:45:00": {
+            "heartRate": {
+              "value": 98,
+              "unit": "bpm",
+              "isNormal": false,
+              "timestamp": "2025-03-01T15:45:00",
+              "deviceId": "HR-MONITOR-002"
+            },
+            "bloodPressure": {
+              "systolic": 135,
+              "diastolic": 85,
+              "unit": "mmHg",
+              "isNormal": false,
+              "timestamp": "2025-03-01T15:45:00",
+              "deviceId": "BP-MONITOR-002"
+            },
+            "oxygenLevel": {
+              "value": 95,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T15:45:00",
+              "deviceId": "SPO2-MONITOR-002"
+            },
+            "temperature": {
+              "value": 37.5,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T15:45:00",
+              "deviceId": "TEMP-MONITOR-002"
+            }
+          },
+          "2025-03-01T19:30:00": {
+            "heartRate": {
+              "value": 85,
+              "unit": "bpm",
+              "isNormal": true,
+              "timestamp": "2025-03-01T19:30:00",
+              "deviceId": "HR-MONITOR-002"
+            },
+            "bloodPressure": {
+              "systolic": 128,
+              "diastolic": 82,
+              "unit": "mmHg",
+              "isNormal": true,
+              "timestamp": "2025-03-01T19:30:00",
+              "deviceId": "BP-MONITOR-002"
+            },
+            "oxygenLevel": {
+              "value": 96,
+              "unit": "%",
+              "isNormal": true,
+              "timestamp": "2025-03-01T19:30:00",
+              "deviceId": "SPO2-MONITOR-002"
+            },
+            "temperature": {
+              "value": 37.2,
+              "unit": "°C",
+              "isNormal": true,
+              "timestamp": "2025-03-01T19:30:00",
+              "deviceId": "TEMP-MONITOR-002"
+            }
+          }
+        },
+        "alerts": [
+          {
+            "id": "alert1",
+            "metric": "heartRate",
+            "status": "Critical",
+            "message": "Heart rate critically elevated to 115 bpm at 11:30",
+            "timestamp": "2025-03-01T11:30:00",
+            "severity": "high",
+            "acknowledged": true
+          },
+          {
+            "id": "alert2",
+            "metric": "bloodPressure",
+            "status": "Warning",
+            "message": "Blood pressure elevated to 145/90 mmHg at 11:30",
+            "timestamp": "2025-03-01T11:30:00",
+            "severity": "high",
+            "acknowledged": true
+          },
+          {
+            "id": "alert3",
+            "metric": "oxygenLevel",
+            "status": "Alert",
+            "message": "Oxygen level decreased to 94% at 11:30",
+            "timestamp": "2025-03-01T11:30:00",
+            "severity": "medium",
+            "acknowledged": false
+          },
+          {
+            "id": "alert4",
+            "metric": "temperature",
+            "status": "Warning",
+            "message": "Temperature elevated to 37.8°C at 11:30",
+            "timestamp": "2025-03-01T11:30:00",
+            "severity": "medium",
+            "acknowledged": false
+          }
+        ],
+        "stats": {
+          "heartRate": {
+            "current": 85,
+            "min": 68,
+            "max": 115,
+            "avg": 91.5,
+            "normal": {
+              "min": 60,
+              "max": 90
+            }
+          },
+          "bloodPressure": {
+            "current": "128/82",
+            "systolicRange": {
+              "min": 110,
+              "max": 145
+            },
+            "diastolicRange": {
+              "min": 70,
+              "max": 90
+            },
+            "normal": {
+              "systolic": {
+                "min": 90,
+                "max": 120
+              },
+              "diastolic": {
+                "min": 60,
+                "max": 80
+              }
+            }
+          },
+          "oxygenLevel": {
+            "current": 96,
+            "min": 94,
+            "max": 96,
+            "avg": 95,
+            "normal": {
+              "min": 95,
+              "max": 100
+            }
+          },
+          "temperature": {
+            "current": 37.2,
+            "min": 36.5,
+            "max": 37.8,
+            "avg": 37.25,
+            "normal": {
+              "min": 36.5,
+              "max": 37.5
+            }
+          }
+        },
+        "aggregates": {
+          "today": [
+            {
+              "timestamp": "2025-03-01T07:15:00",
+              "heartRate": 68,
+              "bloodPressure": "110/70",
+              "oxygenLevel": "95%",
+              "temperature": "36.5°C"
+            },
+            {
+              "timestamp": "2025-03-01T11:30:00",
+              "heartRate": 115,
+              "bloodPressure": "145/90",
+              "oxygenLevel": "94%",
+              "temperature": "37.8°C"
+            },
+            {
+              "timestamp": "2025-03-01T15:45:00",
+              "heartRate": 98,
+              "bloodPressure": "135/85",
+              "oxygenLevel": "95%",
+              "temperature": "37.5°C"
+            },
+            {
+              "timestamp": "2025-03-01T19:30:00",
+              "heartRate": 85,
+              "bloodPressure": "128/82",
+              "oxygenLevel": "96%",
+              "temperature": "37.2°C"
+            }
+          ]
+        },
+        "lastUpdate": "2025-03-01T19:30:00"
+      }
+    }
+  }

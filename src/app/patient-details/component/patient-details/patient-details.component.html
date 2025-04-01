@@ -3,7 +3,7 @@
     <app-sidebar [collapsed]="sidebarCollapsed" (toggle)="toggleSidebar()"></app-sidebar>
     
     <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header title="Patients Details"></app-header>
+      <app-header title="Patients Details" [showBackButton]="true"></app-header>
       <div class="page-header">
         <!-- <div class="back-link">
           <a routerLink="/patients">
@@ -139,10 +139,10 @@
           
           <app-patient-health-data 
             *ngIf="activeTab === 'health-data'"
-            [healthData]="healthData"
+           
             [patientId]="patient?.id || ''">
           </app-patient-health-data>
-          
+           <!-- [healthData]="healthData" -->
           <app-patient-prescriptions 
             *ngIf="activeTab === 'prescriptions'"
             [prescriptions]="prescriptions" 

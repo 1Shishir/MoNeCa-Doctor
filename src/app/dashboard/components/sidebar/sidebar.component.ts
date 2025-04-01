@@ -23,7 +23,7 @@ export class SidebarComponent implements OnInit {
     { label: 'Patients', icon: 'fa-solid fa-users', link: '/patients', active: false },
     { label: 'Prescriptions', icon: 'fa-solid fa-prescription-bottle-medical', link: '/prescription', active: false },
     { label: 'Appointments', icon: 'fa-solid fa-calendar-check', link: '/booking', active: false },
-    { label: 'Health Data', icon: 'fa-solid fa-chart-simple', link: '/detailed-health-data', active: false },
+    // { label: 'Health Data', icon: 'fa-solid fa-chart-simple', link: '/detailed-health-data', active: false },
     { label: 'Diet Plans', icon: 'fa-solid fa-apple-whole', link: '/dashboard/diet-plans', active: false },
     { label: 'Community', icon: 'fa-solid fa-comments', link: '/dashboard/community', active: false }
   ];

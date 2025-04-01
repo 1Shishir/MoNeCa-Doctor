@@ -1,0 +1,867 @@
+{
+    "health-data": {
+      "patient123": {
+        "vitals": {
+          "2025-03-30T09:00:00Z": {
+            "type": "heartRate",
+            "value": 72,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T09:15:00Z": {
+            "type": "bloodPressure",
+            "systolic": 120,
+            "diastolic": 80,
+            "unit": "mmHg",
+            "isNormal": true,
+            "deviceId": "bp-monitor-abc456",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T09:30:00Z": {
+            "type": "oxygenLevel",
+            "value": 97,
+            "unit": "%",
+            "isNormal": true,
+            "deviceId": "pulse-oximeter-def789",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T09:45:00Z": {
+            "type": "temperature",
+            "value": 36.8,
+            "unit": "°C",
+            "isNormal": true,
+            "deviceId": "thermometer-ghi101",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T12:00:00Z": {
+            "type": "heartRate",
+            "value": 78,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T12:15:00Z": {
+            "type": "bloodPressure",
+            "systolic": 124,
+            "diastolic": 82,
+            "unit": "mmHg",
+            "isNormal": true,
+            "deviceId": "bp-monitor-abc456",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T15:00:00Z": {
+            "type": "heartRate",
+            "value": 115,
+            "unit": "bpm",
+            "isNormal": false,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T15:15:00Z": {
+            "type": "bloodPressure",
+            "systolic": 145,
+            "diastolic": 95,
+            "unit": "mmHg",
+            "isNormal": false,
+            "deviceId": "bp-monitor-abc456",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T15:30:00Z": {
+            "type": "oxygenLevel",
+            "value": 93,
+            "unit": "%",
+            "isNormal": false,
+            "deviceId": "pulse-oximeter-def789",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T18:00:00Z": {
+            "type": "heartRate",
+            "value": 86,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T21:00:00Z": {
+            "type": "heartRate",
+            "value": 68,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-29T09:00:00Z": {
+            "type": "heartRate",
+            "value": 75,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-29T09:15:00Z": {
+            "type": "bloodPressure",
+            "systolic": 118,
+            "diastolic": 78,
+            "unit": "mmHg",
+            "isNormal": true,
+            "deviceId": "bp-monitor-abc456",
+            "recordedBy": "patient"
+          },
+          "2025-03-29T15:00:00Z": {
+            "type": "heartRate",
+            "value": 80,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-xyz123",
+            "recordedBy": "patient"
+          },
+          "2025-03-28T12:00:00Z": {
+            "type": "temperature",
+            "value": 38.2,
+            "unit": "°C",
+            "isNormal": false,
+            "deviceId": "thermometer-ghi101",
+            "recordedBy": "patient"
+          }
+        },
+        "summary": {
+          "isLiveMonitoring": true,
+          "metrics": {
+            "heartRate": {
+              "current": 68,
+              "min": 65,
+              "max": 115,
+              "avg": 76.5,
+              "normal": {
+                "min": 60,
+                "max": 100
+              }
+            },
+            "bloodPressure": {
+              "current": "124/82",
+              "systolicRange": {
+                "min": 118,
+                "max": 145
+              },
+              "diastolicRange": {
+                "min": 78,
+                "max": 95
+              },
+              "normal": {
+                "systolic": {
+                  "min": 90,
+                  "max": 130
+                },
+                "diastolic": {
+                  "min": 60,
+                  "max": 80
+                }
+              }
+            },
+            "oxygenLevel": {
+              "current": 97,
+              "min": 93,
+              "max": 99,
+              "avg": 96.5,
+              "normal": {
+                "min": 95,
+                "max": 100
+              }
+            },
+            "temperature": {
+              "current": 36.8,
+              "min": 36.5,
+              "max": 38.2,
+              "avg": 37.0,
+              "normal": {
+                "min": 36.5,
+                "max": 37.5
+              }
+            }
+          },
+          "updatedAt": "2025-03-30T21:30:00Z"
+        },
+        "alerts": {
+          "alert001": {
+            "patientId": "patient123",
+            "metric": "heartRate",
+            "status": "triggered",
+            "message": "Heart rate elevated above normal range (115 bpm)",
+            "date": "2025-03-30T15:05:00Z",
+            "severity": "medium",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-30T15:10:00Z"
+          },
+          "alert002": {
+            "patientId": "patient123",
+            "metric": "bloodPressure",
+            "status": "triggered",
+            "message": "Blood pressure above normal range (145/95 mmHg)",
+            "date": "2025-03-30T15:20:00Z",
+            "severity": "medium",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-30T15:25:00Z"
+          },
+          "alert003": {
+            "patientId": "patient123",
+            "metric": "oxygenLevel",
+            "status": "triggered",
+            "message": "Oxygen level below normal range (93%)",
+            "date": "2025-03-30T15:35:00Z",
+            "severity": "high",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-30T15:40:00Z"
+          },
+          "alert004": {
+            "patientId": "patient123",
+            "metric": "temperature",
+            "status": "triggered",
+            "message": "Temperature elevated above normal range (38.2°C)",
+            "date": "2025-03-28T12:05:00Z",
+            "severity": "low",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-28T12:10:00Z"
+          }
+        },
+        "timeSeriesData": {
+          "hourly": [
+            {
+              "time": "2025-03-30T09:00:00Z",
+              "heartRate": 72,
+              "bloodPressure": {
+                "systolic": 120,
+                "diastolic": 80
+              },
+              "oxygenLevel": 97,
+              "temperature": 36.8
+            },
+            {
+              "time": "2025-03-30T10:00:00Z",
+              "heartRate": 74,
+              "bloodPressure": {
+                "systolic": 122,
+                "diastolic": 81
+              },
+              "oxygenLevel": 97,
+              "temperature": 36.9
+            },
+            {
+              "time": "2025-03-30T11:00:00Z",
+              "heartRate": 76,
+              "bloodPressure": {
+                "systolic": 123,
+                "diastolic": 82
+              },
+              "oxygenLevel": 96,
+              "temperature": 36.9
+            },
+            {
+              "time": "2025-03-30T12:00:00Z",
+              "heartRate": 78,
+              "bloodPressure": {
+                "systolic": 124,
+                "diastolic": 82
+              },
+              "oxygenLevel": 96,
+              "temperature": 37.0
+            },
+            {
+              "time": "2025-03-30T13:00:00Z",
+              "heartRate": 82,
+              "bloodPressure": {
+                "systolic": 126,
+                "diastolic": 84
+              },
+              "oxygenLevel": 96,
+              "temperature": 37.0
+            },
+            {
+              "time": "2025-03-30T14:00:00Z",
+              "heartRate": 85,
+              "bloodPressure": {
+                "systolic": 130,
+                "diastolic": 86
+              },
+              "oxygenLevel": 95,
+              "temperature": 37.1
+            },
+            {
+              "time": "2025-03-30T15:00:00Z",
+              "heartRate": 115,
+              "bloodPressure": {
+                "systolic": 145,
+                "diastolic": 95
+              },
+              "oxygenLevel": 93,
+              "temperature": 37.2
+            },
+            {
+              "time": "2025-03-30T16:00:00Z",
+              "heartRate": 94,
+              "bloodPressure": {
+                "systolic": 135,
+                "diastolic": 90
+              },
+              "oxygenLevel": 94,
+              "temperature": 37.0
+            },
+            {
+              "time": "2025-03-30T17:00:00Z",
+              "heartRate": 88,
+              "bloodPressure": {
+                "systolic": 128,
+                "diastolic": 85
+              },
+              "oxygenLevel": 95,
+              "temperature": 36.9
+            },
+            {
+              "time": "2025-03-30T18:00:00Z",
+              "heartRate": 86,
+              "bloodPressure": {
+                "systolic": 126,
+                "diastolic": 84
+              },
+              "oxygenLevel": 96,
+              "temperature": 36.8
+            },
+            {
+              "time": "2025-03-30T19:00:00Z",
+              "heartRate": 80,
+              "bloodPressure": {
+                "systolic": 125,
+                "diastolic": 83
+              },
+              "oxygenLevel": 97,
+              "temperature": 36.8
+            },
+            {
+              "time": "2025-03-30T20:00:00Z",
+              "heartRate": 75,
+              "bloodPressure": {
+                "systolic": 123,
+                "diastolic": 82
+              },
+              "oxygenLevel": 97,
+              "temperature": 36.7
+            },
+            {
+              "time": "2025-03-30T21:00:00Z",
+              "heartRate": 68,
+              "bloodPressure": {
+                "systolic": 122,
+                "diastolic": 80
+              },
+              "oxygenLevel": 98,
+              "temperature": 36.7
+            }
+          ],
+          "daily": [
+            {
+              "date": "2025-03-25",
+              "heartRate": {
+                "avg": 75,
+                "min": 62,
+                "max": 88
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 120,
+                  "min": 115,
+                  "max": 128
+                },
+                "diastolic": {
+                  "avg": 78,
+                  "min": 72,
+                  "max": 84
+                }
+              },
+              "oxygenLevel": {
+                "avg": 96,
+                "min": 95,
+                "max": 98
+              },
+              "temperature": {
+                "avg": 36.8,
+                "min": 36.6,
+                "max": 37.1
+              }
+            },
+            {
+              "date": "2025-03-26",
+              "heartRate": {
+                "avg": 76,
+                "min": 64,
+                "max": 90
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 121,
+                  "min": 118,
+                  "max": 130
+                },
+                "diastolic": {
+                  "avg": 79,
+                  "min": 75,
+                  "max": 85
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "min": 95,
+                "max": 99
+              },
+              "temperature": {
+                "avg": 36.9,
+                "min": 36.5,
+                "max": 37.2
+              }
+            },
+            {
+              "date": "2025-03-27",
+              "heartRate": {
+                "avg": 73,
+                "min": 65,
+                "max": 85
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 119,
+                  "min": 116,
+                  "max": 124
+                },
+                "diastolic": {
+                  "avg": 80,
+                  "min": 76,
+                  "max": 83
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "min": 96,
+                "max": 99
+              },
+              "temperature": {
+                "avg": 36.7,
+                "min": 36.5,
+                "max": 37.0
+              }
+            },
+            {
+              "date": "2025-03-28",
+              "heartRate": {
+                "avg": 78,
+                "min": 67,
+                "max": 88
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 122,
+                  "min": 118,
+                  "max": 128
+                },
+                "diastolic": {
+                  "avg": 81,
+                  "min": 78,
+                  "max": 86
+                }
+              },
+              "oxygenLevel": {
+                "avg": 96,
+                "min": 95,
+                "max": 98
+              },
+              "temperature": {
+                "avg": 37.4,
+                "min": 36.8,
+                "max": 38.2
+              }
+            },
+            {
+              "date": "2025-03-29",
+              "heartRate": {
+                "avg": 77,
+                "min": 68,
+                "max": 87
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 120,
+                  "min": 118,
+                  "max": 124
+                },
+                "diastolic": {
+                  "avg": 79,
+                  "min": 78,
+                  "max": 82
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "min": 96,
+                "max": 98
+              },
+              "temperature": {
+                "avg": 36.9,
+                "min": 36.7,
+                "max": 37.1
+              }
+            },
+            {
+              "date": "2025-03-30",
+              "heartRate": {
+                "avg": 82,
+                "min": 68,
+                "max": 115
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 128,
+                  "min": 120,
+                  "max": 145
+                },
+                "diastolic": {
+                  "avg": 84,
+                  "min": 80,
+                  "max": 95
+                }
+              },
+              "oxygenLevel": {
+                "avg": 96,
+                "min": 93,
+                "max": 98
+              },
+              "temperature": {
+                "avg": 36.9,
+                "min": 36.7,
+                "max": 37.2
+              }
+            }
+          ],
+          "weekly": [
+            {
+              "startDate": "2025-03-17",
+              "endDate": "2025-03-23",
+              "label": "Mar 17-23",
+              "heartRate": {
+                "avg": 75,
+                "trend": -0.5
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 120,
+                  "trend": 0
+                },
+                "diastolic": {
+                  "avg": 78,
+                  "trend": -1
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "trend": 0.5
+              },
+              "temperature": {
+                "avg": 36.8,
+                "trend": 0
+              }
+            },
+            {
+              "startDate": "2025-03-24",
+              "endDate": "2025-03-30",
+              "label": "Mar 24-30",
+              "heartRate": {
+                "avg": 77,
+                "trend": 2
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 122,
+                  "trend": 2
+                },
+                "diastolic": {
+                  "avg": 80,
+                  "trend": 2
+                }
+              },
+              "oxygenLevel": {
+                "avg": 96.5,
+                "trend": -0.5
+              },
+              "temperature": {
+                "avg": 36.9,
+                "trend": 0.1
+              }
+            }
+          ],
+          "monthly": [
+            {
+              "startDate": "2025-02-01",
+              "endDate": "2025-02-28",
+              "label": "February",
+              "heartRate": {
+                "avg": 74,
+                "trend": -1
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 118,
+                  "trend": -2
+                },
+                "diastolic": {
+                  "avg": 77,
+                  "trend": -1
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "trend": 0
+              },
+              "temperature": {
+                "avg": 36.7,
+                "trend": -0.1
+              }
+            },
+            {
+              "startDate": "2025-03-01",
+              "endDate": "2025-03-30",
+              "label": "March",
+              "heartRate": {
+                "avg": 76,
+                "trend": 2
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 121,
+                  "trend": 3
+                },
+                "diastolic": {
+                  "avg": 79,
+                  "trend": 2
+                }
+              },
+              "oxygenLevel": {
+                "avg": 96.5,
+                "trend": -0.5
+              },
+              "temperature": {
+                "avg": 36.8,
+                "trend": 0.1
+              }
+            }
+          ],
+          "yearly": [
+            {
+              "month": "2025-01-01",
+              "label": "January",
+              "heartRate": {
+                "avg": 73,
+                "trend": 0
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 119,
+                  "trend": 0
+                },
+                "diastolic": {
+                  "avg": 78,
+                  "trend": 0
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "trend": 0
+              },
+              "temperature": {
+                "avg": 36.8,
+                "trend": 0
+              }
+            },
+            {
+              "month": "2025-02-01",
+              "label": "February",
+              "heartRate": {
+                "avg": 74,
+                "trend": 1
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 118,
+                  "trend": -1
+                },
+                "diastolic": {
+                  "avg": 77,
+                  "trend": -1
+                }
+              },
+              "oxygenLevel": {
+                "avg": 97,
+                "trend": 0
+              },
+              "temperature": {
+                "avg": 36.7,
+                "trend": -0.1
+              }
+            },
+            {
+              "month": "2025-03-01",
+              "label": "March",
+              "heartRate": {
+                "avg": 76,
+                "trend": 2
+              },
+              "bloodPressure": {
+                "systolic": {
+                  "avg": 121,
+                  "trend": 3
+                },
+                "diastolic": {
+                  "avg": 79,
+                  "trend": 2
+                }
+              },
+              "oxygenLevel": {
+                "avg": 96.5,
+                "trend": -0.5
+              },
+              "temperature": {
+                "avg": 36.8,
+                "trend": 0.1
+              }
+            }
+          ]
+        }
+      },
+      "patient456": {
+        "vitals": {
+          "2025-03-30T10:00:00Z": {
+            "type": "heartRate",
+            "value": 85,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-abc789",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T10:15:00Z": {
+            "type": "bloodPressure",
+            "systolic": 130,
+            "diastolic": 85,
+            "unit": "mmHg",
+            "isNormal": true,
+            "deviceId": "bp-monitor-def123",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T10:30:00Z": {
+            "type": "oxygenLevel",
+            "value": 95,
+            "unit": "%",
+            "isNormal": true,
+            "deviceId": "pulse-oximeter-ghi456",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T14:00:00Z": {
+            "type": "heartRate",
+            "value": 90,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-abc789",
+            "recordedBy": "patient"
+          },
+          "2025-03-30T14:15:00Z": {
+            "type": "bloodPressure",
+            "systolic": 132,
+            "diastolic": 87,
+            "unit": "mmHg",
+            "isNormal": true,
+            "deviceId": "bp-monitor-def123",
+            "recordedBy": "patient"
+          },
+          "2025-03-29T10:00:00Z": {
+            "type": "heartRate",
+            "value": 82,
+            "unit": "bpm",
+            "isNormal": true,
+            "deviceId": "monitor-abc789",
+            "recordedBy": "patient"
+          }
+        },
+        "summary": {
+          "isLiveMonitoring": true,
+          "metrics": {
+            "heartRate": {
+              "current": 90,
+              "min": 75,
+              "max": 95,
+              "avg": 86,
+              "normal": {
+                "min": 60,
+                "max": 100
+              }
+            },
+            "bloodPressure": {
+              "current": "132/87",
+              "systolicRange": {
+                "min": 128,
+                "max": 135
+              },
+              "diastolicRange": {
+                "min": 85,
+                "max": 90
+              },
+              "normal": {
+                "systolic": {
+                  "min": 90,
+                  "max": 130
+                },
+                "diastolic": {
+                  "min": 60,
+                  "max": 80
+                }
+              }
+            },
+            "oxygenLevel": {
+              "current": 95,
+              "min": 94,
+              "max": 97,
+              "avg": 95.5,
+              "normal": {
+                "min": 95,
+                "max": 100
+              }
+            },
+            "temperature": {
+              "current": 37.0,
+              "min": 36.7,
+              "max": 37.2,
+              "avg": 36.9,
+              "normal": {
+                "min": 36.5,
+                "max": 37.5
+              }
+            }
+          },
+          "updatedAt": "2025-03-30T14:30:00Z"
+        },
+        "alerts": {
+          "alert001": {
+            "patientId": "patient456",
+            "metric": "bloodPressure",
+            "status": "triggered",
+            "message": "Blood pressure above normal range (132/87 mmHg)",
+            "date": "2025-03-30T14:20:00Z",
+            "severity": "low",
+            "isRead": true,
+            "acknowledgedBy": "doctor789",
+            "acknowledgedAt": "2025-03-30T14:25:00Z"
+          }
+        }
+      }
+    }
+  }

@@ -1,0 +1,200 @@
+{
+    "health-data": {
+      "8801776613630": {
+        "alert": {
+          "alert001": {
+            "patientId": "patient123",
+            "metric": "heartRate",
+            "status": "triggered",
+            "message": "Heart rate elevated above normal range (115 bpm)",
+            "date": "2025-03-30T15:05:00Z",
+            "severity": "medium",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-30T15:10:00Z"
+          },
+          "alert002": {
+            "patientId": "patient123",
+            "metric": "bloodPressure",
+            "status": "triggered",
+            "message": "Blood pressure above normal range (145/95 mmHg)",
+            "date": "2025-03-30T15:20:00Z",
+            "severity": "medium",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-30T15:25:00Z"
+          },
+          "alert003": {
+            "patientId": "patient123",
+            "metric": "oxygenLevel",
+            "status": "triggered",
+            "message": "Oxygen level below normal range (93%)",
+            "date": "2025-03-30T15:35:00Z",
+            "severity": "high",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-30T15:40:00Z"
+          },
+          "alert004": {
+            "patientId": "patient123",
+            "metric": "temperature",
+            "status": "triggered",
+            "message": "Temperature elevated above normal range (38.2°C)",
+            "date": "2025-03-28T12:05:00Z",
+            "severity": "low",
+            "isRead": true,
+            "acknowledgedBy": "doctor456",
+            "acknowledgedAt": "2025-03-28T12:10:00Z"
+          }
+        },
+        "data": {
+          "2025-03-29T09:00:00Z": {
+            "heart-rate": {
+              "value": 75,
+              "unit": "bpm",
+              "isNormal": true,
+              "deviceId": "monitor-xyz123"
+            },
+            "blood-pressure": {
+              "systolic": 118,
+              "diastolic": 78,
+              "unit": "mmHg",
+              "isNormal": true,
+              "deviceId": "bp-monitor-abc456"
+            },
+            "oxygen-level": {
+              "value": 97,
+              "unit": "%",
+              "isNormal": true,
+              "deviceId": "pulse-oximeter-def789"
+            },
+            "temperature": {
+              "value": 36.8,
+              "unit": "°C",
+              "isNormal": true,
+              "deviceId": "thermometer-ghi101"
+            }
+          },
+          "2025-03-29T15:00:00Z": {
+            "heart-rate": {
+              "value": 115,
+              "unit": "bpm",
+              "isNormal": false,
+              "deviceId": "monitor-xyz123"
+            },
+            "blood-pressure": {
+              "systolic": 145,
+              "diastolic": 95,
+              "unit": "mmHg",
+              "isNormal": false,
+              "deviceId": "bp-monitor-abc456"
+            },
+            "oxygen-level": {
+              "value": 93,
+              "unit": "%",
+              "isNormal": false,
+              "deviceId": "pulse-oximeter-def789"
+            },
+            "temperature": {
+              "value": 38.2,
+              "unit": "°C",
+              "isNormal": false,
+              "deviceId": "thermometer-ghi101"
+            }
+          },
+          "2025-03-30T09:00:00Z": {
+            "heart-rate": {
+              "value": 72,
+              "unit": "bpm",
+              "isNormal": true,
+              "deviceId": "monitor-xyz123"
+            },
+            "blood-pressure": {
+              "systolic": 120,
+              "diastolic": 80,
+              "unit": "mmHg",
+              "isNormal": true,
+              "deviceId": "bp-monitor-abc456"
+            },
+            "oxygen-level": {
+              "value": 97,
+              "unit": "%",
+              "isNormal": true,
+              "deviceId": "pulse-oximeter-def789"
+            },
+            "temperature": {
+              "value": 36.8,
+              "unit": "°C",
+              "isNormal": true,
+              "deviceId": "thermometer-ghi101"
+            }
+          }
+        }
+      },
+      "8801776613631": {
+        "alert": {
+          "alert001": {
+            "patientId": "8801776613631",
+            "metric": "bloodPressure",
+            "status": "triggered",
+            "message": "Blood pressure slightly elevated (132/87 mmHg)",
+            "date": "2025-03-30T14:20:00Z",
+            "severity": "low",
+            "isRead": true,
+            "acknowledgedBy": "doctor789",
+            "acknowledgedAt": "2025-03-30T14:25:00Z"
+          }
+        },
+        "data": {
+          "2025-03-29T10:00:00Z": {
+            "heart-rate": {
+              "value": 82,
+              "unit": "bpm",
+              "isNormal": true,
+              "deviceId": "monitor-abc789"
+            },
+            "blood-pressure": {
+              "systolic": 132,
+              "diastolic": 87,
+              "unit": "mmHg",
+              "isNormal": true,
+              "deviceId": "bp-monitor-def123"
+            },
+            "oxygen-level": {
+              "value": 95,
+              "unit": "%",
+              "isNormal": true,
+              "deviceId": "pulse-oximeter-ghi456"
+            },
+            "temperature": {
+              "value": 36.9,
+              "unit": "°C",
+              "isNormal": true,
+              "deviceId": "thermometer-jkl234"
+            }
+          },
+          "2025-03-30T10:00:00Z": {
+            "heart-rate": {
+              "value": 85,
+              "unit": "bpm",
+              "isNormal": true,
+              "deviceId": "monitor-abc789"
+            },
+            "blood-pressure": {
+              "systolic": 130,
+              "diastolic": 85,
+              "unit": "mmHg",
+              "isNormal": true,
+              "deviceId": "bp-monitor-def123"
+            },
+            "oxygen-level": {
+              "value": 95,
+              "unit": "%",
+              "isNormal": true,
+              "deviceId": "pulse-oximeter-ghi456"
+            }
+          }
+        }
+      }
+    }
+  }

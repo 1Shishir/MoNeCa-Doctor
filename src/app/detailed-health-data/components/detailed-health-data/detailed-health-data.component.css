@@ -461,3 +461,37 @@
       gap: 4px;
     }
   }
+
+
+
+  .patient-details-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  .patients-container {
+    display: flex;
+    width: 100%;
+  }
+  
+  .main-content {
+    flex: 1;
+    margin-left: 260px;
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.expanded {
+    margin-left: 70px;
+  }
+  
+  @media (max-width: 991px) {
+    .main-content {
+      margin-left: 70px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .main-content {
+      margin-left: 0;
+    }
+  }

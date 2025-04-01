@@ -25,12 +25,12 @@ import { Subscription } from 'rxjs';
     ReactiveFormsModule,
     SidebarComponent,
     HeaderComponent,
-    PatientHealthDataComponent,
     PatientPrescriptionsComponent,
     PatientMedicalReportsComponent,
     PatientAssessmentComponent,
     PatientProfileComponent,
-    PatientInsightsComponent
+    PatientInsightsComponent,
+    PatientHealthDataComponent
   ],
   templateUrl: './patient-details.component.html',
   styleUrl: './patient-details.component.css'

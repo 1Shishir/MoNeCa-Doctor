@@ -53,7 +53,7 @@
       <div class="data-container">
         <h2 class="section-title">
           {{ getMetricLabel() }} - {{ selectedTimeframe | titlecase }} View
-          <button class="see-all-btn">
+          <button class="see-all-btn" (click)="seeAllButton()">
             See All Data <i class="fa-solid fa-arrow-right"></i>
           </button>
         </h2>
@@ -83,16 +83,32 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of displayData">
-                <td>{{ selectedTimeframe === 'today' ? item.time : (selectedTimeframe === 'week' ? formatDate(item.date) : item.week) }}</td>
-                <td [class.abnormal]="isAbnormalReading(selectedMetric, item[selectedMetric])">
-                  {{ item[selectedMetric] }}
+                <!-- Date/Time column -->
+                <td>{{ formatDateTime(item.timestamp) }}</td>
+                
+                <!-- Metric value column -->
+                <td [class.abnormal]="isAbnormalReading(selectedMetric, 
+                    selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric])">
+                  {{ selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric] }}
                 </td>
+                
+                <!-- Status column -->
                 <td>
-                  <span 
-                    class="status-indicator" 
-                    [ngClass]="isAbnormalReading(selectedMetric, item[selectedMetric]) ? 'status-abnormal' : 'status-normal'">
-                    {{ isAbnormalReading(selectedMetric, item[selectedMetric]) ? 'Abnormal' : 'Normal' }}
+                  <span class="status-indicator" 
+                        [ngClass]="isAbnormalReading(selectedMetric, 
+                          selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric]) ? 
+                          'status-abnormal' : 'status-normal'">
+                    {{ isAbnormalReading(selectedMetric, 
+                       selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric]) ? 
+                       'Abnormal' : 'Normal' }}
                   </span>
+                </td>
+              </tr>
+              
+              <!-- Empty state row -->
+              <tr *ngIf="displayData.length === 0">
+                <td colspan="3" class="text-center py-4">
+                  No health data available for this timeframe
                 </td>
               </tr>
             </tbody>
@@ -100,6 +116,50 @@
         </div>
       </div>
     </div>
+
+
+    <!-- <tbody>
+      <tr *ngFor="let item of displayData">
+       
+        <td>{{ formatDateTime(item.timestamp) }}</td>
+        
+        
+        <td [class.abnormal]="isAbnormalReading(selectedMetric, 
+            selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric])">
+          {{ selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric] }}
+        </td>
+   
+        <td>
+          <span class="status-indicator" [ngClass]="isAbnormalReading(selectedMetric, 
+              selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric]) ? 
+              'status-abnormal' : 'status-normal'">
+            {{ isAbnormalReading(selectedMetric, 
+               selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric]) ? 
+               'Abnormal' : 'Normal' }}
+          </span>
+        </td>
+      </tr>
+      <tr *ngFor="let item of displayData">
+         <td>{{ formatDate(item.timestamp) }}</td> 
+        <td>{{ selectedTimeframe === 'today' ? item.time : (selectedTimeframe === 'week' ? formatDate(item.date) : item.week) }}</td> 
+         <td [class.abnormal]="isAbnormalReading(selectedMetric, item[selectedMetric])">
+          {{ item[selectedMetric] }}
+        </td>
+         <td [class.abnormal]="isAbnormalReading(selectedMetric, item[selectedMetric])">
+          {{ selectedMetric === 'bp' ? item.bloodPressure : item[selectedMetric] }}
+        </td>
+        
+        
+        <td>
+          <span 
+            class="status-indicator" 
+            [ngClass]="isAbnormalReading(selectedMetric, item[selectedMetric]) ? 'status-abnormal' : 'status-normal'">
+            {{ isAbnormalReading(selectedMetric, item[selectedMetric]) ? 'Abnormal' : 'Normal' }}
+          </span>
+        </td>
+      </tr> 
+    </tbody> -->
+
     
     <div class="analysis-section">
       <div class="analysis-container">
