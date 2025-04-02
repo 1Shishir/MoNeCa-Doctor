@@ -41,11 +41,10 @@ export const routes: Routes = [
   {
     path: 'prescription',
     loadChildren: () => import('./prescription/prescription.module').then(m => m.PrescriptionModule),
-    canActivate: [AuthGuard],
     providers: [
       provideStorage(() => getStorage())
     ]
-  },
+},
   {
     path: 'admin/upload',
     loadComponent: () => import('./additional/firebase-uploader/firebase-uploader.component').then(m => m.FirebaseUploaderComponent),

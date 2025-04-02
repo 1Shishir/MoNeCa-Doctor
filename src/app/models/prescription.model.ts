@@ -57,3 +57,23 @@ export interface Prescription {
     diagnoses: string[];
     advice: string[];
   }
+
+  export interface CommonMedication {
+    id?: string;
+    name: string;
+    dosage: string;
+    frequency: string;
+    duration: string;
+    instructions?: string;
+    category?: string;
+    isPregnancySafe?: boolean;
+  }
+  
+  export interface CommonTest {
+    id?: string;
+    name: string;
+    description?: string;
+    category?: string;
+    pregnancyStage?: 'first' | 'second' | 'third' | 'any';
+    isCommon?: boolean;
+  }

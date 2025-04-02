@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { PrescriptionService } from '../../services/prescription.service';
 import { Prescription } from '../../../models/prescription.model';
@@ -21,7 +21,7 @@ export class PrescriptionHistoryComponent implements OnInit {
   isLoading: boolean = true;
   error: string = '';
 
-  constructor(private prescriptionService: PrescriptionService) {}
+  constructor(private prescriptionService: PrescriptionService,private router:Router) {}
 
   ngOnInit(): void {
     this.loadPrescriptions();
@@ -65,4 +65,7 @@ export class PrescriptionHistoryComponent implements OnInit {
     if (diagnoses.length === 1) return diagnoses[0];
     return `${diagnoses[0]} +${diagnoses.length - 1} more`;
   }
+
+  viewPrescription(prescriptionId: string): void {
+    this.router.navigate(['/prescription/view', prescriptionId]);}
 }

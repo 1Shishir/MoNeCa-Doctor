@@ -5,7 +5,7 @@
       <app-header title="Prescriptions" (toggleSidebar)="toggleSidebar()"></app-header>
       
       <div class="page-header">
-        <h1 class="page-title">Prescriptions</h1>
+        <h1 class="page-title"></h1>
         <div class="action-buttons">
           <button class="btn-add" routerLink="/patients">
             <i class="fa-solid fa-plus"></i> New Prescription
@@ -113,7 +113,7 @@
             </div>
             
             <div class="prescription-footer">
-              <a routerLink="/prescriptions/view/{{ prescription.id }}" class="view-link">
+              <a (click)="viewPrescription(prescription.id)" class="view-link">
                 <i class="fa-solid fa-eye"></i> View Full Prescription
               </a>
             </div>

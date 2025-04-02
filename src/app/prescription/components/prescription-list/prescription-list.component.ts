@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Subscription, forkJoin, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -46,11 +46,14 @@ export class PrescriptionListComponent implements OnInit, OnDestroy {
   constructor(
     private prescriptionService: PrescriptionService,
     private patientService: PatientService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+
   ) {}
 
   ngOnInit(): void {
     this.loadPrescriptions();
+    
   }
   
   ngOnDestroy(): void {
@@ -80,6 +83,7 @@ export class PrescriptionListComponent implements OnInit, OnDestroy {
       this.patientService.getPatientsFromMap(100, -1).pipe(
         switchMap(result => {
           const patients = result.patients;
+         
           if (patients.length === 0) {
             return of({ patients: [], prescriptions: [] });
           }
@@ -107,6 +111,7 @@ export class PrescriptionListComponent implements OnInit, OnDestroy {
           ).pipe(
             switchMap(prescriptionArrays => {
               // Flatten all prescription arrays into one
+              
               const allPrescriptions = prescriptionArrays.flat();
               return of({ patients, prescriptions: allPrescriptions });
             })
@@ -115,7 +120,8 @@ export class PrescriptionListComponent implements OnInit, OnDestroy {
       ).subscribe({
         next: (data) => {
           this.prescriptions = data.prescriptions;
-          
+          console.log("abc",JSON.stringify(data.prescriptions,null,2));
+          console.log("abc",JSON.stringify(this.prescriptions.filter(p => p.doctorId === doctorId),null,2));
           // Filter for current doctor
           if (doctorId) {
             this.prescriptions = this.prescriptions.filter(p => p.doctorId === doctorId);
@@ -229,4 +235,11 @@ export class PrescriptionListComponent implements OnInit, OnDestroy {
       year: 'numeric'
     });
   }
+  // viewPrescription(prescriptionId: string): void {
+  //   console.log("pid is"+JSON.stringify(this.prescriptions,null,2))
+  //   this.router.navigate(['/prescriptions/view', prescriptionId]);
+  // }
+  viewPrescription(prescriptionId: string): void {
+    this.router.navigate(['/prescription/view', prescriptionId]);
+}
 }

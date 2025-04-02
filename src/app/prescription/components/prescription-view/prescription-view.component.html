@@ -1,15 +1,14 @@
 <div class="prescription-view-container">
-    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+  <app-sidebar [collapsed]="sidebarCollapsed" (toggle)="toggleSidebar()"></app-sidebar>
     
-    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header title="Prescriptions" (toggleSidebar)="toggleSidebar()"></app-header>
-      
-      <div class="page-header">
+  <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+    <app-header title="Prescription Details" [showBackButton]="true"></app-header>
+    <div class="page-header">
         <div class="title-container">
-          <a routerLink="/prescriptions" class="back-link">
+          <!-- <a routerLink="/prescriptions" class="back-link">
             <i class="fa-solid fa-arrow-left"></i> Back to Prescriptions
-          </a>
-          <h1 class="page-title">Prescription Details</h1>
+          </a> -->
+          <!-- <h1 class="page-title">Prescription Details</h1> -->
         </div>
         <div class="action-buttons">
           <button class="btn-action edit" (click)="editPrescription()">
@@ -82,11 +81,11 @@
           
           <!-- Previous Prescriptions -->
           <div class="panel-section">
-            <h3 class="section-title">Previous Prescriptions</h3>
-            <app-prescription-history 
+            <h3 class="section-title"></h3>
+            <!-- <app-prescription-history 
               [patientId]="prescription.patientId"
               [currentPrescriptionId]="prescription.id">
-            </app-prescription-history>
+            </app-prescription-history> -->
           </div>
         </div>
         

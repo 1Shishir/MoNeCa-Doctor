@@ -2,10 +2,10 @@
     <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
     
     <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header title="" (toggleSidebar)="toggleSidebar()"></app-header>
+      <app-header title="{{ isEditing ? 'Edit Prescription' : 'New Prescription' }}" (toggleSidebar)="toggleSidebar()"></app-header>
       
       <div class="page-header">
-        <h1 class="page-title">{{ isEditing ? 'Edit Prescription' : 'New Prescription' }}</h1>
+        <h1 class="page-title"></h1>
         <div class="action-buttons">
           <button class="btn-cancel" (click)="cancelEdit()">
             <i class="fa-solid fa-times"></i> Cancel
@@ -371,9 +371,9 @@
             <button type="button" class="secondary-btn" (click)="cancelEdit()">
               <i class="fa-solid fa-times"></i> Cancel
             </button>
-            <button type="button" class="print-btn" (click)="printPrescription()">
+            <!-- <button type="button" class="print-btn" (click)="printPrescription()">
               <i class="fa-solid fa-print"></i> Print
-            </button>
+            </button> -->
             <button type="submit" class="primary-btn" [disabled]="isSaving">
               <span *ngIf="!isSaving"><i class="fa-solid fa-save"></i> Save</span>
               <span *ngIf="isSaving" class="spinner-inline"></span>

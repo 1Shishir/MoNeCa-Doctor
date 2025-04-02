@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
+import { provideStorage } from '@angular/fire/storage';
 import { RouterModule, Routes } from '@angular/router';
+import { getStorage } from 'firebase/storage';
+import { PrescriptionViewComponent } from './components/prescription-view/prescription-view.component';
 
 const routes: Routes = [
   {
@@ -17,14 +20,14 @@ const routes: Routes = [
     loadComponent: () => import('./components/prescription-form/prescription-form.component').then(m => m.PrescriptionFormComponent)
   },
 
+  // {
+  //   path: 'view/:prescriptionId',
+  //   loadComponent: () => import('./components/prescription-view/prescription-view.component').then(m => m.PrescriptionViewComponent)
+  // },
   {
     path: 'view/:prescriptionId',
-    loadComponent: () => import('./components/prescription-view/prescription-view.component').then(m => m.PrescriptionViewComponent)
-  },
-  {
-    path: 'print/:prescriptionId',
-    loadComponent: () => import('./components/prescription-print/prescription-print.component').then(m => m.PrescriptionPrintComponent)
-  },
+    component: PrescriptionViewComponent
+},
   {
     path: 'templates',
     loadComponent: () => import('./components/template-settings/template-settings.component').then(m => m.TemplateSettingsComponent)

@@ -1,5 +1,5 @@
 {
-    "quickOptions": {
+    "doctors_quick_options": {
       "AiBvushsz4eoZzTL9h8RTpoYEIW2": {
         "complaints": [
           "Headache and dizziness",
@@ -54,62 +54,6 @@
           "Rest when tired and avoid overexertion.",
           "Contact healthcare provider immediately if experiencing severe headache, visual disturbances, or abdominal pain.",
           "Schedule childbirth education classes in the third trimester."
-        ]
-      },
-      "doctor789": {
-        "complaints": [
-          "Nausea and vomiting during pregnancy",
-          "Fatigue and low energy",
-          "Lower back pain during pregnancy",
-          "Swelling in feet and ankles",
-          "Pregnancy-related insomnia",
-          "Heartburn during pregnancy",
-          "Constipation during pregnancy",
-          "Shortness of breath during third trimester",
-          "Breast tenderness during pregnancy",
-          "Pelvic pressure during third trimester",
-          "Frequent urination",
-          "Braxton Hicks contractions",
-          "Round ligament pain",
-          "Vaginal discharge changes",
-          "Headaches during pregnancy",
-          "Light-headedness/dizziness during pregnancy"
-        ],
-        "diagnoses": [
-          "Normal pregnancy progression",
-          "Mild gestational hypertension",
-          "Iron-deficiency anemia in pregnancy",
-          "Gestational diabetes mellitus",
-          "Mild hyperemesis gravidarum",
-          "Pregnancy-related back pain",
-          "Mild pregnancy-induced edema",
-          "Urinary tract infection in pregnancy",
-          "Pregnancy rhinitis",
-          "Mild gestational thrombocytopenia",
-          "Pregnancy-induced carpal tunnel syndrome",
-          "Symphysis pubis dysfunction",
-          "Placenta previa (low-lying placenta)",
-          "Mild cholestasis of pregnancy",
-          "Threatened preterm labor",
-          "Breech presentation"
-        ],
-        "advice": [
-          "Maintain a regular sleep schedule and create a comfortable sleep environment.",
-          "Eat small, frequent meals to manage nausea and heartburn.",
-          "Stay physically active with prenatal-approved exercises like swimming or walking.",
-          "Use a pregnancy pillow for better sleep positioning.",
-          "Practice pelvic floor exercises (Kegels) daily.",
-          "Wear supportive maternity belt for back pain relief.",
-          "Increase dietary fiber and water intake to prevent constipation.",
-          "Monitor blood glucose regularly if diagnosed with gestational diabetes.",
-          "Avoid standing for long periods; take frequent breaks.",
-          "Apply cold or warm compresses for muscle aches as recommended.",
-          "Count fetal kicks daily in the third trimester and report changes.",
-          "Consider prenatal massage by a certified therapist for pain relief.",
-          "Prepare hospital bag by 36 weeks of pregnancy.",
-          "Discuss birth plan options with healthcare provider.",
-          "Attend all scheduled prenatal appointments.",
-          "Report any unusual symptoms promptly to healthcare provider."
         ]
       }
     }

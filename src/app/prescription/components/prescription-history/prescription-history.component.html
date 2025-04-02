@@ -18,7 +18,8 @@
           <div class="history-date">{{ getFormattedDate(prescription.date) }}</div>
           <div class="history-diagnosis">{{ getDiagnosisSummary(prescription.diagnosis) }}</div>
         </div>
-        <a [routerLink]="['/prescriptions/view', prescription.id]" class="history-link">
+        
+        <a (click)="viewPrescription(prescription.id)" class="history-link">
           <i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
