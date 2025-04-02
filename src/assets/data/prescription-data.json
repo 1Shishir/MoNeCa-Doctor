@@ -1,0 +1,365 @@
+{
+    "prescriptions": {
+      "8801776613630": {
+        "2025-04-01_1430": {
+          "id": "presc_001",
+          "patientId": "8801776613630",
+          "doctorId": "AiBvushsz4eoZzTL9h8RTpoYEIW2",
+          "date": "2025-04-01T14:30:00.000Z",
+          "chiefComplaints": "Headache, nausea, and dizziness for the past 3 days",
+          "clinicalFindings": "BP 130/85, mild tenderness in upper abdomen, no fever",
+          "diagnosis": [
+            "Migraine",
+            "Stress-induced gastritis"
+          ],
+          "medications": [
+            {
+              "id": "med_001",
+              "name": "Sumatriptan",
+              "dosage": "50mg",
+              "frequency": "As needed",
+              "duration": "7 days",
+              "instructions": "Take 1 tablet at onset of migraine, may repeat after 2 hours if needed. Not to exceed 200mg in 24 hours."
+            },
+            {
+              "id": "med_002",
+              "name": "Omeprazole",
+              "dosage": "20mg",
+              "frequency": "Once daily",
+              "duration": "14 days",
+              "instructions": "Take 1 capsule 30 minutes before breakfast."
+            }
+          ],
+          "tests": [
+            {
+              "id": "test_001",
+              "name": "Complete Blood Count",
+              "description": "To check for infections or anemia",
+              "isPending": true
+            },
+            {
+              "id": "test_002",
+              "name": "Liver Function Test",
+              "description": "To assess liver health",
+              "isPending": true
+            }
+          ],
+          "advice": "Avoid caffeine and alcohol. Stay hydrated and get adequate rest. Practice stress management techniques.",
+          "nextVisit": "2025-04-15T15:00:00.000Z",
+          "vitalSigns": {
+            "bloodPressure": "130/85",
+            "heartRate": 78,
+            "oxygenLevel": 98,
+            "temperature": 36.8,
+            "weight": 65
+          },
+          "createdAt": "2025-04-01T14:30:00.000Z",
+          "updatedAt": "2025-04-01T14:30:00.000Z"
+        },
+        "2025-04-15_1500": {
+          "id": "presc_003",
+          "patientId": "8801776613630",
+          "doctorId": "AiBvushsz4eoZzTL9h8RTpoYEIW2",
+          "date": "2025-04-15T15:00:00.000Z",
+          "chiefComplaints": "Headache improved, occasional mild nausea persists",
+          "clinicalFindings": "BP 125/80, no abdominal tenderness, CBC normal",
+          "diagnosis": [
+            "Migraine - improving",
+            "Gastritis - improving"
+          ],
+          "medications": [
+            {
+              "id": "med_005",
+              "name": "Sumatriptan",
+              "dosage": "50mg",
+              "frequency": "As needed",
+              "duration": "14 days",
+              "instructions": "Take 1 tablet at onset of migraine, may repeat after 2 hours if needed. Not to exceed 200mg in 24 hours."
+            },
+            {
+              "id": "med_006",
+              "name": "Pantoprazole",
+              "dosage": "40mg",
+              "frequency": "Once daily",
+              "duration": "30 days",
+              "instructions": "Take 1 tablet before breakfast."
+            }
+          ],
+          "tests": [
+            {
+              "id": "test_003",
+              "name": "Upper GI Endoscopy",
+              "description": "To assess gastric mucosa",
+              "isPending": true
+            }
+          ],
+          "advice": "Continue stress management. Diet modification: avoid spicy foods, eat smaller frequent meals. Maintain hydration.",
+          "nextVisit": "2025-05-15T14:00:00.000Z",
+          "vitalSigns": {
+            "bloodPressure": "125/80",
+            "heartRate": 72,
+            "oxygenLevel": 99,
+            "temperature": 36.6,
+            "weight": 64.5
+          },
+          "createdAt": "2025-04-15T15:00:00.000Z",
+          "updatedAt": "2025-04-15T15:00:00.000Z"
+        }
+      },
+      "8801776613631": {
+        "2025-04-02_1000": {
+          "id": "presc_002",
+          "patientId": "8801776613631",
+          "doctorId": "AiBvushsz4eoZzTL9h8RTpoYEIW2",
+          "date": "2025-04-02T10:00:00.000Z",
+          "chiefComplaints": "Pregnancy follow-up, Week 28, occasional back pain",
+          "clinicalFindings": "BP 110/70, fetal heart rate 140 bpm, fundal height 28cm",
+          "diagnosis": [
+            "Normal pregnancy - 28 weeks",
+            "Mild gestational backache"
+          ],
+          "medications": [
+            {
+              "id": "med_003",
+              "name": "Prenatal vitamins",
+              "dosage": "1 tablet",
+              "frequency": "Once daily",
+              "duration": "Ongoing",
+              "instructions": "Take with food."
+            },
+            {
+              "id": "med_004",
+              "name": "Calcium supplement",
+              "dosage": "500mg",
+              "frequency": "Twice daily",
+              "duration": "Ongoing",
+              "instructions": "Take with water."
+            }
+          ],
+          "tests": [
+            {
+              "id": "test_002",
+              "name": "Glucose Tolerance Test",
+              "description": "Screening for gestational diabetes",
+              "isPending": false,
+              "result": {
+                "id": "result_001",
+                "testId": "test_002",
+                "fileUrl": "https://storage.googleapis.com/moneca-app.appspot.com/test-results/patient456/gtt_results.pdf",
+                "fileType": "application/pdf",
+                "notes": "Results normal",
+                "uploadedAt": "2025-04-02T10:00:00.000Z"
+              }
+            }
+          ],
+          "advice": "Continue light exercise like walking. Use a pregnancy support belt for back pain relief. Schedule childbirth classes.",
+          "nextVisit": "2025-04-16T10:00:00.000Z",
+          "vitalSigns": {
+            "bloodPressure": "110/70",
+            "heartRate": 82,
+            "temperature": 36.7,
+            "weight": 68,
+            "fetalHeartRate": 140,
+            "fundalHeight": 28,
+            "gestationalAge": 28
+          },
+          "createdAt": "2025-04-02T10:00:00.000Z",
+          "updatedAt": "2025-04-02T10:00:00.000Z"
+        }
+      },
+      "8801776613632": {
+        "2025-04-02_1130": {
+          "id": "8801776613632",
+          "patientId": "AiBvushsz4eoZzTL9h8RTpoYEIW2",
+          "doctorId": "doctor789",
+          "date": "2025-04-02T11:30:00.000Z",
+          "chiefComplaints": "Pregnancy follow-up, Week 32, mild swelling in ankles",
+          "clinicalFindings": "BP 115/75, fetal heart rate 145 bpm, fundal height 32cm, mild peripheral edema",
+          "diagnosis": [
+            "Normal pregnancy - 32 weeks",
+            "Mild physiological edema"
+          ],
+          "medications": [
+            {
+              "id": "med_007",
+              "name": "Prenatal vitamins",
+              "dosage": "1 tablet",
+              "frequency": "Once daily",
+              "duration": "Ongoing",
+              "instructions": "Take with food."
+            },
+            {
+              "id": "med_008",
+              "name": "Iron supplement",
+              "dosage": "65mg",
+              "frequency": "Once daily",
+              "duration": "Until delivery",
+              "instructions": "Take with orange juice to improve absorption. May cause dark stools."
+            }
+          ],
+          "tests": [
+            {
+              "id": "test_004",
+              "name": "Ultrasound",
+              "description": "Growth scan",
+              "isPending": false,
+              "result": {
+                "id": "result_002",
+                "testId": "test_004",
+                "fileUrl": "https://storage.googleapis.com/moneca-app.appspot.com/test-results/patient789/ultrasound_32weeks.jpg",
+                "fileType": "image/jpeg",
+                "notes": "Normal fetal growth, estimated weight 1800g",
+                "uploadedAt": "2025-04-02T11:30:00.000Z"
+              }
+            },
+            {
+              "id": "test_005",
+              "name": "Urine Protein",
+              "description": "Check for preeclampsia",
+              "isPending": false,
+              "result": {
+                "id": "result_003",
+                "testId": "test_005",
+                "notes": "Negative",
+                "uploadedAt": "2025-04-02T11:30:00.000Z"
+              }
+            }
+          ],
+          "advice": "Elevate legs when sitting or resting. Reduce salt intake. Wear comfortable supportive shoes. Continue daily walks.",
+          "nextVisit": "2025-04-16T11:30:00.000Z",
+          "vitalSigns": {
+            "bloodPressure": "115/75",
+            "heartRate": 88,
+            "oxygenLevel": 98,
+            "temperature": 36.5,
+            "weight": 74.5,
+            "fetalHeartRate": 145,
+            "fundalHeight": 32,
+            "gestationalAge": 32
+          },
+          "createdAt": "2025-04-02T11:30:00.000Z",
+          "updatedAt": "2025-04-02T11:30:00.000Z"
+        }
+      },
+      "8801776613633": {
+        "2025-04-01_0900": {
+          "id": "presc_005",
+          "patientId": "patient101",
+          "doctorId": "doctor456",
+          "date": "2025-04-01T09:00:00.000Z",
+          "chiefComplaints": "Pregnancy confirmation, LMP: February 3, 2025",
+          "clinicalFindings": "Uterus slightly enlarged, cervix closed, urine pregnancy test positive",
+          "diagnosis": [
+            "Pregnancy - approximately 8 weeks"
+          ],
+          "medications": [
+            {
+              "id": "med_009",
+              "name": "Folic acid",
+              "dosage": "5mg",
+              "frequency": "Once daily",
+              "duration": "First trimester",
+              "instructions": "Take with water."
+            },
+            {
+              "id": "med_010",
+              "name": "Prenatal vitamins",
+              "dosage": "1 tablet",
+              "frequency": "Once daily",
+              "duration": "Ongoing",
+              "instructions": "Take with food to reduce nausea."
+            }
+          ],
+          "tests": [
+            {
+              "id": "test_006",
+              "name": "Beta HCG",
+              "description": "Confirm pregnancy",
+              "isPending": false,
+              "result": {
+                "id": "result_004",
+                "testId": "test_006",
+                "notes": "24,500 mIU/mL - consistent with 8 weeks pregnancy",
+                "uploadedAt": "2025-04-01T09:00:00.000Z"
+              }
+            },
+            {
+              "id": "test_007",
+              "name": "Complete Blood Count",
+              "description": "Baseline levels",
+              "isPending": true
+            },
+            {
+              "id": "test_008",
+              "name": "Ultrasound",
+              "description": "Dating scan",
+              "isPending": true
+            }
+          ],
+          "advice": "Avoid alcohol, smoking, and raw or undercooked foods. Start prenatal care routine. Download pregnancy tracking app.",
+          "nextVisit": "2025-04-15T09:00:00.000Z",
+          "vitalSigns": {
+            "bloodPressure": "110/70",
+            "heartRate": 76,
+            "temperature": 36.7,
+            "weight": 58,
+            "gestationalAge": 8
+          },
+          "createdAt": "2025-04-01T09:00:00.000Z",
+          "updatedAt": "2025-04-01T09:00:00.000Z"
+        }
+      },
+      "8801776613634": {
+        "2025-04-02_1400": {
+          "id": "presc_006",
+          "patientId": "8801776613634",
+          "doctorId": "AiBvushsz4eoZzTL9h8RTpoYEIW2",
+          "date": "2025-04-02T14:00:00.000Z",
+          "chiefComplaints": "Pregnancy follow-up, Week 16, occasional morning sickness",
+          "clinicalFindings": "BP 105/65, mild fundal height increase, fetal heartbeat detected with doppler",
+          "diagnosis": [
+            "Normal pregnancy - 16 weeks",
+            "Mild hyperemesis gravidarum"
+          ],
+          "medications": [
+            {
+              "id": "med_011",
+              "name": "Vitamin B6",
+              "dosage": "25mg",
+              "frequency": "Three times daily",
+              "duration": "14 days",
+              "instructions": "Take with water to help manage nausea."
+            },
+            {
+              "id": "med_012",
+              "name": "Prenatal vitamins",
+              "dosage": "1 tablet",
+              "frequency": "Once daily",
+              "duration": "Ongoing",
+              "instructions": "Take before bedtime to reduce nausea."
+            }
+          ],
+          "tests": [
+            {
+              "id": "test_009",
+              "name": "Quadruple Screen",
+              "description": "Screening for genetic abnormalities",
+              "isPending": true
+            }
+          ],
+          "advice": "Eat small, frequent meals. Try ginger tea for nausea. Stay hydrated. Maternal serum screening next visit.",
+          "nextVisit": "2025-04-30T14:00:00.000Z",
+          "vitalSigns": {
+            "bloodPressure": "105/65",
+            "heartRate": 84,
+            "temperature": 36.8,
+            "weight": 59.5,
+            "fetalHeartRate": 150,
+            "gestationalAge": 16
+          },
+          "createdAt": "2025-04-02T14:00:00.000Z",
+          "updatedAt": "2025-04-02T14:00:00.000Z"
+        }
+      }
+    }
+  }

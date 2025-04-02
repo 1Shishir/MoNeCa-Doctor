@@ -1,0 +1,52 @@
+{
+    "prescriptionTemplates": {
+      "template001": {
+        "id": "template001",
+        "name": "Standard MoNeCa Template",
+        "doctorId": "doctor456",
+        "headerImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/templates/moneca_header.png",
+        "footerText": "This prescription is valid for 30 days from the date of issue. MoNeCa Healthcare Network - Improving maternal health in rural Bangladesh.",
+        "watermarkImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/templates/moneca_watermark.png",
+        "watermarkOpacity": 0.1,
+        "hospitalName": "MoNeCa Central Hospital",
+        "hospitalAddress": "123 Health Road, Dhaka, Bangladesh",
+        "hospitalPhone": "+880 1700 000000",
+        "hospitalLogo": "https://storage.googleapis.com/moneca-app.appspot.com/templates/moneca_logo.png",
+        "isDefault": true,
+        "createdAt": "2024-12-15T08:00:00.000Z",
+        "updatedAt": "2025-01-10T15:30:00.000Z"
+      },
+      "template002": {
+        "id": "template002",
+        "name": "Specialized Maternal Care Template",
+        "doctorId": "doctor456",
+        "headerImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/templates/maternal_header.png",
+        "footerText": "For maternal health emergencies, please call our 24/7 hotline: +880 1700 111111. MoNeCa Healthcare Network.",
+        "watermarkImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/templates/maternal_watermark.png",
+        "watermarkOpacity": 0.15,
+        "hospitalName": "MoNeCa Maternal Health Clinic",
+        "hospitalAddress": "456 Maternal Care Lane, Dhaka, Bangladesh",
+        "hospitalPhone": "+880 1700 111111",
+        "hospitalLogo": "https://storage.googleapis.com/moneca-app.appspot.com/templates/maternal_logo.png",
+        "isDefault": false,
+        "createdAt": "2025-01-05T10:15:00.000Z",
+        "updatedAt": "2025-02-20T09:45:00.000Z"
+      },
+      "template003": {
+        "id": "template003",
+        "name": "Rural Outreach Template",
+        "doctorId": "doctor789",
+        "headerImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/templates/rural_header.png",
+        "footerText": "This prescription can be filled at any MoNeCa affiliated rural pharmacy. For assistance, call: +880 1700 222222",
+        "watermarkImageUrl": "https://storage.googleapis.com/moneca-app.appspot.com/templates/rural_watermark.png",
+        "watermarkOpacity": 0.12,
+        "hospitalName": "MoNeCa Rural Health Initiative",
+        "hospitalAddress": "789 Village Health Center, Rajshahi District, Bangladesh",
+        "hospitalPhone": "+880 1700 222222",
+        "hospitalLogo": "https://storage.googleapis.com/moneca-app.appspot.com/templates/rural_logo.png",
+        "isDefault": true,
+        "createdAt": "2025-02-10T14:20:00.000Z",
+        "updatedAt": "2025-03-05T11:30:00.000Z"
+      }
+    }
+  }
