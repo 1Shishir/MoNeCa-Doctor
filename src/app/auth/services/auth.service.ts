@@ -1,7 +1,7 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendPasswordResetEmail, onAuthStateChanged } from '@angular/fire/auth';
 import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
-import { from, Observable, throwError, BehaviorSubject, switchMap, tap, catchError, map } from 'rxjs';
+import { from, Observable, throwError, BehaviorSubject, switchMap, tap, catchError, map, of } from 'rxjs';
 import { SignupData, Doctor } from '../../models/auth.model';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
@@ -179,5 +179,18 @@ export class AuthService {
     }
     return this.currentDoctorSubject.value;
   }
+  getDoctorById(userId: string): Observable<Doctor | null> {
+    if (!userId) {
+      return of(null); // Return observable of null if userId is not provided
+    }
+  
+    return from(this.loadDoctorData(userId)).pipe(
+      catchError(error => {
+        console.error('Error in getDoctorById:', error);
+        return of(null);
+      })
+    );
+  }
+  
 }
   

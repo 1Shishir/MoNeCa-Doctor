@@ -296,6 +296,9 @@ export class PrescriptionViewComponent implements OnInit, OnDestroy {
     }
     return diagnoses.join(', ');
   }
+  backPrescription(){
+    this.router.navigate(['/prescription']);
+  }
 
   getFormattedDate(date: Date | null): string {
     if (!date) return 'Not specified';

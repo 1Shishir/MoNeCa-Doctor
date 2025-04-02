@@ -2,12 +2,12 @@
   <app-sidebar [collapsed]="sidebarCollapsed" (toggle)="toggleSidebar()"></app-sidebar>
     
   <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-    <app-header title="Prescription Details" [showBackButton]="true"></app-header>
+    <app-header title="Prescription Details" ></app-header>
     <div class="page-header">
         <div class="title-container">
-          <!-- <a routerLink="/prescriptions" class="back-link">
-            <i class="fa-solid fa-arrow-left"></i> Back to Prescriptions
-          </a> -->
+          <button class="btn-action edit" (click)=" backPrescription()">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
           <!-- <h1 class="page-title">Prescription Details</h1> -->
         </div>
         <div class="action-buttons">

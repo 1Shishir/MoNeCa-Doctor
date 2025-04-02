@@ -442,7 +442,7 @@
   }
   
   .advice-content {
-    font-size: 14px;
+    font-size: 12px;
     color: #333;
     white-space: pre-line;
   }
@@ -525,6 +525,8 @@
     margin-top: 20px;
   }
   
+
+
   /* Print-specific styles */
   @media print {
     .prescription-print-container {

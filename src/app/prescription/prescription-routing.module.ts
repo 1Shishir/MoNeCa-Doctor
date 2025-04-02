@@ -3,6 +3,7 @@ import { provideStorage } from '@angular/fire/storage';
 import { RouterModule, Routes } from '@angular/router';
 import { getStorage } from 'firebase/storage';
 import { PrescriptionViewComponent } from './components/prescription-view/prescription-view.component';
+import { PrescriptionPrintComponent } from './components/prescription-print/prescription-print.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'view/:prescriptionId',
     component: PrescriptionViewComponent
+},
+{
+  path: 'print/:prescriptionId',
+  component: PrescriptionPrintComponent
 },
   {
     path: 'templates',
