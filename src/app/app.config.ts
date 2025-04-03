@@ -6,6 +6,7 @@ import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { environment } from '../environments/environment.prod';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 const firebaseApp = initializeApp(environment.firebase);
 
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideFirebaseApp(() => firebaseApp),
     provideAuth(() => getAuth(firebaseApp)),
-    provideFirestore(() => getFirestore(firebaseApp))
+    provideFirestore(() => getFirestore(firebaseApp)),
+    
   ]
 };
