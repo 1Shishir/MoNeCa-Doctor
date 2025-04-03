@@ -2,7 +2,7 @@
 
 
 import { Injectable } from '@angular/core';
-import { Firestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteField, query, where, orderBy, limit } from '@angular/fire/firestore';
+import { Firestore, collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteField, query, where, orderBy, limit, DocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 import { Observable, from, of, throwError, BehaviorSubject, forkJoin } from 'rxjs';
 import { map, catchError, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from '../../auth/services/auth.service';
@@ -30,7 +30,6 @@ export class BookingService {
     private firestore: Firestore,
     private authService: AuthService
   ) {}
-
 
 
   
@@ -184,6 +183,55 @@ export class BookingService {
   /**
    * Create a new appointment
    */
+
+  //lagecy
+  // createAppointment(appointment: Omit<Booking, 'id' | 'createdAt' | 'updatedAt'>): Observable<number | string> {
+  //   const doctorId = this.getCurrentDoctorId();
+  //   if (!doctorId) {
+  //     return throwError(() => new Error('No authenticated doctor found'));
+  //   }
+    
+  //   const now = new Date();
+  //   // Generate a unique ID for the appointment
+  //   const appointmentId = `${appointment.date}T${appointment.time}:00Z`;
+    
+  //   const appointmentWithDates = {
+  //     ...appointment,
+  //     id: appointmentId,
+  //     doctorId,
+  //     createdAt: now.toISOString(),
+  //     updatedAt: now.toISOString()
+  //   };
+    
+  //   const appointmentRef = doc(this.firestore, 'appointment-list', doctorId);
+    
+  //   return from(getDoc(appointmentRef)).pipe(
+  //     switchMap(docSnapshot => {
+  //       // Create or update the appointment data
+  //       if (!docSnapshot.exists()) {
+  //         return from(setDoc(appointmentRef, {
+  //           [appointmentId]: appointmentWithDates
+  //         }));
+  //       } else {
+  //         return from(updateDoc(appointmentRef, {
+  //           [appointmentId]: appointmentWithDates
+  //         }));
+  //       }
+  //     }),
+  //     map(() => {
+  //       // Add to the local cache
+  //       const currentAppointments = this.bookingsCache.getValue();
+  //       this.bookingsCache.next([...currentAppointments, appointmentWithDates as Booking]);
+        
+  //       return appointmentId;
+  //     }),
+  //     catchError(error => {
+  //       console.error('Error creating appointment:', error);
+  //       return throwError(() => error);
+  //     })
+  //   );
+  // }
+
   createAppointment(appointment: Omit<Booking, 'id' | 'createdAt' | 'updatedAt'>): Observable<number | string> {
     const doctorId = this.getCurrentDoctorId();
     if (!doctorId) {
@@ -203,19 +251,28 @@ export class BookingService {
     };
     
     const appointmentRef = doc(this.firestore, 'appointment-list', doctorId);
+    const bookingMapRef = doc(this.firestore, 'booking-map', appointment.patientId);
     
     return from(getDoc(appointmentRef)).pipe(
-      switchMap(docSnapshot => {
-        // Create or update the appointment data
-        if (!docSnapshot.exists()) {
-          return from(setDoc(appointmentRef, {
-            [appointmentId]: appointmentWithDates
-          }));
-        } else {
-          return from(updateDoc(appointmentRef, {
-            [appointmentId]: appointmentWithDates
-          }));
-        }
+      switchMap((docSnapshot: DocumentSnapshot<DocumentData>) => {
+        // First, update the appointment list
+        const appointmentUpdatePromise = docSnapshot.exists() 
+          ? updateDoc(appointmentRef, { [appointmentId]: appointmentWithDates })
+          : setDoc(appointmentRef, { [appointmentId]: appointmentWithDates });
+        
+        // Then, create/update the booking map
+        const bookingMapPromise = setDoc(bookingMapRef, 
+          { [appointmentId]: {
+            doctorId,
+            status: appointmentWithDates.status,
+            date: appointmentWithDates.date,
+            type: appointmentWithDates.type
+          }}, 
+          { merge: true }
+        );
+        
+        // Wait for both operations to complete
+        return from(Promise.all([appointmentUpdatePromise, bookingMapPromise]));
       }),
       map(() => {
         // Add to the local cache
@@ -470,29 +527,55 @@ export class BookingService {
    * Load doctor's schedule
    */
   loadDoctorSchedule(): void {
-    if (this.isLoadingSchedule) return;
+    console.log('Loading doctor schedule...');
+    if (this.isLoadingSchedule) {
+      console.log('Already loading schedule, skipping');
+      return;
+    }
     
     const doctorId = this.getCurrentDoctorId();
-    if (!doctorId) return;
+    console.log('Doctor ID for schedule:', doctorId);
+    
+    if (!doctorId) {
+      console.log('No doctor ID found, skipping schedule load');
+      return;
+    }
     
     this.isLoadingSchedule = true;
     
-    const scheduleRef = doc(this.firestore, 'doctor_schedules', doctorId);
+    // Get the entire doctor_schedules document
+    const scheduleRef = doc(this.firestore, 'doctor_schedules');
+    console.log('Fetching schedule from Firestore path:', 'doctor_schedules');
     
     from(getDoc(scheduleRef)).pipe(
       map(docSnapshot => {
+        console.log('Schedule doc exists:', docSnapshot.exists());
+        
         if (!docSnapshot.exists()) {
+          console.log('No schedule found, using default');
           return this.getDefaultSchedule(doctorId);
         }
         
-        const data = docSnapshot.data() as Record<string, any>;
+        const data = docSnapshot.data();
+        console.log('Raw schedule data:', data);
+        
+        // Access the specific doctor's schedule using the doctorId
+        const doctorData = data[doctorId];
+        console.log('Doctor specific schedule data:', doctorData);
+        
+        if (!doctorData) {
+          console.log('No schedule for this doctor, using default');
+          return this.getDefaultSchedule(doctorId);
+        }
+        
         const schedule: DoctorSchedule[] = [];
         
         // Convert data to our interface
         const days: DayOfWeek[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
         
         days.forEach((day, index) => {
-          const dayData = data[day] || {};
+          const dayData = doctorData[day] || {};
+          console.log(`Processing ${day} schedule:`, dayData);
           
           schedule.push({
             id: dayData.id || index + 1,
@@ -503,9 +586,11 @@ export class BookingService {
           });
         });
         
+        console.log('Processed schedule data:', schedule);
         return schedule;
       }),
       tap(schedule => {
+        console.log('Updating schedule cache with:', schedule);
         this.scheduleCache.next(schedule);
         this.isLoadingSchedule = false;
       }),
@@ -513,10 +598,60 @@ export class BookingService {
         console.error('Error loading doctor schedule:', error);
         this.isLoadingSchedule = false;
         const defaultSchedule = this.getDefaultSchedule(doctorId);
+        console.log('Using default schedule due to error:', defaultSchedule);
         this.scheduleCache.next(defaultSchedule);
         return of(defaultSchedule);
       })
     ).subscribe();
+  }
+  
+  getAvailableTimeSlots(date: string): Observable<BookingTimeSlot[]> {
+    console.log('Getting available time slots for date:', date);
+    const dateObj = new Date(date);
+    const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 6 = Saturday
+    const days: DayOfWeek[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+    const day = days[dayOfWeek];
+    console.log('Day of week:', day);
+    
+    return forkJoin({
+      schedule: this.getScheduleForDay(day).pipe(
+        tap(scheduleData => console.log('Schedule for', day, ':', scheduleData)),
+        take(1)
+      ),
+      appointments: this.getAppointments({ startDate: date, endDate: date }).pipe(
+        tap(appointmentsData => console.log('Appointments for', date, ':', appointmentsData)),
+        take(1)
+      )
+    }).pipe(
+      map(({ schedule, appointments }) => {
+        console.log('Processing schedule:', schedule, 'and appointments:', appointments);
+        
+        if (!schedule || !schedule.isWorkingDay) {
+          console.log('No schedule or not a working day');
+          return [];
+        }
+        
+        // Copy the time slots
+        const availableSlots = [...schedule.timeSlots];
+        console.log('Initial available slots:', availableSlots);
+        
+        // Mark slots as unavailable if they're already booked
+        availableSlots.forEach(slot => {
+          const slotStartTime = slot.startTime;
+          const isBooked = appointments.some(a => a.time === slotStartTime);
+          
+          if (isBooked) {
+            console.log(`Slot ${slotStartTime} is already booked`);
+            slot.isAvailable = false;
+          }
+        });
+        
+        // Filter to only available slots
+        const filteredSlots = availableSlots.filter(slot => slot.isAvailable);
+        console.log('Final available slots:', filteredSlots);
+        return filteredSlots;
+      })
+    );
   }
 
   /**
@@ -549,19 +684,33 @@ export class BookingService {
       return throwError(() => new Error('No authenticated doctor found'));
     }
     
-    const scheduleRef = doc(this.firestore, 'doctor_schedules', doctorId);
+    const scheduleRef = doc(this.firestore, 'doctor_schedules');
     
-    // Convert array to object with day as key
-    const scheduleData: Record<string, any> = {};
-    schedule.forEach(daySchedule => {
-      scheduleData[daySchedule.day] = {
-        id: daySchedule.id,
-        isWorkingDay: daySchedule.isWorkingDay,
-        timeSlots: daySchedule.timeSlots
-      };
-    });
-    
-    return from(setDoc(scheduleRef, scheduleData)).pipe(
+    // First get the existing document
+    return from(getDoc(scheduleRef)).pipe(
+      switchMap(docSnapshot => {
+        // Convert array to object with day as key
+        const scheduleData: Record<string, any> = {};
+        schedule.forEach(daySchedule => {
+          scheduleData[daySchedule.day] = {
+            id: daySchedule.id,
+            isWorkingDay: daySchedule.isWorkingDay,
+            timeSlots: daySchedule.timeSlots
+          };
+        });
+        
+        // If document exists, update just this doctor's data
+        if (docSnapshot.exists()) {
+          return from(updateDoc(scheduleRef, {
+            [doctorId]: scheduleData
+          }));
+        } else {
+          // Create a new document with this doctor's data
+          return from(setDoc(scheduleRef, {
+            [doctorId]: scheduleData
+          }));
+        }
+      }),
       tap(() => {
         // Update the local cache
         this.scheduleCache.next(schedule);
@@ -576,39 +725,39 @@ export class BookingService {
   /**
    * Get available time slots for a specific date
    */
-  getAvailableTimeSlots(date: string): Observable<BookingTimeSlot[]> {
-    const dateObj = new Date(date);
-    const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 6 = Saturday
-    const days: DayOfWeek[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-    const day = days[dayOfWeek];
+  // getAvailableTimeSlots(date: string): Observable<BookingTimeSlot[]> {
+  //   const dateObj = new Date(date);
+  //   const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 6 = Saturday
+  //   const days: DayOfWeek[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+  //   const day = days[dayOfWeek];
     
-    return forkJoin({
-      schedule: this.getScheduleForDay(day).pipe(take(1)),
-      appointments: this.getAppointments({ startDate: date, endDate: date }).pipe(take(1))
-    }).pipe(
-      map(({ schedule, appointments }) => {
-        if (!schedule || !schedule.isWorkingDay) {
-          return [];
-        }
+  //   return forkJoin({
+  //     schedule: this.getScheduleForDay(day).pipe(take(1)),
+  //     appointments: this.getAppointments({ startDate: date, endDate: date }).pipe(take(1))
+  //   }).pipe(
+  //     map(({ schedule, appointments }) => {
+  //       if (!schedule || !schedule.isWorkingDay) {
+  //         return [];
+  //       }
         
-        // Copy the time slots
-        const availableSlots = [...schedule.timeSlots];
+  //       // Copy the time slots
+  //       const availableSlots = [...schedule.timeSlots];
         
-        // Mark slots as unavailable if they're already booked
-        availableSlots.forEach(slot => {
-          const slotStartTime = slot.startTime;
-          const isBooked = appointments.some(a => a.time === slotStartTime);
+  //       // Mark slots as unavailable if they're already booked
+  //       availableSlots.forEach(slot => {
+  //         const slotStartTime = slot.startTime;
+  //         const isBooked = appointments.some(a => a.time === slotStartTime);
           
-          if (isBooked) {
-            slot.isAvailable = false;
-          }
-        });
+  //         if (isBooked) {
+  //           slot.isAvailable = false;
+  //         }
+  //       });
         
-        // Filter to only available slots
-        return availableSlots.filter(slot => slot.isAvailable);
-      })
-    );
-  }
+  //       // Filter to only available slots
+  //       return availableSlots.filter(slot => slot.isAvailable);
+  //     })
+  //   );
+  // }
 
   /**
    * Get next available appointment slot (for today or future dates)

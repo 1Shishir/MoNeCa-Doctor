@@ -1,0 +1,112 @@
+{"doctor_schedules":{"AiBvushsz4eoZzTL9h8RTpoYEIW2":{
+    "sunday": {
+      "id": 1,
+      "isWorkingDay": true,
+      "timeSlots": [
+        {
+          "id": 1,
+          "startTime": "09:00",
+          "endTime": "11:30",
+          "maxPatients": 6,
+          "isAvailable": true
+        },
+        {
+          "id": 2,
+          "startTime": "14:00",
+          "endTime": "16:30",
+          "maxPatients": 5,
+          "isAvailable": true
+        }
+      ]
+    },
+    "monday": {
+      "id": 2,
+      "isWorkingDay": true,
+      "timeSlots": [
+        {
+          "id": 3,
+          "startTime": "10:00",
+          "endTime": "12:00",
+          "maxPatients": 4,
+          "isAvailable": true
+        },
+        {
+          "id": 4,
+          "startTime": "15:00",
+          "endTime": "17:00",
+          "maxPatients": 6,
+          "isAvailable": true
+        }
+      ]
+    },
+    "tuesday": {
+      "id": 3,
+      "isWorkingDay": true,
+      "timeSlots": [
+        {
+          "id": 5,
+          "startTime": "09:30",
+          "endTime": "11:30",
+          "maxPatients": 5,
+          "isAvailable": true
+        },
+        {
+          "id": 6,
+          "startTime": "13:00",
+          "endTime": "15:00",
+          "maxPatients": 4,
+          "isAvailable": true
+        }
+      ]
+    },
+    "wednesday": {
+      "id": 4,
+      "isWorkingDay": true,
+      "timeSlots": [
+        {
+          "id": 7,
+          "startTime": "11:00",
+          "endTime": "13:00",
+          "maxPatients": 5,
+          "isAvailable": true
+        },
+        {
+          "id": 8,
+          "startTime": "16:00",
+          "endTime": "18:00",
+          "maxPatients": 4,
+          "isAvailable": true
+        }
+      ]
+    },
+    "thursday": {
+      "id": 5,
+      "isWorkingDay": true,
+      "timeSlots": [
+        {
+          "id": 9,
+          "startTime": "08:30",
+          "endTime": "10:30",
+          "maxPatients": 6,
+          "isAvailable": true
+        },
+        {
+          "id": 10,
+          "startTime": "14:30",
+          "endTime": "16:30",
+          "maxPatients": 5,
+          "isAvailable": true
+        }
+      ]
+    },
+    "friday": {
+      "id": 6,
+      "isWorkingDay": false,
+      "timeSlots": []
+    },
+    "saturday": {
+      "id": 7,
+      "isWorkingDay": false,
+      "timeSlots": []
+    }
+  }}}

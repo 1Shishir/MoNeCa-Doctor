@@ -63,6 +63,49 @@ export class PatientService {
     );
   }
 
+
+  searchPatients(searchTerm: string): Observable<any[]> {
+    const currentDoctor = this.authService.getCurrentDoctor();
+    
+    if (!currentDoctor) {
+      return throwError(() => new Error('No authenticated doctor found'));
+    }
+
+    // Use Firestore query to search patients created by the current doctor
+    const patientsCollection = collection(this.firestore, 'patients');
+    
+    const searchQuery = query(
+      patientsCollection,
+      where('createdBy', '==', currentDoctor.uuid),
+      orderBy('personalInfo.fullName'),
+      where('personalInfo.fullName', '>=', searchTerm),
+      where('personalInfo.fullName', '<=', searchTerm + '\uf8ff'),
+      limit(10)
+    );
+
+    return from(getDocs(searchQuery)).pipe(
+      map(querySnapshot => {
+        const patients: any[] = [];
+        querySnapshot.forEach(doc => {
+          const patientData = doc.data() as Patient;
+          patients.push({
+            id: doc.id,
+            name: patientData['personalInfo']?.['fullName'] || 'Unknown',
+            phone: patientData['personalInfo']?.['phoneNumber'] || '',
+            profile: patientData.profile || 'assets/images/default-patient.png',
+            pregnancyWeek: patientData['pregnancyInfo']?.['weeks'] || 0
+          });
+        });
+        return patients;
+      }),
+      catchError(error => {
+        console.error('Error searching patients:', error);
+        return of([]);
+      })
+    );
+  }
+
+
   // New function to update the patient-map node
   private updatePatientMap(doctorId: string, patientPhone: string): Observable<void> {
     // Create a reference to the doctor's entry in the patient-map

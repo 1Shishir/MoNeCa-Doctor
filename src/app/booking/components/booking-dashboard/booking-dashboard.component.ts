@@ -256,25 +256,49 @@ export class BookingDashboardComponent implements OnInit {
 }
 
 
-// import { Component, OnInit, OnDestroy } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { Subscription, combineLatest } from 'rxjs';
-// import { map, take } from 'rxjs/operators';
-// import { Booking, BookingStats, BookingStatus } from '../../../models/booking.model';
-// import { BookingService } from '../../service/booking.service';
 
+
+// import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+// import { Router, RouterModule } from '@angular/router';
+// import { Booking, BookingStats, BookingStatus } from '../../../models/booking.model';
+
+// import { BookingListComponent } from '../booking-list/booking-list.component';
+// import { HeaderComponent } from '../../../dashboard/components/header/header.component';
+// import { SidebarComponent } from '../../../dashboard/components/sidebar/sidebar.component';
+// import { BookingService } from '../../service/booking.service';
+// import { Subscription, take } from 'rxjs';
 
 // @Component({
 //   selector: 'app-booking-dashboard',
+//   standalone: true,
+//   imports: [
+//     CommonModule,
+//     FormsModule,
+//     ReactiveFormsModule,
+//     RouterModule,
+//     SidebarComponent,
+//     HeaderComponent
+//   ],
 //   templateUrl: './booking-dashboard.component.html',
-//   styleUrl: './booking-dashboard.component.scss'
+//   styleUrl: './booking-dashboard.component.css'
 // })
-// export class BookingDashboardComponent implements OnInit, OnDestroy {
-//   // Sidebar state
+// export class BookingDashboardComponent implements OnInit {
 //   sidebarCollapsed = false;
-  
-//   // Date selection
 //   selectedDate: string = new Date().toISOString().split('T')[0];
+//   nextAvailableSlot: string | null = null;
+
+//     // Booking related properties
+//     allBookings: Booking[] = [];
+//     filteredBookings: Booking[] = [];
+//     displayedBookings: Booking[] = [];
+    
+//     // Pagination
+//     currentPage = 1;
+//     itemsPerPage = 10;
+//     totalItems = 0;
+  
   
 //   // Booking data
 //   todaysBookings: Booking[] = [];
@@ -293,7 +317,6 @@ export class BookingDashboardComponent implements OnInit {
 //       ]
 //     }
 //   };
-//   nextAvailableSlot: string | null = null;
   
 //   // Subscriptions for cleanup
 //   private subscriptions: Subscription[] = [];

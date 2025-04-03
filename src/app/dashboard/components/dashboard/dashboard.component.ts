@@ -11,6 +11,9 @@ import { AppointmentsTableComponent } from '../appointments-table/appointments-t
 import { PatientSummaryComponent } from '../patient-summary/patient-summary.component';
 import { AuthService } from '../../../auth/services/auth.service';
 import { Doctor } from '../../../models/auth.model';
+import { Patient } from '../../../patient/model/patient.model';
+import { PatientDetailsService } from '../../../patient-details/services/patient-details.service';
+import { PatientService } from '../../../patient/services/patient.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -90,26 +93,28 @@ export class DashboardComponent implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
+    private patientService: PatientService,
+    private patientDetailsService: PatientDetailsService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   ngOnInit(): void {
-   
-      if (isPlatformBrowser(this.platformId)) {
-        // Subscribe to the auth state observable instead of using getCurrentDoctor()
-        this.authService.currentDoctor$.subscribe(doctor => {
-          if (doctor) {
-            this.currentDoctor = doctor;
-            console.log("Real doctor data loaded:", doctor.fullName);
-          } else {
-            this.currentDoctor = this.dummyDoctor;
-            console.log("Using dummy doctor");
-          }
-        });
-      } else {
-        this.currentDoctor = this.dummyDoctor;
-      }
-   }
+
+    if (isPlatformBrowser(this.platformId)) {
+      // Subscribe to the auth state observable instead of using getCurrentDoctor()
+      this.authService.currentDoctor$.subscribe(doctor => {
+        if (doctor) {
+          this.currentDoctor = doctor;
+          console.log("Real doctor data loaded:", doctor.fullName);
+        } else {
+          this.currentDoctor = this.dummyDoctor;
+          console.log("Using dummy doctor");
+        }
+      });
+    } else {
+      this.currentDoctor = this.dummyDoctor;
+    }
+  }
 
   toggleSidebar(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
@@ -146,10 +151,14 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(['/patients']);
   }
 
-  onViewPatient(patient: any): void {
+  onViewPatient(patient: Patient): void {
     // Handle view patient
-    console.log('View patient:', patient);
-    this.router.navigate(['/patient-details', patient.id]);
+    if (patient.id) {
+      this.patientDetailsService.setPatientId(patient.id);
+      this.router.navigate(['/patient-details']);
+    } else {
+      console.error('Invalid patient ID');
+    }
   }
 
   onContactPatient(patient: any): void {
@@ -158,10 +167,13 @@ export class DashboardComponent implements OnInit {
     // Add your implementation for contacting patients
   }
 
-  onViewData(patient: any): void {
-    // Handle view data
-    console.log('View data:', patient);
-    this.router.navigate(['/detailed-health-data', patient.id]);
+  onViewData(patient: Patient): void {
+    if (patient.id) {
+      this.patientDetailsService.setPatientId(patient.id);
+      this.router.navigate(['/patient-details']);
+    } else {
+      console.error('Invalid patient ID');
+    }
   }
 }
 
