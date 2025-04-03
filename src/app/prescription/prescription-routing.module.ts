@@ -5,6 +5,7 @@ import { getStorage } from 'firebase/storage';
 import { PrescriptionViewComponent } from './components/prescription-view/prescription-view.component';
 import { PrescriptionPrintComponent } from './components/prescription-print/prescription-print.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -13,21 +14,18 @@ const routes: Routes = [
 
   {
     path: 'new/:patientId',
-    loadComponent: () => import('./components/prescription-form/prescription-form.component').then(m => m.PrescriptionFormComponent)
+    loadComponent: () => import('./components/prescription-form/prescription-form.component').then(m => m.PrescriptionFormComponent),
+  
   },
 
   {
     path: 'edit/:prescriptionId',
     loadComponent: () => import('./components/prescription-form/prescription-form.component').then(m => m.PrescriptionFormComponent)
   },
-
-  // {
-  //   path: 'view/:prescriptionId',
-  //   loadComponent: () => import('./components/prescription-view/prescription-view.component').then(m => m.PrescriptionViewComponent)
-  // },
   {
     path: 'view/:prescriptionId',
-    component: PrescriptionViewComponent
+    component: PrescriptionViewComponent,
+    
 },
 {
   path: 'print/:prescriptionId',
