@@ -1,6 +1,6 @@
 export interface Booking {
-    id: number;
-    patientId: number;
+    id: string;
+    patientId: string;
     patientName: string;
     patientPhone: string;
     patientProfile?: string;

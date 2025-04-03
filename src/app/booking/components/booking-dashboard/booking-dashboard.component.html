@@ -7,10 +7,10 @@
       <div class="page-header">
         <h1 class="page-title">Appointment Management</h1>
         <div class="action-buttons">
-          <a routerLink="/bookings/add" class="btn-primary">
+          <a (click)="onNewBtnClick()" class="btn-primary">
             <i class="fa-solid fa-plus"></i> Add Appointment
           </a>
-          <a routerLink="/bookings/schedule" class="btn-secondary">
+          <a (click)="scheduleClicked()" class="btn-secondary">
             <i class="fa-solid fa-calendar-days"></i> Configure Schedule
           </a>
         </div>
@@ -96,7 +96,7 @@
             <button class="btn-text">
               <i class="fa-solid fa-print"></i> Print List
             </button>
-            <a routerLink="/bookings" class="btn-text">
+            <a (click)="viewAllClick()" class="btn-text">
               View All Appointments <i class="fa-solid fa-arrow-right"></i>
             </a>
           </div>

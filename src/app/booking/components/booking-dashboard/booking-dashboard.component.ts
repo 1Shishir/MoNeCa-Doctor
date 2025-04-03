@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { Booking, BookingStats } from '../../../models/booking.model';
 
 import { BookingListComponent } from '../booking-list/booking-list.component';
 import { HeaderComponent } from '../../../dashboard/components/header/header.component';
 import { SidebarComponent } from '../../../dashboard/components/sidebar/sidebar.component';
+import { BookingService } from '../../service/booking.service';
 
 @Component({
   selector: 'app-booking-dashboard',
@@ -26,12 +27,25 @@ export class BookingDashboardComponent implements OnInit {
   sidebarCollapsed = false;
   selectedDate: string = new Date().toISOString().split('T')[0];
   nextAvailableSlot: string = '';
+
+    // Booking related properties
+    allBookings: Booking[] = [];
+    filteredBookings: Booking[] = [];
+    displayedBookings: Booking[] = [];
+    
+    // Pagination
+    currentPage = 1;
+    itemsPerPage = 10;
+    totalItems = 0;
+  
+
+  
   
   // Mock data for today's bookings
   todaysBookings: Booking[] = [
     {
-      id: 1,
-      patientId: 1,
+      id: "1",
+      patientId: "1",
       patientName: 'Fatima Akter',
       patientPhone: '+8801712345678',
       patientProfile: 'assets/images/patients/patient1.jpg',
@@ -48,8 +62,8 @@ export class BookingDashboardComponent implements OnInit {
       pregnancyWeek: 32
     },
     {
-      id: 2,
-      patientId: 2,
+      id: "2",
+      patientId: "2",
       patientName: 'Rabeya Khatun',
       patientPhone: '+8801712345679',
       patientProfile: 'assets/images/patients/patient2.jpg',
@@ -66,8 +80,8 @@ export class BookingDashboardComponent implements OnInit {
       pregnancyWeek: 28
     },
     {
-      id: 3,
-      patientId: 3,
+      id: "3",
+      patientId: "3",
       patientName: 'Nasrin Sultana',
       patientPhone: '+8801712345680',
       patientProfile: 'assets/images/patients/patient3.jpg',
@@ -84,8 +98,8 @@ export class BookingDashboardComponent implements OnInit {
       pregnancyWeek: 20
     },
     {
-      id: 4,
-      patientId: 5,
+      id: "4",
+      patientId: "5",
       patientName: 'Ayesha Khan',
       patientPhone: '+8801712345681',
       patientProfile: 'assets/images/patients/patient5.jpg',
@@ -102,8 +116,8 @@ export class BookingDashboardComponent implements OnInit {
       pregnancyWeek: 36
     },
     {
-      id: 5,
-      patientId: 4,
+      id: "5",
+      patientId: "4",
       patientName: 'Taslima Begum',
       patientPhone: '+8801712345682',
       patientProfile: 'assets/images/patients/patient4.jpg',
@@ -144,11 +158,20 @@ export class BookingDashboardComponent implements OnInit {
     }
   };
   
-  constructor() {}
+  constructor(
+    
+    private fb: FormBuilder,
+    private bookingService: BookingService,
+    private cdr: ChangeDetectorRef,
+    private router: Router
+
+  ) {}
   
   ngOnInit(): void {
     this.calculateNextAvailableSlot();
   }
+
+ 
   
   toggleSidebar(): void {
     this.sidebarCollapsed = !this.sidebarCollapsed;
@@ -171,7 +194,7 @@ export class BookingDashboardComponent implements OnInit {
     console.log(`Fetching bookings for: ${this.selectedDate}`);
   }
   
-  updateBookingStatus(bookingId: number, newStatus: 'completed' | 'cancelled' | 'absent'): void {
+  updateBookingStatus(bookingId: string, newStatus: 'completed' | 'cancelled' | 'absent'): void {
     // Find and update the booking status
     const booking = this.todaysBookings.find(b => b.id === bookingId);
     if (booking) {
@@ -219,4 +242,223 @@ export class BookingDashboardComponent implements OnInit {
     const formattedHours = hours % 12 || 12;
     return `${formattedHours}:${String(minutes).padStart(2, '0')} ${period}`;
   }
+  onNewBtnClick() {
+        this.router.navigate(['/booking/add']);
+      }
+    
+      viewAllClick(){
+        this.router.navigate(['/booking/list']);
+      }
+    
+      scheduleClicked(){
+        this.router.navigate(['/booking/schedule']);
+      }
 }
+
+
+// import { Component, OnInit, OnDestroy } from '@angular/core';
+// import { Router } from '@angular/router';
+// import { Subscription, combineLatest } from 'rxjs';
+// import { map, take } from 'rxjs/operators';
+// import { Booking, BookingStats, BookingStatus } from '../../../models/booking.model';
+// import { BookingService } from '../../service/booking.service';
+
+
+// @Component({
+//   selector: 'app-booking-dashboard',
+//   templateUrl: './booking-dashboard.component.html',
+//   styleUrl: './booking-dashboard.component.scss'
+// })
+// export class BookingDashboardComponent implements OnInit, OnDestroy {
+//   // Sidebar state
+//   sidebarCollapsed = false;
+  
+//   // Date selection
+//   selectedDate: string = new Date().toISOString().split('T')[0];
+  
+//   // Booking data
+//   todaysBookings: Booking[] = [];
+//   bookingStats: BookingStats = {
+//     today: { total: 0, completed: 0, scheduled: 0, cancelled: 0, absent: 0 },
+//     weekly: { 
+//       total: 0, 
+//       byDay: [
+//         { day: 'Sunday', count: 0 },
+//         { day: 'Monday', count: 0 },
+//         { day: 'Tuesday', count: 0 },
+//         { day: 'Wednesday', count: 0 },
+//         { day: 'Thursday', count: 0 },
+//         { day: 'Friday', count: 0 },
+//         { day: 'Saturday', count: 0 }
+//       ]
+//     }
+//   };
+//   nextAvailableSlot: string | null = null;
+  
+//   // Subscriptions for cleanup
+//   private subscriptions: Subscription[] = [];
+
+//   constructor(
+//     private bookingService: BookingService,
+//     private router: Router,
+//   ) {}
+
+//   ngOnInit(): void {
+//     // Initial data load
+//     this.bookingService.refreshAllData();
+    
+//     // Subscribe to bookings for today
+//     const bookingsSub = this.bookingService.getTodayAppointments()
+//       .subscribe(bookings => {
+//         this.todaysBookings = this.sortBookingsByTime(bookings);
+//         this.updateStatCounts();
+//       });
+    
+//     // Subscribe to booking stats
+//     const statsSub = this.bookingService.getBookingStats()
+//       .subscribe(stats => {
+//         this.bookingStats = stats;
+//       });
+    
+//     // Get next available slot
+//     this.loadNextAvailableSlot();
+    
+//     // Add subscriptions for cleanup
+//     this.subscriptions.push(bookingsSub, statsSub);
+//   }
+
+//   ngOnDestroy(): void {
+//     // Clean up subscriptions
+//     this.subscriptions.forEach(sub => sub.unsubscribe());
+//   }
+
+//   /**
+//    * Toggle sidebar collapsed state
+//    */
+//   toggleSidebar(): void {
+//     this.sidebarCollapsed = !this.sidebarCollapsed;
+//   }
+
+//   /**
+//    * Change selected date and reload data
+//    */
+//   changeDate(event: Event): void {
+//     const input = event.target as HTMLInputElement;
+//     this.selectedDate = input.value;
+    
+//     // Load appointments for the selected date
+//     this.bookingService.getAppointments({
+//       startDate: this.selectedDate,
+//       endDate: this.selectedDate
+//     }).pipe(take(1)).subscribe(bookings => {
+//       this.todaysBookings = this.sortBookingsByTime(bookings);
+//     });
+//   }
+
+//   /**
+//    * Format time for display
+//    */
+//   getFormattedTime(time: string | null): string {
+//     if (!time) return 'No slots available';
+//     return this.formatTime(time);
+//   }
+
+//   /**
+//    * Get CSS class based on booking status
+//    */
+//   getStatusClass(status: BookingStatus): string {
+//     return status.toLowerCase();
+//   }
+
+//   /**
+//    * Get count of bookings with a specific status
+//    */
+//   getStatusCount(status: BookingStatus): number {
+//     return this.todaysBookings.filter(booking => booking.status === status).length;
+//   }
+
+//   /**
+//    * Sort bookings by time
+//    */
+//   private sortBookingsByTime(bookings: Booking[]): Booking[] {
+//     return [...bookings].sort((a, b) => {
+//       if (a.time < b.time) return -1;
+//       if (a.time > b.time) return 1;
+//       return 0;
+//     });
+//   }
+
+//   /**
+//    * Update appointment status
+//    */
+//   updateBookingStatus(bookingId: string, newStatus: BookingStatus): void {
+//     this.bookingService.updateAppointmentStatus(bookingId, newStatus)
+//       .pipe(take(1))
+//       .subscribe({
+//         next: () => {
+//           // Update the local booking status
+//           const booking = this.todaysBookings.find(b => b.id === bookingId);
+//           if (booking) {
+//             booking.status = newStatus;
+//             this.updateStatCounts();
+//           }
+//         },
+//         error: (error) => {
+//           console.error('Error updating booking status:', error);
+//           // Show notification to user (using your app's notification system)
+//         }
+//       });
+//   }
+
+//   /**
+//    * Update stat counts based on bookings
+//    */
+//   private updateStatCounts(): void {
+//     // Calculate stats for today's bookings
+//     const completed = this.todaysBookings.filter(b => b.status === 'completed').length;
+//     const scheduled = this.todaysBookings.filter(b => b.status === 'scheduled').length;
+//     const confirmed = this.todaysBookings.filter(b => b.status === 'confirmed').length;
+//     const cancelled = this.todaysBookings.filter(b => b.status === 'cancelled').length;
+//     const absent = this.todaysBookings.filter(b => b.status === 'absent').length;
+    
+//     // Update today's stats (we'll keep the weekly stats as they come from the service)
+//     this.bookingStats = {
+//       ...this.bookingStats,
+//       today: {
+//         total: this.todaysBookings.length,
+//         completed,
+//         scheduled: scheduled + confirmed, // Combined for UI display
+//         cancelled,
+//         absent
+//       }
+//     };
+//   }
+
+//   /**
+//    * Load the next available appointment slot
+//    */
+//   loadNextAvailableSlot(): void {
+//     this.bookingService.getNextAvailableSlot()
+//       .pipe(take(1))
+//       .subscribe(result => {
+//         this.nextAvailableSlot = result ? result.slot.startTime : null;
+//       });
+//   }
+
+
+//   formatTime(time: string): string {
+//     const [hours, minutes] = time.split(':').map(Number);
+//     const period = hours >= 12 ? 'PM' : 'AM';
+//     const formattedHours = hours % 12 || 12;
+//     return `${formattedHours}:${String(minutes).padStart(2, '0')} ${period}`;
+//   }
+//   onNewBtnClick(): void {
+//     this.router.navigate(['/bookings/add']);
+//   }
+//   scheduleClicked(): void {
+//     this.router.navigate(['/bookings/schedule']);
+//   }
+//   viewAllClick(): void {
+//     this.router.navigate(['/bookings/list']);
+//   }
+// }

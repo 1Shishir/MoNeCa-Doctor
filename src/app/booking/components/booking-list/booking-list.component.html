@@ -1,4 +1,4 @@
-<div class="booking-list-container">
+<!-- <div class="booking-list-container">
     <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
     
     <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
@@ -16,7 +16,7 @@
         </div>
       </div>
       
-      <!-- Filters Section -->
+      
       <div class="filters-section">
         <div class="filters-header">
           <h2 class="section-title">
@@ -91,7 +91,7 @@
         </form>
       </div>
       
-      <!-- Results Section -->
+    
       <div class="results-section">
         <div class="results-header">
           <div class="results-count">
@@ -188,6 +188,261 @@
             </tbody>
           </table>
           
+        
+          <div class="pagination-container">
+            <div class="pagination-info">
+              Page {{ currentPage }} of {{ totalPages }}
+            </div>
+            <div class="pagination-controls">
+              <button 
+                type="button" 
+                class="page-btn" 
+                [disabled]="currentPage === 1"
+                (click)="changePage(currentPage - 1)">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              
+              <button 
+                *ngFor="let page of getPaginationRange()" 
+                type="button" 
+                class="page-btn" 
+                [class.active]="page === currentPage"
+                (click)="changePage(page)">
+                {{ page }}
+              </button>
+              
+              <button 
+                type="button" 
+                class="page-btn" 
+                [disabled]="currentPage === totalPages"
+                (click)="changePage(currentPage + 1)">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+            
+            <div class="per-page-selector">
+              <label for="itemsPerPage">Show:</label>
+              <select 
+                id="itemsPerPage" 
+                [(ngModel)]="itemsPerPage" 
+                (change)="onItemsPerPageChange()">
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+       
+        <div class="empty-state" *ngIf="filteredBookings.length === 0">
+          <div class="empty-icon">
+            <i class="fa-solid fa-calendar-xmark"></i>
+          </div>
+          <h3 class="empty-title">No Appointments Found</h3>
+          <p class="empty-message">No appointments match your current filter criteria. Try adjusting your filters or create a new appointment.</p>
+          <a routerLink="/bookings/add" class="btn-primary">
+            <i class="fa-solid fa-plus"></i> Create New Appointment
+          </a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="booking-list-container">
+    <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
+    
+    <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
+      <app-header title="Booking List" (toggleSidebar)="toggleSidebar()"></app-header>
+      
+
+      
+      <div class="page-header">
+        <h1 class="page-title">All Appointments</h1>
+        <div class="action-buttons">
+          <a (click)="onNewBtnclick()" class="btn-primary">
+            <i class="fa-solid fa-plus"></i> New Appointment
+          </a>
+          <a (click)="onDashboardclick()" class="btn-secondary">
+            <i class="fa-solid fa-gauge"></i> Dashboard
+          </a>
+        </div>
+      </div>
+      
+      <!-- Filters Section -->
+      <div class="filters-section">
+        <div class="filters-header">
+          <h2 class="section-title">
+            <i class="fa-solid fa-filter"></i> Filter Appointments
+          </h2>
+          <button type="button" class="btn-text" (click)="clearFilters()">
+            <i class="fa-solid fa-eraser"></i> Clear Filters
+          </button>
+        </div>
+        
+        <form [formGroup]="filterForm" class="filters-form">
+          <div class="filters-row">
+            <div class="filter-group">
+              <label for="startDate">From Date</label>
+              <input
+                type="date"
+                id="startDate"
+                formControlName="startDate"
+                class="form-control">
+            </div>
+            
+            <div class="filter-group">
+              <label for="endDate">To Date</label>
+              <input
+                type="date"
+                id="endDate"
+                formControlName="endDate"
+                class="form-control">
+            </div>
+            
+            <div class="filter-group">
+              <label for="status">Status</label>
+              <select
+                id="status"
+                formControlName="status"
+                class="form-control">
+                <option value="">All Statuses</option>
+                <option *ngFor="let status of statusOptions" [value]="status.value">
+                  {{status.label}}
+                </option>
+              </select>
+            </div>
+            
+            <div class="filter-group">
+              <label for="type">Appointment Type</label>
+              <select
+                id="type"
+                formControlName="type"
+                class="form-control">
+                <option value="">All Types</option>
+                <option *ngFor="let type of typeOptions" [value]="type.value">
+                  {{type.label}}
+                </option>
+              </select>
+            </div>
+            
+            <div class="filter-group search-group">
+              <label for="searchTerm">Search</label>
+              <div class="search-input-container">
+                <input
+                  type="text"
+                  id="searchTerm"
+                  formControlName="searchTerm"
+                  placeholder="Search by patient name, phone or serial #"
+                  class="form-control">
+                <button type="button" class="search-btn">
+                  <i class="fa-solid fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Results Section -->
+      <div class="results-section">
+        <div class="results-header">
+          <div class="results-count">
+            Showing <span class="highlight">{{displayedBookings.length}}</span> of <span class="highlight">{{totalItems}}</span> appointments
+          </div>
+          <div class="results-actions">
+            <button type="button" class="btn-text">
+              <i class="fa-solid fa-print"></i> Print
+            </button>
+            <button type="button" class="btn-text">
+              <i class="fa-solid fa-file-export"></i> Export
+            </button>
+          </div>
+        </div>
+        
+        
+        <div class="results-container" *ngIf="filteredBookings.length > 0">
+          <table class="bookings-table">
+            <thead>
+              <tr>
+                <th class="sortable" (click)="sortBy('serialNumber')">
+                  Serial #
+                  <i class="fa-solid fa-sort"></i>
+                </th>
+                <th class="sortable" (click)="sortBy('patientName')">
+                  Patient
+                  <i class="fa-solid fa-sort"></i>
+                </th>
+                <th class="sortable" (click)="sortBy('date')">
+                  Date & Time
+                  <i class="fa-solid fa-sort"></i>
+                </th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let booking of displayedBookings; let i = index" [ngClass]="getStatusClass(booking.status)">
+                <td class="serial-cell">{{ booking.serialNumber || i+1 }}</td>
+                <td class="patient-cell">
+                  <div class="patient-info">
+                    <div class="patient-avatar">
+                      <img [src]="booking.patientProfile || 'assets/images/default-avatar.png'" alt="{{ booking.patientName || 'Patient' }}">
+                    </div>
+                    <div class="patient-details">
+                      <div class="patient-name">{{ booking.patientName || 'Unknown Patient' }}</div>
+                      <div class="patient-meta">
+                        {{ booking.pregnancyWeek || '0' }} weeks • {{ booking.patientPhone || 'No Phone' }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="date-cell">
+                  <div class="date-main">{{ getFormattedDate(booking.date) }}</div>
+                  <div class="date-time">{{ getFormattedTime(booking.time) }}</div>
+                </td>
+                <td>
+                  <span class="appointment-type">{{ (booking.type || 'unknown').replace('-', ' ') | titlecase }}</span>
+                </td>
+                <td>
+                  <span class="status-badge" [ngClass]="getStatusClass(booking.status)">
+                    {{ (booking.status || 'unknown') | titlecase }}
+                  </span>
+                </td>
+                <td class="actions-cell">
+                  <div class="action-buttons">
+                    <a [routerLink]="['/bookings', booking.id]" class="btn-icon" title="View Details">
+                      <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <button 
+                      class="btn-icon" 
+                      [disabled]="booking.status === 'completed'" 
+                      (click)="updateBookingStatus(booking.id, 'completed')"
+                      title="Mark as Completed">
+                      <i class="fa-solid fa-check"></i>
+                    </button>
+                    <button 
+                      class="btn-icon" 
+                      [disabled]="booking.status === 'cancelled'" 
+                      (click)="updateBookingStatus(booking.id, 'cancelled')"
+                      title="Cancel Appointment">
+                      <i class="fa-solid fa-ban"></i>
+                    </button>
+                    <button 
+                      class="btn-icon" 
+                      [disabled]="booking.status === 'absent'" 
+                      (click)="updateBookingStatus(booking.id, 'absent')"
+                      title="Mark as Absent">
+                      <i class="fa-solid fa-user-xmark"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
           <!-- Pagination -->
           <div class="pagination-container">
             <div class="pagination-info">
@@ -242,7 +497,7 @@
           </div>
           <h3 class="empty-title">No Appointments Found</h3>
           <p class="empty-message">No appointments match your current filter criteria. Try adjusting your filters or create a new appointment.</p>
-          <a routerLink="/bookings/add" class="btn-primary">
+          <a (click)="onNewBtnclick()" class="btn-primary">
             <i class="fa-solid fa-plus"></i> Create New Appointment
           </a>
         </div>
