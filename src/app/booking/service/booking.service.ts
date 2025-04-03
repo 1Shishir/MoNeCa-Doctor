@@ -684,33 +684,21 @@ export class BookingService {
       return throwError(() => new Error('No authenticated doctor found'));
     }
     
-    const scheduleRef = doc(this.firestore, 'doctor_schedules');
+    // Create a document reference with a full path
+    const scheduleRef = doc(this.firestore, 'doctor_schedules', doctorId);
     
-    // First get the existing document
-    return from(getDoc(scheduleRef)).pipe(
-      switchMap(docSnapshot => {
-        // Convert array to object with day as key
-        const scheduleData: Record<string, any> = {};
-        schedule.forEach(daySchedule => {
-          scheduleData[daySchedule.day] = {
-            id: daySchedule.id,
-            isWorkingDay: daySchedule.isWorkingDay,
-            timeSlots: daySchedule.timeSlots
-          };
-        });
-        
-        // If document exists, update just this doctor's data
-        if (docSnapshot.exists()) {
-          return from(updateDoc(scheduleRef, {
-            [doctorId]: scheduleData
-          }));
-        } else {
-          // Create a new document with this doctor's data
-          return from(setDoc(scheduleRef, {
-            [doctorId]: scheduleData
-          }));
-        }
-      }),
+    // Convert array to object with day as key
+    const scheduleData: Record<string, any> = {};
+    schedule.forEach(daySchedule => {
+      scheduleData[daySchedule.day] = {
+        id: daySchedule.id,
+        isWorkingDay: daySchedule.isWorkingDay,
+        timeSlots: daySchedule.timeSlots
+      };
+    });
+    
+    // Use setDoc to replace the entire document for this doctor
+    return from(setDoc(scheduleRef, scheduleData)).pipe(
       tap(() => {
         // Update the local cache
         this.scheduleCache.next(schedule);

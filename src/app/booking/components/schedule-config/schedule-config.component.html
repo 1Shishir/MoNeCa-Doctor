@@ -2,15 +2,11 @@
     <app-sidebar [collapsed]="sidebarCollapsed"></app-sidebar>
     
     <div class="main-content" [ngClass]="{'expanded': sidebarCollapsed}">
-      <app-header title="Schedule" (toggleSidebar)="toggleSidebar()"></app-header>
+      <app-header title="Configure Schedule" (toggleSidebar)="toggleSidebar()"></app-header>
       
       <div class="page-header">
-        <div class="back-link">
-          <a routerLink="/bookings">
-            <i class="fa-solid fa-arrow-left"></i> Back to Appointments
-          </a>
-        </div>
-        <h1 class="page-title">Configure Appointment Schedule</h1>
+        
+        
       </div>
       
       <!-- Success Message -->
