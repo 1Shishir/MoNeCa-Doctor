@@ -42,36 +42,36 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
-  // Authentication Routes (Server Rendered)
+ 
   {
     path: 'auth/**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
   {
     path: 'patient-signup/**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
   {
     path: 'dashboard/**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
 
-  // Dashboard Routes (Server Rendered for Initial Load)
+
   {
     path: 'patients/**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
   {
     path: 'patient-details/**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
 
   {
     path: 'admin/upload',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
 
-  // Prescription Routes with Specific Rendering Strategies
+
   {
     path: 'prescription/new/:patientId',
     renderMode: RenderMode.Server
@@ -100,7 +100,7 @@ export const serverRoutes: ServerRoute[] = [
   },
   {
     path: 'booking/**',
-    renderMode: RenderMode.Server
+    renderMode: RenderMode.Client
   },
   {
     path: '**',
