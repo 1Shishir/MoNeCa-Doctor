@@ -41,8 +41,7 @@ export class LoginComponent implements OnInit {
       this.redirectUrl = params['redirectUrl'] || '/dashboard';
     });
 
-    console.log("env is " + JSON.stringify(environment));
-
+  
     // If already authenticated, redirect
     if (this.authService.isAuthenticated()) {
       this.router.navigateByUrl(this.redirectUrl || '/dashboard');

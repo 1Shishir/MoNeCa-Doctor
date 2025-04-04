@@ -6,7 +6,7 @@
     "moneca-doctor": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
+      "root": "https://moneca-doctor.vercel.app/",
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
