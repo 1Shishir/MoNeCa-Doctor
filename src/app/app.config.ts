@@ -5,8 +5,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
-// import { environment } from '../environments/environment.prod';
+// import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.prod';
 
 const firebaseApp = initializeApp(environment.firebase);
 
