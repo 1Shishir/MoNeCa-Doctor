@@ -7,6 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "build:ssr": "ng build && ng run moneca-doctor:server",
     "serve:ssr:moneca-doctor": "node dist/moneca-doctor/server/server.mjs"
   },
   "private": true,
@@ -22,6 +23,8 @@
     "@angular/platform-server": "^19.1.0",
     "@angular/router": "^19.1.0",
     "@angular/ssr": "^19.1.6",
+    "@nguniversal/express-engine": "^7.0.2",
+    "angular-server-side-configuration": "^19.0.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "chart.js": "^4.4.8",
