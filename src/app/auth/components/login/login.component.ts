@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment.prod';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.redirectUrl = params['redirectUrl'] || '/dashboard';
     });
-    
+
+  
     // If already authenticated, redirect
     if (this.authService.isAuthenticated()) {
       this.router.navigateByUrl(this.redirectUrl || '/dashboard');
