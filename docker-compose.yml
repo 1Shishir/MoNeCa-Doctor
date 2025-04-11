@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  moneca-doctor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    container_name: moneca-doctor-app
